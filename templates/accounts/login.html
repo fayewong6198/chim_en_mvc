@@ -1,0 +1,74 @@
+{% extends 'base.html' %} {% load widget_tweaks %} {% block content %}
+<div class="main">
+  <div class="container">
+
+  
+      
+            <form
+              action="/accounts/login/?next={{next}}"
+              method="POST"
+              
+            >
+              {% csrf_token %} {% for field in form %}
+              <div class="form-group">
+                {{ field.errors }}
+                <label for="" class="">{{ field.label_tag }}</label>
+                {{ field |add_class:'form-control' }} {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+              </div>
+              {% endfor %}
+
+              <input type="submit" value="Login" class="btn btn-default" />
+              <p class="my-1">
+                Don't have a account?
+                <a href="{% url 'register' %}">Register</a>
+              </p>
+            </form>
+   
+  </div>
+</div>
+
+
+<!-- 
+<section id="login" class="bg-light py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h4><i class="fas fa-sign-in-alt"></i> Login</h4>
+          </div>
+          <div class="card-body">
+            <form
+              action="/accounts/login/?next={{next}}"
+              method="POST"
+              class="form"
+            >
+              {% csrf_token %} {% for field in form %}
+              <div class="form-group">
+                {{ field.errors }}
+                <label for="" class="">{{ field.label_tag }}</label>
+                {{ field |add_class:'form-control' }} {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+              </div>
+              {% endfor %}
+
+              <input
+                type="submit"
+                value="Login"
+                class="btn btn-secondary btn-block"
+              />
+              <p class="my-1">
+                Don't have a account?
+                <a href="{% url 'register' %}">Register</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+{% endblock %}
