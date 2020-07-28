@@ -1,43 +1,184 @@
+<div class="top-nav d-none d-md-block">
+  <div class="container p-2">
+    <div class="row justify-content-between">
+      <div class="col-md-8">
+        <span>
+          Free shipping for orders over $59. $5.00 USPS Shipping on $25+ !
+        </span>
+      </div>
+      <div class="col-md-2">
+        <span>
+          20930219301931
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="dropdown-divider"></div>
+</div>
 
+<nav id="navbar" class="navbar-white">
+  <!-- Desktop -->
+  <div class="container-fluid d-none d-md-block">
+    <div class="row justify-content-between">
+      <!-- Left-side -->
+      <div class="col-6">
+        <a class="navbar-brand" href="#">Organic</a>
 
-<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-    <div class="container">
-    
-      
+        <a class="nav-link bold-text active d-inline" href="{% url 'home' %}"
+          >Home <span class="sr-only">(current)</span></a
+        >
+        <div class="dropdown">
+          <a class="nav-link bold-text d-inline" href="#">Pages</a>
 
-        <!-- Right -->
-   
-        <ul class="navbar-nav nav-flex-icons">
-          {% comment %} {% if request.user.is_authenticated %} {% endcomment %}
-          {% if True %}
-          <li class="nav-item">
-            <a href="{% url 'cart:summary' %}" class="nav-link waves-effect">
-              <span class="badge red z-depth-1 mr-1">  </span>
-              <i class="fas fa-shopping-cart"></i>
-              <span class="clearfix d-none d-sm-inline-block"> Cart </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect" href="{% url 'logout' %}">
-              <span class="clearfix d-none d-sm-inline-block"> Logout </span>
-            </a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link waves-effect" href="">
-              <span class="clearfix d-none d-sm-inline-block"> Login </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect" href="{% url '/' %}">
-              <span class="clearfix d-none d-sm-inline-block"> Signup </span>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-     
-      
+          <div class="dropdown-content">
+            <a href="{% url 'cart:product-list'%}">Products</a>
+            <a href="">About us</a>
+            <a href="{% url 'contact' %}">Contact</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Right side -->
+      <div class="col-5">
+        <div class="container">
+          <div class="row justify-content-end align-items-center">
+            <!-- Search -->
+            <div class="col-8">
+              <form class="form-inline">
+                <input
+                  class="search-input ml-auto"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+              </form>
+            </div>
+
+            <div class="col-1">
+              <a class="fa-stack has-badge pl-2" data-count="10">
+                <i class="fa fa-heart-o fa-stack-1x"></i>
+              </a>
+            </div>
+
+            <div class="col-1">
+              <div class="dropdown pl-2">
+                <a class="fa-stack has-badge" data-count="10"
+                  ><i class="fa fa-shopping-basket"></i
+                ></a>
+                <div class="dropdown-content right">
+                  <a href="{% url 'cart:product-list'%}">Products</a>
+                  <a href="">About us</a>
+                  <a href="{% url 'contact' %}">Contact</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-1">
+              <a class="nav-link bold-text" href="{% url 'login'%}"
+                ><i class="fa fa-user-o"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </nav>
+  </div>
+
+  <!-- Mobile -->
+  <div class="container-fluid d-md-none">
+    <div class="row">
+      <!-- Menu button -->
+      <div class="col-4">
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+            >&times;</a
+          >
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Clients</a>
+          <a href="#">Contact</a>
+        </div>
+        <button onclick="openNav()">open</button>
+      </div>
+
+      <!-- Brand -->
+      <div class="col-4">
+        <div class="row justify-content-center">
+          <div class="nav-brand">Organic</div>
+        </div>
+      </div>
+
+      <!-- Icon list -->
+      <div class="col-4">
+        <div class="row justify-content-end align-items-center">
+          <div class="col-2">
+            <a class="fa-stack has-badge pl-2" data-count="10">
+              <i class="fa fa-heart-o fa-stack-1x"></i>
+            </a>
+          </div>
+
+          <div class="col-2">
+            <div class="dropdown pl-2">
+              <a class="fa-stack has-badge" data-count="10"
+                ><i class="fa fa-shopping-basket"></i
+              ></a>
+              <div class="dropdown-content right">
+                <a href="{% url 'cart:product-list'%}">Products</a>
+                <a href="">About us</a>
+                <a href="{% url 'contact' %}">Contact</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-2">
+            <a class="nav-link bold-text"><i class="fa fa-user-o"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // When the user scrolls the page, execute myFunction
+  window.onscroll = function () {
+    myFunction();
+  };
+
+  // Get the navbar
+  var navbar = document.getElementById("navbar");
+
+  // Get the offset position of the navbar
+  var sticky = navbar.offsetTop;
+
+  // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+  function myFunction() {
+    if (window.pageYOffset >= sticky) {
+      navbar.classList.add("sticky");
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  }
+
+  // Get the modal
+  var modal = document.getElementById("mySidenav");
+
+  /* Set the width of the side navigation to 250px */
+  function openNav() {
+    modal.style.width = "250px";
+  }
+
+  /* Set the width of the side navigation to 0 */
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
+  function handleMousePos(event) {
+    var mouseClickWidth = event.clientX;
+    if (mouseClickWidth >= 250) {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  }
+
+  document.addEventListener("click", handleMousePos);
+</script>
