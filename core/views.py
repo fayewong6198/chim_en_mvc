@@ -38,4 +38,9 @@ class ContactView(generic.FormView):
                   )
         return super(ContactView, self).form_valid(form)
 
+
+class AboutView(generic.TemplateView):
+    template_name = 'about.html'
+
+
 # Create your views here.
