@@ -1,28 +1,30 @@
-{% extends 'base.html' %}
-{% load widget_tweaks %}
+{% extends 'base.html' %} {% load widget_tweaks %}
+
 {% block content %}
 <main>
     <div class="container">
         <section class="mb-4">
             <div class="row wow fadeIn">
                 <div class='col-6 offset-3'>
-                    <h1>Change Password</h1>
-                    <form action="/accounts/changePassword/" method="POST">
-
+                    <h1>Profile</h1>
+                    <form action="/accounts/profile/" method="POST">
                         {% csrf_token %} {% for field in form %}
                         <div class="form-group">
+                            <small class="text-danger"> {{ field.errors}}</small>
                             {{ field.errors }}
                             <label for="" class="">{{ field.label_tag }}</label>
                             {{ field |add_class:'form-control' }} {% if field.help_text %}
                             <p class="help">{{ field.help_text|safe }}</p>
                             {% endif %}
 
-
                         </div>
                         {% endfor %}
-
-                        <button type="submit" class="btn btn-outline-success"> Change Password</button>
-
+                        <button type="submit" class="btn btn-outline-success"> Update profile</button>
+                        <a href='/accounts/logout' class="btn btn-outline-success"> logout</a>
+                        <p class="my-1">
+                            Do you want to change your password?
+                            <a href="{% url 'register' %}">change password</a>
+                        </p>
                     </form>
                 </div>
             </div>

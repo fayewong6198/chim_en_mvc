@@ -137,3 +137,20 @@ def pre_save_product_receicer(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_product_receicer, sender=Product)
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='favorite')
+
+    def __str__(self):
+        return f"Favorite-{self.pk}"
+
+
+class FavoriteProduct(models.Model):
+    favorite = models.ForeignKey(Favorite, related_name='products')
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"FavoriteProduct-{self.pk}"

@@ -62,24 +62,28 @@ def register(request):
     form = RegisterForm(request.POST)
     if form.is_valid():
         user = form.save(commit=False)
-    #    user.is_active = False
+        user.is_active = False
         user.save()
         current_site = get_current_site(request)
-        # mail_subject = 'Activate your blog account.'
-        # message = render_to_string('accounts/acc_active_email.html', {
-        #     'user': user,
-        #     'domain': current_site.domain,
-        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        #     'token': account_activation_token.make_token(user),
-        # })
-        # to_email = form.cleaned_data.get('email')
-        # email = EmailMessage(
-        #     mail_subject, message, to=[to_email]
-        # )
-        # email.send()
-        # return HttpResponse('Please confirm your email address to complete the registration')
-        messages.success(request, 'Register success')
-        return redirect('login')
+        mail_subject = 'Activate your blog account.'
+        message = render_to_string('accounts/acc_active_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        to_email = form.cleaned_data.get('email')
+        email = EmailMessage(
+            mail_subject, message, to=[to_email]
+        )
+        try:
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration')
+        except:
+            return redirect('register')
+
+        # messages.success(request, 'Register success')
+
     return render(request, 'accounts/register.html', {'form': form})
 
 
@@ -95,6 +99,21 @@ def profile(request):
         user = form.save(commit=False)
         user.save()
     return redirect('/accounts/profile')
+
+
+@login_required
+def changePassword(request):
+    if request.method == "GET":
+        form = CustomPasswordChangeForm(request.user)
+        return render(request, 'accounts/password_change.html', {'form': form})
+
+    form_edit_password = CustomPasswordChangeForm(
+        request.user, data=request.POST)
+    if form_edit_password.is_valid():
+        form_edit_password.save()
+        return redirect('/accounts/profile')
+    else:
+        return render(request, 'accounts/password_change.html', {'form': form_edit_password})
 
 
 # @login_required
@@ -138,35 +157,6 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         auth_login(request, user)
-        # return redirect('home')
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
-
-
-# @login_required
-# def home(request):
-#     contacts = Contact.objects.filter(owner_user=request.user)
-#     pre_orders = Pre_Order.objects.filter(owner_user=request.user)
-
-#     context = {
-#         'contacts': contacts,
-#         'pre_orders': pre_orders
-#     }
-
-#     return render(request, 'accounts/home.html', context)
-
-
-# @login_required
-# def contact(request, id):
-#     contact = get_object_or_404(Contact, pk=id)
-#     if contact.owner_user != request.user:
-#         return redirect('home')
-
-#     contact_form = ContactForm(instance=contact)
-#     context = {
-#         'form': contact_form,
-#         'contact': contact,
-#     }
-
-#     return render(request, 'houses/contact.html', context)
