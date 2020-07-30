@@ -2,30 +2,87 @@
 
 <div class="bg-light py-3">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12 mb-0">
-        <a href="{% url 'home' %}">Home</a>
-        <span class="mx-2 mb-0"></span>
-        <strong class="text-black">Shop</strong>
-      </div>
-    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb ct-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Shop</li>
+      </ol>
+    </nav>
   </div>
 
   <div class="site-section">
     <div class="container">
       <div class="row mb-5">
         {% for product in object_list %}
-        <div class="col-lg-4 col-md-6" data-aos="fade-up">
-          <figire class="block-4-image">
+        <div
+          class="ct-product-card ct-primary-color col-md-3 col-sm-6 col-xs-12"
+          data-aos="fade-up"
+        >
+          <!-- Card Image -->
+          <figure class="block-4-image">
+            <a href="{% url 'cart:product-detail' product.slug %}">
+              <div class="ct-container">
+                <img src="{{product.image.url}}" alt="" />
+                <div class="sale-block">
+                  <span>Sale!</span>
+                </div>
+              </div>
+            </a>
+          </figure>
+          <!-- Card content -->
+          <div class="block-4-text p-2 mb-1">
             <a href="{% url 'cart:product-detail' product.slug %}"
-              ><img src="{{product.image.url}}" alt="" class="img-fluid"
-            /></a>
-          </figire>
-          <div class="block-4-text p-4">
-            <a href="{% url 'cart:product-detail' product.slug %}""
-              ><h3>{{product.title}}</h3></a
+              ><h5>{{product.title}}</h5></a
             >
-            <p class="mb-0">{{product.description}}</p>
+            <h5 class="mb-0 bold-text">{{product.price}}</h5>
+          </div>
+          <!-- Card Actions -->
+          <div class="block-4-action p-2">
+            <div class="ct-container">
+              <div class="row justify-content-center">
+                <div class="col">
+                  <a
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add to cart"
+                    class="bold-text"
+                    href="{% url 'login'%}"
+                    ><i class="fa fa-cart-plus"></i
+                  ></a>
+                </div>
+                <div class="col">
+                  <a
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add to favorite"
+                    class="bold-text"
+                    href="{% url 'login'%}"
+                    ><i class="fa fa-heart-o"></i
+                  ></a>
+                </div>
+
+                <div class="col">
+                  <a
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Quick view"
+                    class="bold-text"
+                    href="{% url 'login'%}"
+                    ><i class="fa fa-search-plus"></i
+                  ></a>
+                </div>
+                <div class="col">
+                  <a
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Compare"
+                    class="bold-text"
+                    href="{% url 'login'%}"
+                    ><i class="fa fa-columns"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         {% endfor %}

@@ -1,5 +1,7 @@
 :root {
   --primary-color: #4caf50;
+  --dark-primary-color: #4c924e;
+
   --text-primary-color: black;
   --background-color: white;
 }
@@ -117,7 +119,8 @@
   top: 0;
   width: 100%;
   height: 60px;
-  opacity: 0.9;
+  opacity: 0.95;
+  z-index: 1500;
 }
 
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
@@ -181,4 +184,136 @@
   .sidenav a {
     font-size: 18px;
   }
+}
+
+.ct-primary-color {
+  color: var(--primary-color);
+}
+
+.ct-tab {
+  color: var(--primary-color);
+  transition: border-left 0.2s ease-in;
+}
+
+.ct-tab:hover {
+  color: var(--dark-primary-color);
+}
+
+.ct-tab.active {
+  border-left: 5px solid var(--primary-color);
+}
+
+.ct-primary-color.box-active {
+  border-left: 5px solid var(--primary-color);
+}
+
+.ct-breadcrumb {
+  background-color: whitesmoke;
+}
+
+.ct-breadcrumb .breadcrumb-item {
+  color: black;
+}
+
+.ct-breadcrumb .breadcrumb-item a {
+  color: var(--primary-color);
+}
+
+.ct-product-card {
+  margin-bottom: 8px;
+}
+
+.ct-product-card .block-4-image {
+  height: 150px;
+  border: 2px solid #ddd;
+  transition: border-color 0.2s linear;
+  overflow: hidden;
+}
+
+.ct-product-card .block-4-image img {
+  height: 150px;
+  transition: transform 0.2s linear;
+}
+
+.ct-product-card .block-4-image .ct-container {
+  position: relative;
+  font-family: Arial;
+}
+
+.ct-product-card .block-4-image .sale-block {
+  border-radius: 50%;
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  background-color: rgb(228, 134, 72);
+  color: white;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+}
+
+.ct-product-card:hover .block-4-image {
+  border-color: var(--primary-color);
+}
+
+.ct-product-card:hover .block-4-image img {
+  transform: scale(1.25);
+}
+
+.ct-product-card:hover .block-4-action {
+  background-color: var(--primary-color);
+}
+
+.ct-product-card:hover .block-4-action .ct-container {
+  visibility: visible;
+  opacity: 1;
+}
+
+.ct-product-card a {
+  color: black;
+}
+
+.ct-product-card .block-4-text {
+  text-align: center;
+}
+
+.ct-product-card .block-4-action {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s linear;
+}
+
+.ct-product-card .block-4-action .ct-container {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s linear, opacity 0.3s linear;
+}
+
+.ct-product-card .block-4-action .ct-container a {
+  display: inline;
+}
+
+.ct-product-card .block-4-action .ct-container i {
+  font-size: 1.25em;
+  color: white;
+}
+
+.ct-divider {
+  border-top: 1px solid var(--primary-color);
+  width: 100%;
+}
+
+.img-magnifier-container {
+  position: relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 100px;
+  height: 100px;
 }
