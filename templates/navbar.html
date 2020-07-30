@@ -21,7 +21,7 @@
   <div class="container-fluid d-none d-md-block">
     <div class="row justify-content-between">
       <!-- Left-side -->
-      <div class="col-6">
+      <div class="col-5">
         <a class="navbar-brand" href="#">Organic</a>
 
         <a class="nav-link bold-text active d-inline" href="{% url 'home' %}"
@@ -39,11 +39,11 @@
       </div>
 
       <!-- Right side -->
-      <div class="col-5">
+      <div class="col-6">
         <div class="container">
           <div class="row justify-content-end align-items-center">
             <!-- Search -->
-            <div class="col-8">
+            <div class="col-7">
               <form class="form-inline">
                 <input
                   class="search-input ml-auto"
@@ -54,13 +54,13 @@
               </form>
             </div>
 
-            <div class="col-1">
+            <div class="col">
               <a class="fa-stack has-badge pl-2" data-count="10">
                 <i class="fa fa-heart-o fa-stack-1x"></i>
               </a>
             </div>
 
-            <div class="col-1">
+            <div class="col">
               <div class="dropdown pl-2">
                 <a class="fa-stack has-badge" data-count="10"
                   ><i class="fa fa-shopping-basket"></i
@@ -73,10 +73,22 @@
               </div>
             </div>
 
-            <div class="col-1">
-              <a class="nav-link bold-text" href="{% url 'login'%}"
-                ><i class="fa fa-user-o"></i
-              ></a>
+            <div class="col-3">
+              {% if request.user.is_authenticated %}
+              <div class="dropdown">
+                <a class="bold-text" href="{% url 'login'%}">
+                  <i class="fa fa-user-o"></i>
+                  <span> {{request.user.username}}</span></a
+                >
+                <div class="dropdown-content right">
+                  <a href="{% url 'profile'%}">Profile</a>
+                  <a href="{% url 'logout' %}">Logout</a>
+                </div>
+              </div>
+              {% else %}
+              <a class="btn" href="{% url 'login' %}">Login</a>
+
+              {% endif %}
             </div>
           </div>
         </div>

@@ -148,7 +148,8 @@ class Favorite(models.Model):
 
 
 class FavoriteProduct(models.Model):
-    favorite = models.ForeignKey(Favorite, related_name='products')
+    favorite = models.ForeignKey(
+        Favorite, related_name='products', on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE)
 
