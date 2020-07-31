@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div>
   <!-- Carousel -->
-  <div id="carouselExampleIndicators" class="carousel slide mb-5" data-ride="carousel">
-    <ol class="carousel-indicators">
+  <div id="carouselExampleIndicators" class="carousel main-banner slide mb-5" data-ride="carousel">
+    <ol class="carousel-indicators main-carousel">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
@@ -10,7 +10,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <!-- slide 1 -->
-      <div class="carousel-item active">
+      <div class="carousel-item main-item active">
         <img src="https://i.pinimg.com/originals/89/61/0e/89610e51686fc18228e108cc081d0bdd.jpg" alt="First slide">
         <!-- Static Header -->
         <div class="header-text hidden-xs">
@@ -42,7 +42,7 @@
 
       <!-- slide 2 -->
 
-      <div class="carousel-item">
+      <div class="carousel-item main-item">
         <img
           src="https://us.123rf.com/450wm/kvitkanastroyu/kvitkanastroyu1904/kvitkanastroyu190400149/121819971-light-violet-purple-color-background-with-a-delicate-rose-floral-pattern-absract-background.jpg?ver=6"
           alt="Second slide">
@@ -78,7 +78,7 @@
       </div>
       <!-- slide 3 -->
 
-      <div class="carousel-item">
+      <div class="carousel-item main-item">
         <img src="https://img.wallpapersafari.com/tablet/2560/1700/34/54/jJafGN.png" alt="Third slide">
         <!-- Static Header -->
         <div class="header-text hidden-xs">
@@ -183,8 +183,8 @@
   </div>
 </section>
 <!-- products -->
-<section class="products-tab p-4">
-  <div class="tab-title">
+<section class="products-tab p-4 pt-5">
+  <div class="tab-title mt-5">
     <div class="text-title-center">
       <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
         <a class="nav-item active" id="nav-all-tab" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-all"
@@ -204,66 +204,69 @@
       </div>
     </div>
   </div>
-  <div class="tab-content" id="nav-tabContent">
+  <div class="tab-content pt-4" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
       <div class="row mt-4">
         <div class="col-md-3 col-12 col-sm-6 mb-3">
           <div class="product-card">
             <img src="https://organik.thememove.com/wp-content/uploads/2013/06/p22-300x300.jpg">
+
+            <div class="sale">
+              <div class="background-sale">
+                <p>Sale!</p>
+              </div>
+            </div>
             <div class="product-content">
 
               <ul class="cart-icon">
                 <li><a title="Add to cart" href="#"><i class="fas fa-shopping-bag"></i></a></li>
-                <li><a title="Add to wishlist" href="#"><i class="fas fa-heart"></i></a></li>
-                <li><a title="Quick view" href="#"><i class="fas fa-search"></i></a></li>
+                <li><a data-toggle="modal" data-target="#wishlist" title="Add to wishlist" href="#"><i
+                      class="fas fa-heart"></i></a></li>
+                <li><a data-toggle="modal" data-target=".bd-view-modal-lg" title="Quick view" href="#"><i
+                      class="fas fa-search"></i></a></li>
                 <li><a title="Compare" href="#"><i class="fas fa-compress-alt"></i></a></li>
               </ul>
             </div>
+          </div>
+          <div class="product-info">
+            <p class="pt-4">Cottage Cheese</p>
+            <div><span class="price">%15.00</span>
+              <span class="discounted-price">$12.00</span></div>
           </div>
         </div>
         <div class="col-md-3 col-12 col-sm-6 mb-3">
           <div class="product-card">
             <img src="https://organik.thememove.com/wp-content/uploads/2016/08/product-07-600x600.jpg">
-            <div class="product-content">
 
+            <div class="sale">
+              <div class="background-hot">
+                <p>hot</p>
+              </div>
+            </div>
+            <div class="sale">
+              <div class="background-sale">
+                <p>Sale!</p>
+              </div>
+            </div>
+            <div class="product-content">
               <ul class="cart-icon">
                 <li><a title="Add to cart" href="#"><i class="fas fa-shopping-bag"></i></a></li>
                 <li><a title="Add to wishlist" href="#"><i class="fas fa-heart"></i></a></li>
-                <li><a title="Quick view" href="#"><i class="fas fa-search"></i></a></li>
+                <li><a data-toggle="modal" data-target=".bd-example-modal-lg" title="Quick view" href="#"><i
+                      class="fas fa-search"></i></a></li>
                 <li><a title="Compare" href="#"><i class="fas fa-compress-alt"></i></a></li>
               </ul>
             </div>
-          </div>
-        </div>
-        <div class="col-md-3 col-12 col-sm-6 mb-3">
-          <div class="product-card">
-            <img src="https://organik.thememove.com/wp-content/uploads/2016/08/product-09-600x600.jpg">
-            <div class="product-content">
 
-              <ul class="cart-icon">
-                <li><a title="Add to cart" href="#"><i class="fas fa-shopping-bag"></i></a></li>
-                <li><a title="Add to wishlist" href="#"><i class="fas fa-heart"></i></a></li>
-                <li><a title="Quick view" href="#"><i class="fas fa-search"></i></a></li>
-                <li><a title="Compare" href="#"><i class="fas fa-compress-alt"></i></a></li>
-              </ul>
-            </div>
+          </div>
+          <div class="product-info">
+            <p class="pt-4">Cottage Cheese</p>
+            <div>
+              <span class="discounted-price">$12.00</span></div>
           </div>
         </div>
 
-        <div class="col-md-3 col-12 col-sm-6 mb-3">
-          <div class="product-card">
-            <img src="https://organik.thememove.com/wp-content/uploads/2013/06/39.jpg">
-            <div class="product-content">
 
-              <ul class="cart-icon">
-                <li><a title="Add to cart" href="#"><i class="fas fa-shopping-bag"></i></a></li>
-                <li><a title="Add to wishlist" href="#"><i class="fas fa-heart"></i></a></li>
-                <li><a title="Quick view" href="#"><i class="fas fa-search"></i></a></li>
-                <li><a title="Compare" href="#"><i class="fas fa-compress-alt"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <div class="tab-pane fade" id="nav-fruits" role="tabpanel" aria-labelledby="nav-fruits-tab">
@@ -280,6 +283,185 @@
     </div>
   </div>
 </section>
-<!------------------ Hover Effect Style : Demo - 16 --------------->
+<!------------------ product list card --------------->
 
+
+<!------------------ modal quick view --------------->
+<div class="modal fade bd-view-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col-12 col-md-6 col-sm-12">
+          <div id="view_carousel" class="carousel view-detail slide" data-ride="carousel">
+            <ol class="carousel-indicators view-indicators">
+              <li data-target="#view_carousel" data-slide-to="0" class="active"></li>
+              <li data-target="#view_carousel" data-slide-to="1"></li>
+              <li data-target="#view_carousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner view_carousel">
+              <div class="carousel-item active">
+                <img src="https://organik.thememove.com/wp-content/uploads/2013/06/p22.jpg" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img src="https://organik.thememove.com/wp-content/uploads/2013/06/p23.jpg" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img src="https://organik.thememove.com/wp-content/uploads/2013/06/p25.jpg" alt="Third slide">
+              </div>
+              <button type="button" class="close1 pr-2 pt-1" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-sm-12 right-detail-view">
+          <button type="button" class="close pr-2 pt-1" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="detail-info pt-4 pr-4">
+            <h3 class="title">Cottage Cheese</h3>
+            <div class="rating">
+              <div class="stars">
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <i class="far fa-star"></i>
+                <span class="review-no ml-2">(4 customer reviews)</span>
+              </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+              <div class="product-info">
+
+                <div style="text-align: left !important"><span class="price">%15.00</span>
+                  <span class="discounted-price">$12.00</span></div>
+              </div>
+            </div>
+            <dl class="item-property pb-2">
+
+              <dd>
+                <p>Cereal bar with dried cottage cheese and yoghurt zig zag topping. Cottage cheese is especially rich
+                  in full proteins
+                  which contain a balanced mixture of all amino acids.</p>
+              </dd>
+              <div class="line pb-3"></div>
+
+            </dl>
+
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <button class="btn btn-dark btn-sm" id="minus-btn"><i class="fa fa-minus"></i></button>
+              </div>
+
+              <input class="text-center" style="height: 31px !important;" type="number" id="qty_input" value="1"
+                min="1">
+              <div class="input-group-prepend">
+                <button class="btn btn-dark btn-sm" id="plus-btn"><i class="fa fa-plus"></i></button>
+              </div>
+              <button type="button" class="btn btn-primary  ml-3">Add to cart</button>
+
+            </div>
+            <div class="compare">
+              <i class="far fa-star pr-2"></i><span>Add to Wishlist</span>
+              <i class="fas fa-compress-alt pr-2"></i><span>Compare</span>
+            </div>
+            <div class="line pb-3"></div>
+            <div class="view-bottom">
+              <div class="row">
+                <div class="col-5">
+                  <p>Category</p>
+                  <p>Tag</p>
+                  <p>Share</p>
+                </div>
+                <div class="col-7">
+                  <p>Dried</p>
+                  <p>Bread ,asd</p>
+                  <p>
+                    <a href=""><span class="fa fa-star"></a></span>
+                    <a href=""><span class="fa fa-star"></a></span>
+                    <a href=""><span class="fa fa-star"></span>
+                      <a href=""><span class="fa fa-star"></a>
+                      </span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal quick view -->
+
+<!-- modal add to wishlist -->
+<div class="modal fade add-wishlist" id="wishlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">WISHLIST (0)</h5>
+        <button type="button" class="close-wish" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body add-wish-list">
+        <div class="row">
+          <div class="col-1"><button type="button" class="close-wish" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></div>
+
+          <div class="col-2"><img src="https://organik.thememove.com/wp-content/uploads/2013/06/p22.jpg"
+              alt="First slide"></div>
+          <div class="col-5">
+            <p class="title-wish"><a href=""> Sienevyi Pomegranate</a></p>
+            <p>$12</p>
+            <p>July 30, 2020</p>
+          </div>
+          <div class="col-4">
+            <p>In stock</p>
+            <button type="button" class="btn btn-primary  ml-3">Add to cart</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-1">
+            <button type="button" class="close-wish" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="col-2"><img src="https://organik.thememove.com/wp-content/uploads/2013/06/p22.jpg"
+              alt="First slide">
+          </div>
+          <div class="col-5">
+            <p class="title-wish"><a href=""> Sienevyi Pomegranate</a></p>
+            <p>$12</p>
+            <p>July 30, 2020</p>
+          </div>
+          <div class="col-4">
+            <p class="text-center">In stock</p>
+            <button type="button" class="btn btn-primary btn-add-cart ml-3">Add to cart</button>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="open-wishlist"><a href="">OPEN WISHLIST PAGE</a></span>
+        <span class="shopping"><a href="">CONTINUE SHOPPING</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="banner-home-under p-4">
+  <div class="row" style="width: 100%">
+    <div class="col-md-8 col-12 col-xs-12 col-sm-12 mb-3">
+      <img src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-banner-04.png" alt="">
+    </div>
+    <div class="col-md-4 col-12 col-xs-12 col-sm-12 mb-3">
+      <img src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-banner-05.png" alt="">
+    </div>
+
+  </div>
+</section>
 {% endblock content %}
