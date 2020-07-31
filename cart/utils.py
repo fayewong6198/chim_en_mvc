@@ -1,4 +1,4 @@
-from .models import Order
+from .models import Order, Favorite, OrderItem, FavoriteProduct
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -21,5 +21,32 @@ def get_or_set_order_session(request):
     if request.user.is_authenticated and order.user is None:
         order.user = request.user
         order.save()
+    request.session['products_in_cart'] = OrderItem.objects.filter(
+        order=order.id).count() or 0
 
     return order
+
+
+def get_or_set_favorite_session(request):
+    favorite_id = request.session.get('favorite_id', None)
+
+    if favorite_id is None:
+        favorite = Favorite()
+        favorite.save()
+        request.session['favorite_id'] = favorite.id
+
+    else:
+        try:
+            favorite = Favorite.objects.get(id=favorite_id)
+        except ObjectDoesNotExist:
+            favorite = Favorite()
+            favorite.save()
+            request.session['favorite_id'] = favorite.id
+
+    if request.user.is_authenticated and order.user is None:
+        favorite.user = request.user
+        favorite.save()
+
+    request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
+        order=order.id).count() or 0
+    return favorite

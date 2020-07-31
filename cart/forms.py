@@ -1,5 +1,5 @@
 from django import forms
-from .models import OrderItem, ColorVariation, Product, SizeVariation
+from .models import OrderItem, ColorVariation, Product, SizeVariation, FavoriteProduct
 
 
 class AddToCartForm(forms.ModelForm):
@@ -17,3 +17,14 @@ class AddToCartForm(forms.ModelForm):
 
         self.fields['color'].queryset = product.available_colors.all()
         self.fields['size'].queryset = product.available_sizes.all()
+
+
+# class Tym(forms.ModelForm):
+
+#     class Meta:
+#         model = FavoriteProduct
+
+#     def __init__(self, *args, **kwargs):
+#         product_id = kwargs.pop('product_id')
+#         product = Product.objects.get(id=product_id)
+#         super().__init__(*args, **kwargs)

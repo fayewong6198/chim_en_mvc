@@ -26,11 +26,11 @@ class LoginForm(forms.Form):
         attrs={'class': 'form-control', 'placeholder': 'Enter your password'}))
 
 
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name',
-                  'last_name', 'gender', 'mobile')
+                  'last_name', 'mobile')
         widgets = {
             'username': TextInput(attrs={'class': 'form-control'}),
             'email': TextInput(attrs={'class': 'form-control'}),
@@ -39,12 +39,11 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
-    class Meta:
-        model = User
-        fields = '__all__'
+    error_css_class = "text-danger"
+    pass
 
 
-class CustomPasswordResetForm(PasswordResetForm):
-    class Meta:
-        model = User
-        fields = '__all__'
+class CustomPasswordResetForm(forms.Form):
+    email = forms.EmailField(max_length=100, widget=forms.TextInput(attrs={
+        'placeholder': "Your email"
+    }))
