@@ -91,6 +91,15 @@ class OrderItem(models.Model):
         return "{:.2f}".format(price / 100)
 
 
+class FavoriteItem(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username} x {self.product.title}"
+
+
 class Order(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
