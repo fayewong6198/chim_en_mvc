@@ -7,25 +7,28 @@
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Image</th>
             <th scope="col">Item title</th>
-            <th scope="co l">Price</th>
+            <th scope="col">Price</th>
             <th scope="col">Quantity</th>
             <th scope="col">Total Item Price</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           {% for order_item in object.items.all %}
-          <tr>
+          <tr class="ct-table-content">
             <th scope="row">{{ forloop.counter }}</th>
+            <td><img height="64" src="{{ order_item.product.image.url }}" alt="{{ order_item.product.title }}"/></td>
             <td>{{ order_item.product.title }}</td>
             <td>${{ order_item.product.get_price }}</td>
             <td>
-              <a href="{% url 'cart:descrease-quantity' order_item.id %}"
-                ><i class="fas fa-minus mr-2"></i
+              <a style="color: #aaa;" href="{% url 'cart:descrease-quantity' order_item.id %}"
+                ><i class="fa fa-minus mr-2"></i
               ></a>
               {{ order_item.quantity }}
-              <a href="{% url 'cart:increase-quantity' order_item.id %}"
-                ><i class="fas fa-plus ml-2"></i
+              <a style="color: #aaa;" href="{% url 'cart:increase-quantity' order_item.id %}"
+                ><i class="fa fa-plus ml-2"></i
               ></a>
             </td>
             <td>
@@ -35,13 +38,14 @@
                 >Saving ${{ order_item.get_amount_saved }}</span
               >
               {% else %} ${{ order_item.get_total_item_price }} {% endif %}
-              <a
+             
+            </td>
+            <td> <a
                 style="color: red;"
                 href="{% url 'cart:remove_from_cart' order_item.id %}"
               >
-                <i class="fas fa-trash float-right"></i>
-              </a>
-            </td>
+                <i class="fa fa-close "></i>
+              </a></td>
           </tr>
           {% empty %}
           <tr>
@@ -82,19 +86,17 @@
     </div>
     {% if object.items.count > 0 %}
     <div class="row">
-      <div class="col-md-6">
-        <div class="row mb-5">
-          <div class="col-md-12">
+      <div class="col-md-4">
+       
             <a
               href="{% url 'cart:product-list' %}"
-              class="btn btn-outline-primary btn-sm btn-block"
+              class="bold-text btn btn-outline-success"
               >Continue Shopping</a
             >
-          </div>
-        </div>
+         
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="row justify-content-end">
           <div class="col-md-12">
             <div class="row">

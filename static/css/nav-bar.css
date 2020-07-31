@@ -43,7 +43,7 @@
   visibility: hidden;
   position: absolute;
   background-color: var(--background-color);
-  min-width: 300px;
+  min-width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   transition: visibility 0.3s, opacity 0.5s linear;
@@ -316,4 +316,9 @@
   /*Set the size of the magnifier glass:*/
   width: 100px;
   height: 100px;
+}
+
+.ct-table-content td,
+.ct-table-content th {
+  line-height: 64px;
 }

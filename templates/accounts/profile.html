@@ -20,10 +20,10 @@
                         </div>
                         {% endfor %}
                         <button type="submit" class="btn btn-outline-success"> Update profile</button>
-                        <a href='/accounts/logout' class="btn btn-outline-success"> logout</a>
+                    
                         <p class="my-1">
                             Do you want to change your password?
-                            <a href="{% url 'register' %}">change password</a>
+                            <a href="{% url 'change-password' %}">change password</a>
                         </p>
                     </form>
                 </div>
