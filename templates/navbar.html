@@ -57,7 +57,7 @@
             <div class="col">
               <div class="dropdown pl-2">
                 {% if request.session.products_in_cart %}
-                <a class="fa-stack has-badge" data-count="{{ request.session.products_in_cart }}">
+                <a class="fa-stack has-badge" data-count="{{ request.session.products_in_cart }}" href="/cart">
                   <i class="fa fa-shopping-basket"></i>
                 </a>
                 {% else %}
