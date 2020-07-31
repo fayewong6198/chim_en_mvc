@@ -957,6 +957,11 @@ i,
 .add-wish-list .title-wish a:hover {
   color: rgb(95, 189, 116);
 }
+.view-detail .carousel-control-prev .carousel-control-prev-icon:hover,
+.view-detail .carousel-control-next .carousel-control-next-icon:hover {
+  background-color: #5e5a54 !important;
+  padding: 1.2rem;
+}
 /* add to wishlish */
 
 .add-wishlist .modal-footer {
@@ -1027,24 +1032,123 @@ i,
   background-color: unset;
 }
 .add-wish-list .col-4 button {
-  padding: 6px 20px 6px 20px;
+  padding: 4px 10px 4px 10px;
   background-color: rgb(95, 189, 116) !important;
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
   font-weight: 700;
   outline: none;
   border: unset;
-  margin-bottom: 1rem;
 }
 .add-wish-list .col-4 button:hover {
   background-color: #7ac088 !important;
 }
 /* banner 2 */
-.banner-home-under img {
+.banner-home-under {
+  margin-top: 2rem !important;
+}
+/* the reason people love us */
+.reason-love h1 {
+  font-size: 36px;
+}
+.reason-love p {
+  font-size: 17px;
+  line-height: 26px;
+}
+.reason-love a {
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.75px;
+  color: #5fbd74;
+}
+.reason-love a:hover {
+  margin-left: 1rem;
+  color: #5fbd74;
+  transition: ease 0.7s;
+}
+.reason-love {
   width: 100%;
   height: auto;
 }
-.banner-home-under {
-  margin-top: 5rem;
+
+.reason-love-carousel .text .heading {
+  font-size: 21px;
+  font-weight: 500;
+}
+.reason-love-carousel .text {
+  font-size: 20px;
+  line-height: 35px;
+}
+.reason-love-carousel .info {
+  display: flex;
+  align-items: center;
+}
+.reason-love-carousel .info img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  object-position: center;
+}
+.reason-love-carousel .author {
+  display: flex;
+  flex-direction: column !important;
+  justify-content: flex-start;
+  font-size: 16px;
+  line-height: 22px;
+}
+.reason-love-carousel .inner {
+  width: 100%;
+  height: 380px;
+  overflow: auto;
+}
+.reason-love-carousel .author .tagline {
+  color: #5e5a54;
+}
+.reason-love-carousel .author .name {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.reason-love-carousel .quote-inner {
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 3px;
+}
+.reason-love-carousel .quote-inner img {
+  width: 50px;
+  height: 40px;
+}
+.reason-love .view-indicators li {
+  width: 10px !important;
+  height: 10px !important;
+}
+@media (max-width: 767px) {
+  .none-card,
+  .reason-love .view-indicators {
+    display: none;
+  }
+  .reason-love-carousel .inner {
+    height: 310px;
+    margin-top: 3rem;
+  }
+}
+@media (max-width: 1255px) and (min-width: 767px) {
+  .reason-love-carousel .text .heading {
+    font-size: 19px;
+  }
+  .reason-love-carousel .text {
+    font-size: 16px;
+    line-height: unset;
+  }
+}
+
+@media (max-width: 1455px) and (min-width: 1256px) {
+  .reason-love-carousel .text .heading {
+    font-size: 20px;
+  }
+  .reason-love-carousel .text {
+    font-size: 18px;
+    line-height: unset;
+  }
 }
