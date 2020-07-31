@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
-from .utils import get_or_set_order_session
+from .utils import get_or_set_order_session, get_or_set_favorite_session
 from django.shortcuts import get_object_or_404, reverse
 from .forms import AddToCartForm
-from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 # Create your views here.
 
-from .models import Product, OrderItem
+from .models import Product, OrderItem, FavoriteProduct, Favorite
 
 
 class ProductListView(generic.ListView):
@@ -64,7 +64,6 @@ class CartView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CartView, self).get_context_data(**kwargs)
         context["object"] = get_or_set_order_session(self.request)
-        print(context)
         return context
 
 
@@ -74,7 +73,7 @@ class CheckOutView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CheckOutView, self).get_context_data(**kwargs)
         context["object"] = get_or_set_order_session(self.request)
-        print(context)
+
         return context
 
 
@@ -102,3 +101,23 @@ class RemoveFromCartView(generic.View):
         order_item = get_object_or_404(OrderItem, id=kwargs['pk'])
         order_item.delete()
         return redirect("cart:summary")
+
+
+class TymOrUnTym(generic.View):
+
+    def get_object(self):
+        return get_object_or_404(Product, slug=self.kwargs["slug"])
+
+    def get(sefl, request, *args, **kwargs):
+        favorite_item = get_object_or_404(FavoriteProduct, id=kwargs['pk'])
+        if favorite_item:
+            favorite_item.delete()
+        else:
+            favorite = get_or_set_favorite_session(self.request)
+            product = self.get_object()
+            new_tym = Favorite()
+            new_tym.product = product
+            new_tym.order = favorite
+            new_tym.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

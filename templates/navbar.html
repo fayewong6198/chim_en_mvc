@@ -24,9 +24,8 @@
       <div class="col-5">
         <a class="navbar-brand" href="#">Organic</a>
 
-        <a class="nav-link bold-text active d-inline" href="{% url 'home' %}"
-          >Home <span class="sr-only">(current)</span></a
-        >
+        <a class="nav-link bold-text active d-inline" href="{% url 'home' %}">Home <span
+            class="sr-only">(current)</span></a>
         <div class="dropdown">
           <a class="nav-link bold-text d-inline" href="#">Pages</a>
 
@@ -45,12 +44,7 @@
             <!-- Search -->
             <div class="col-7">
               <form class="form-inline">
-                <input
-                  class="search-input ml-auto"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
+                <input class="search-input ml-auto" type="search" placeholder="Search" aria-label="Search" />
               </form>
             </div>
 
@@ -62,14 +56,20 @@
 
             <div class="col">
               <div class="dropdown pl-2">
-                <a class="fa-stack has-badge" data-count="10"
-                  ><i class="fa fa-shopping-basket"></i
-                ></a>
-                <div class="dropdown-content right">
+                {% if request.session.products_in_cart %}
+                <a class="fa-stack has-badge" data-count="{{ request.session.products_in_cart }}">
+                  <i class="fa fa-shopping-basket"></i>
+                </a>
+                {% else %}
+                <a class="fa-stack has-badge">
+                  <i class="fa fa-shopping-basket"></i>
+                </a>
+                {% endif %}
+                <!-- <div class="dropdown-content right">
                   <a href="{% url 'cart:product-list'%}">Products</a>
                   <a href="">About us</a>
                   <a href="{% url 'contact' %}">Contact</a>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -78,8 +78,7 @@
               <div class="dropdown">
                 <a class="bold-text" href="{% url 'login'%}">
                   <i class="fa fa-user-o"></i>
-                  <span> {{request.user.username}}</span></a
-                >
+                  <span> {{request.user.username}}</span></a>
                 <div class="dropdown-content right">
                   <a href="{% url 'profile'%}">Profile</a>
                   <a href="{% url 'logout' %}">Logout</a>
@@ -102,9 +101,7 @@
       <!-- Menu button -->
       <div class="col-4">
         <div id="mySidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
-            >&times;</a
-          >
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
           <a href="#">About</a>
           <a href="#">Services</a>
           <a href="#">Clients</a>
@@ -131,9 +128,7 @@
 
           <div class="col-2">
             <div class="dropdown pl-2">
-              <a class="fa-stack has-badge" data-count="10"
-                ><i class="fa fa-shopping-basket"></i
-              ></a>
+              <a class="fa-stack has-badge" data-count="10"><i class="fa fa-shopping-basket"></i></a>
               <div class="dropdown-content right">
                 <a href="{% url 'cart:product-list'%}">Products</a>
                 <a href="">About us</a>
