@@ -12,7 +12,8 @@ class Address(models.Model):
         ('B', 'Billing'),
         ('S', 'Shipping'),
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="addresses")
     address_line_1 = models.CharField(max_length=255)
     address_line_2 = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
@@ -69,6 +70,15 @@ class Product(models.Model):
         return "{:.2f}".format(self.price / 100)
 
 
+class ProductImage(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to='products/')
+
+    def __str__(self):
+        return self.image.url
+
+
 class OrderItem(models.Model):
     order = models.ForeignKey(
         "Order", related_name='items', on_delete=models.CASCADE)
@@ -93,7 +103,7 @@ class OrderItem(models.Model):
 
 class FavoriteItem(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True)
+        User, on_delete=models.CASCADE, blank=True, null=True, related_name="favorites")
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -102,7 +112,7 @@ class FavoriteItem(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True)
+        User, on_delete=models.CASCADE, blank=True, null=True, related_name="orders")
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField(blank=True, null=True)
     ordered = models.BooleanField(default=False)

@@ -55,8 +55,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'six',
     'widget_tweaks',
-
-
+    'knox',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -173,3 +173,10 @@ if DEBUG is False:
             'POST': ''
         }
     }
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+}
