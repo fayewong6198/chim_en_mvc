@@ -1,11 +1,10 @@
 from django import forms
-from .models import OrderItem, ColorVariation, Product, SizeVariation, FavoriteProduct
+from .models import OrderItem, ColorVariation, Product, SizeVariation, FavoriteProduct, Payment, Address
 
 
 class AddToCartForm(forms.ModelForm):
     # color = forms.ModelChoiceField(queryset=ColorVariation.objects.none())
     # size = forms.ModelChoiceField(queryset=SizeVariation.objects.none())
-
     class Meta:
         model = OrderItem
         fields = ['quantity']
@@ -17,6 +16,12 @@ class AddToCartForm(forms.ModelForm):
 
         # self.fields['color'].queryset = product.available_colors.all()
         # self.fields['size'].queryset = product.available_sizes.all()
+
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = '__all__'
 
 
 # class Tym(forms.ModelForm):

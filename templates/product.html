@@ -7,12 +7,7 @@
       <!--Grid column-->
       <div class="col-md-6 mb-4">
         <div class="img-magnifier-container">
-          <img
-            id="myimage"
-            src="{{object.image.url}}"
-            class="img-fluid"
-            alt=""
-          />
+          <img id="myimage" src="{{object.images.images}}" class="img-fluid" alt="" />
         </div>
       </div>
 
@@ -21,9 +16,7 @@
         <!--Content-->
         <div class="container">
           <a href="">
-            <span class="badge purple mr-1"
-              >{{ object.get_category_display }}</span
-            >
+            <span class="badge purple mr-1">{{ object.get_category_display }}</span>
           </a>
 
           <h2>{{object.title}}</h2>
@@ -39,7 +32,7 @@
             {% endif %}
           </p>
 
-          
+
 
           <p>{{ object.description }}</p>
 
@@ -69,22 +62,10 @@
 
             <!-- Others Actions -->
             <div class="p-2">
-              <button
-                type="button"
-                class="btn"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="Add to Favorite"
-              >
+              <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
                 <i class="fa fa-heart-o"></i> Add to Favorite
               </button>
-              <button
-                type="button"
-                class="btn"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="Compare"
-              >
+              <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Compare">
                 <i class="fa fa-columns"></i> Compare
               </button>
             </div>
@@ -93,17 +74,11 @@
           <hr class="ct-divider" />
 
           {% comment %}
-          <a
-            href="{{ object.get_add_to_cart_url }}"
-            class="btn btn-primary btn-md my-0 p"
-          >
+          <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
             Add to cart
             <i class="fas fa-shopping-cart ml-1"></i>
           </a>
-          <a
-            href="{{ object.get_remove_from_cart_url }}"
-            class="btn btn-danger btn-md my-0 p"
-          >
+          <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
             Remove from cart
           </a>
           {% endcomment %}
@@ -137,31 +112,19 @@
     <div class="row wow fadeIn">
       <!--Grid column-->
       <div class="col-lg-4 col-md-12 mb-4">
-        <img
-          src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg"
-          class="img-fluid"
-          alt=""
-        />
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="" />
       </div>
       <!--Grid column-->
 
       <!--Grid column-->
       <div class="col-lg-4 col-md-6 mb-4">
-        <img
-          src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg"
-          class="img-fluid"
-          alt=""
-        />
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="" />
       </div>
       <!--Grid column-->
 
       <!--Grid column-->
       <div class="col-lg-4 col-md-6 mb-4">
-        <img
-          src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg"
-          class="img-fluid"
-          alt=""
-        />
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="" />
       </div>
       <!--Grid column-->
     </div>
@@ -170,69 +133,28 @@
     <div class="container wow fadeIn">
       <div class="row">
         <div class="col-xs-12 col-sm-3">
-          <div
-            class="nav flex-column nav-pills"
-            id="v-pills-tab"
-            role="tablist"
-            aria-orientation="vertical"
-          >
-            <a
-              class="ct-tab active p-3"
-              id="v-pills-home-tab"
-              data-toggle="pill"
-              href="#v-pills-home"
-              role="tab"
-              aria-controls="v-pills-home"
-              aria-selected="true"
-              >Description</a
-            >
-            <a
-              class="ct-tab p-3"
-              id="v-pills-profile-tab"
-              data-toggle="pill"
-              href="#v-pills-profile"
-              role="tab"
-              aria-controls="v-pills-profile"
-              aria-selected="false"
-              >Reviews</a
-            >
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="ct-tab active p-3" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+              aria-controls="v-pills-home" aria-selected="true">Description</a>
+            <a class="ct-tab p-3" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+              aria-controls="v-pills-profile" aria-selected="false">Reviews</a>
           </div>
         </div>
 
         <div class="col-xs-12 col-sm-3">
           <div class="tab-content" id="v-pills-tabContent">
-            <div
-              class="tab-pane fade show active"
-              id="v-pills-home"
-              role="tabpanel"
-              aria-labelledby="v-pills-home-tab"
-            >
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
               <p class="lead font-weight-bold">Description</p>
 
-          <p>{{ object.description }}</p>
+              <p>{{ object.description }}</p>
             </div>
-            <div
-              class="tab-pane fade"
-              id="v-pills-profile"
-              role="tabpanel"
-              aria-labelledby="v-pills-profile-tab"
-            >
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               cc2
             </div>
-            <div
-              class="tab-pane fade"
-              id="v-pills-messages"
-              role="tabpanel"
-              aria-labelledby="v-pills-messages-tab"
-            >
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
               cc3
             </div>
-            <div
-              class="tab-pane fade"
-              id="v-pills-settings"
-              role="tabpanel"
-              aria-labelledby="v-pills-settings-tab"
-            >
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
               cc4
             </div>
           </div>
