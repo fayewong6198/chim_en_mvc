@@ -16,8 +16,20 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProductImageInlineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ('id', 'image')
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ('id', 'product', 'image')
+
+
 class ProductSerializer(serializers.ModelSerializer):
-    images = serializers.StringRelatedField(many=True)
+    images = ProductImageInlineSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
