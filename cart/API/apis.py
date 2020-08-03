@@ -109,6 +109,6 @@ class ProductImageView(APIView):
         images = ProductImage.objects.filter(id__in=image_ids)
         try:
             images.delete()
-            return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_204_NO_CONTENT)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
