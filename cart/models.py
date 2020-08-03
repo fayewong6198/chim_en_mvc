@@ -47,17 +47,27 @@ class SizeVariation(models.Model):
         return self.name
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name='products', null=True)
     image = models.ImageField(
         upload_to='product_images', blank=True, null=True)
     description = models.TextField()
     price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    available_colors = models.ManyToManyField(ColorVariation)
-    available_sizes = models.ManyToManyField(SizeVariation)
+
+    # available_colors = models.ManyToManyField(ColorVariation)
+    # available_sizes = models.ManyToManyField(SizeVariation)
     active = models.BooleanField(default=False)
 
     def __str__(self):
@@ -84,11 +94,11 @@ class OrderItem(models.Model):
         "Order", related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    color = models.ForeignKey(
-        ColorVariation, on_delete=models.CASCADE, blank=True, null=True)
+    # color = models.ForeignKey(
+    #     ColorVariation, on_delete=models.CASCADE, blank=True, null=True)
 
-    size = models.ForeignKey(
-        SizeVariation, on_delete=models.CASCADE, blank=True, null=True)
+    # size = models.ForeignKey(
+    #     SizeVariation, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.quantity} x {self.product.title}"

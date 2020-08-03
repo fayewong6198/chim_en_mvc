@@ -12,8 +12,8 @@ urlpatterns = [
          name='descrease-quantity'),
     path('remove_from_cart/<pk>', views.RemoveFromCartView.as_view(),
          name='remove_from_cart'),
-    path('check_out', views.CheckOutView.as_view(),
+    path('check_out/', views.CheckOutView.as_view(),
          name='check_out'),
-    path('tym_or_unTym', views.TymOrUnTym.as_view(),
+    path('tym_or_unTym/', views.TymOrUnTym.as_view(),
          name='tym'),
 ]

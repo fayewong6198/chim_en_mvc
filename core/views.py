@@ -5,10 +5,12 @@ from django.conf import settings
 
 from django.views import generic
 from .forms import ContactForm
+from cart.models import Product
 
 
-class HomeView(generic.TemplateView):
+class HomeView(generic.ListView):
     template_name = 'index.html'
+    queryset = Product.objects.all()[:4]
 
 
 class ContactView(generic.FormView):

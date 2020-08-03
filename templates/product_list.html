@@ -10,14 +10,12 @@
     </nav>
   </div>
 
+
   <div class="site-section">
     <div class="container">
       <div class="row mb-5">
         {% for product in object_list %}
-        <div
-          class="ct-product-card ct-primary-color col-md-3 col-sm-6 col-xs-12"
-          data-aos="fade-up"
-        >
+        <div class="ct-product-card ct-primary-color col-md-3 col-sm-6 col-xs-12" data-aos="fade-up">
           <!-- Card Image -->
           <figure class="block-4-image">
             <a href="{% url 'cart:product-detail' product.slug %}">
@@ -31,9 +29,9 @@
           </figure>
           <!-- Card content -->
           <div class="block-4-text p-2 mb-1">
-            <a href="{% url 'cart:product-detail' product.slug %}"
-              ><h5>{{product.title}}</h5></a
-            >
+            <a href="{% url 'cart:product-detail' product.slug %}">
+              <h5>{{product.title}}</h5>
+            </a>
             <h5 class="mb-0 bold-text">{{product.price}}</h5>
           </div>
           <!-- Card Actions -->
@@ -41,45 +39,21 @@
             <div class="ct-container">
               <div class="row justify-content-center">
                 <div class="col">
-                  <a
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Add to cart"
-                    class="bold-text"
-                    href="{% url 'login'%}"
-                    ><i class="fa fa-cart-plus"></i
-                  ></a>
+                  <a data-toggle="tooltip" data-placement="top" title="Add to cart" class="bold-text"
+                    href="{% url 'login'%}"><i class="fa fa-cart-plus"></i></a>
                 </div>
                 <div class="col">
-                  <a
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Add to favorite"
-                    class="bold-text"
-                    href="{% url 'login'%}"
-                    ><i class="fa fa-heart-o"></i
-                  ></a>
+                  <a data-toggle="tooltip" data-placement="top" title="Add to favorite" class="bold-text"
+                    href="{% url 'login'%}"><i class="fa fa-heart-o"></i></a>
                 </div>
 
                 <div class="col">
-                  <a
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Quick view"
-                    class="bold-text"
-                    href="{% url 'login'%}"
-                    ><i class="fa fa-search-plus"></i
-                  ></a>
+                  <a data-toggle="tooltip" data-placement="top" title="Quick view" class="bold-text"
+                    href="{% url 'login'%}"><i class="fa fa-search-plus"></i></a>
                 </div>
                 <div class="col">
-                  <a
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Compare"
-                    class="bold-text"
-                    href="{% url 'login'%}"
-                    ><i class="fa fa-columns"></i
-                  ></a>
+                  <a data-toggle="tooltip" data-placement="top" title="Compare" class="bold-text"
+                    href="{% url 'login'%}"><i class="fa fa-columns"></i></a>
                 </div>
               </div>
             </div>
