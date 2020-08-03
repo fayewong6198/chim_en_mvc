@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
-<div class="contact-page">
+<div class="contact-page" id="top">
   <div class="contact-content">
     <!-- <img src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/big_title_bg_1.png" alt=""> -->
     <div class="contact-title">
@@ -15,7 +15,7 @@
     <ol class="breadcrumb">
       <div class="container">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Library</li>
+        <li class="breadcrumb-item active" aria-current="page">Contact</li>
       </div>
     </ol>
   </nav>
@@ -145,9 +145,9 @@
                 required data-error="Please,leave us a message."></textarea>
             </div>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12 mb-4 mt-2">
             <div class="text-center">
-              <input type="submit" class="btn btn-success btn-send" value="Send Us Now">
+              <input type="submit" class="btn btn-success btn-send mb-5" value="Send Us Now">
             </div>
           </div>
         </div>
@@ -157,98 +157,7 @@
     </form>
   </div>
 </div>
-<!-- footer -->
-<footer class="footer">
-  <div class="footer-area">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5 col-sm-5 col-xs-12">
-          <div class="footer-content logo-footer">
-            <div class="footer-head">
-              <div class="footer-logo">
-                <!-- <a href="#"><img src alt="Visitek logo "></a> -->
-                <h4>Organic Logo</h4>
-              </div>
-              <p>
-                Welcome to Organik. Our products are freshly harvested, washed ready for box and finally delivered from
-                our family farm
-                right to your doorstep.
-              </p>
-              <div class="footer-icons">
-                <ul>
-                  <li>
-                    <a title=" Facebook" target="blank"
-                      href="https://www.facebook.com/Visitek-Co-Ltd-105792077700159/">
-                      <i class="fab fa-facebook"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a title=" Twitter">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a title=" Google">
-                      <i class="fab fa-google"></i>
-                    </a>
-                  </li>
 
-                  <li>
-                    <a title=" Instagram">
-                      <i class="fab fa-instagram"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end single footer -->
-        <div class="col-md-4 col-sm-3 col-xs-12">
-          <div class="footer-content">
-            <div class="footer-head">
-              <h4>Dịch vụ</h4>
-
-            </div>
-          </div>
-        </div>
-        <!-- end single footer -->
-        <div class="col-md-3 col-sm-4 col-xs-12">
-          <div class="footer-content last-content">
-            <div class="footer-head">
-              <h4>Liên hệ</h4>
-              <div class="footer-contacts">
-                <p><span>Địa chỉ :</span>86 đường số 7 , phường 7 , khu Cityland Center Hills , Gò
-                  Vấp , TP HCM</p>
-                <p><span>Tel :</span> 0567055912</p>
-                <p><span>Email :</span> Visitekvn@gmail.com</p>
-                
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Start Footer Bottom Area -->
-  <div class="footer-area-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="copyright">
-            <p>
-              Copyright © 2020
-              <a title="Công ty Visitek 2020" href="/">Visitek</a> All Rights Reserved
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Footer Bottom Area -->
-</footer>
-</div>
 
 
 {% endblock content %}

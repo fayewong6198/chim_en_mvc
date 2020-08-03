@@ -59,8 +59,7 @@ class Product(models.Model):
     slug = models.SlugField()
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='products', null=True)
-    image = models.ImageField(
-        upload_to='product_images', blank=True, null=True)
+
     description = models.TextField()
     price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
@@ -84,9 +85,10 @@ class ProductImageView(APIView):
         parser_classes = (MultiPartParser, FormParser)
 
         product_id = request.data['product']
+        product = get_object_or_404(Product, pk=product_id)
 
         # converts querydict to original dict
-        images = dict((request.data).lists())['image']
+        images = dict((request.data).lists())['images']
         flag = 1
         arr = []
         for img_name in images:
