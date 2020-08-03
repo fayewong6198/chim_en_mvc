@@ -77,7 +77,7 @@ class Product(models.Model):
         return reverse("cart:product-detail", kwargs={"slug": self.slug})
 
     def get_price(self):
-        return "{:.2f}".format(self.price / 100)
+        return self.price
 
 
 class ProductImage(models.Model):
@@ -103,12 +103,11 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.quantity} x {self.product.title}"
 
-    def get_raw_total_item_price(self):
-        return self.quantity * self.product.price
+    # def get_raw_total_item_price(self):
+    #     return self.quantity * self.product.price
 
     def get_total_item_price(self):
-        price = self.get_raw_total_item_price()
-        return "{:.2f}".format(price / 100)
+        return self.quantity * self.product.price
 
 
 class FavoriteItem(models.Model):
@@ -140,17 +139,31 @@ class Order(models.Model):
     def reference_number(self):
         return f"ORDER-{self.pk}"
 
+    def get_total_price(self):
+        price = 0
+        for item in self.items.all():
+            price = price + item.get_total_item_price()
+        return price
+
 
 class Payment(models.Model):
+    STATUS_CHOICES = (
+        ('S', 'spending'),
+        ('P', 'Processing'),
+        ('C', 'Complete'),
+
+    )
     order = models.ForeignKey(
         Order, on_delete=models.CASCADE, related_name='payments')
     payment_method = models.CharField(max_length=20, choices=(
         ('Paypal', 'Paypal'),
     ))
     timestamp = models.DateTimeField(auto_now_add=True)
-    successful = models.BooleanField(default=False)
+    # successful = models.BooleanField(default=False)
     amount = models.FloatField()
     raw_response = models.TextField()
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default='S')
 
     def __str__(self):
         return self.reference_number

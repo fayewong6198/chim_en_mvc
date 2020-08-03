@@ -20,7 +20,7 @@
           <figure class="block-4-image">
             <a href="{% url 'cart:product-detail' product.slug %}">
               <div class="ct-container">
-                <img src="{{product.image.url}}" alt="" />
+                <img src="{{product.images.first}}" alt="" />
                 <div class="sale-block">
                   <span>Sale!</span>
                 </div>

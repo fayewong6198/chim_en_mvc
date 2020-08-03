@@ -2,169 +2,282 @@
 
 {% block extra_head %}
 <style>
+  #stripeBtnLabel {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 16px;
+    font-variant: normal;
+    padding: 0;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 500;
+    display: block;
+  }
 
-#stripeBtnLabel {
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 16px;
-  font-variant: normal;
-  padding: 0;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  font-weight: 500;
-  display: block;
-}
+  #stripeBtn {
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    text-decoration: none;
+    color: #fff;
+    background: #32325d;
+    white-space: nowrap;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-decoration: none;
+    -webkit-transition: all 150ms ease;
+    transition: all 150ms ease;
+    float: left;
+    width: 100%
+  }
 
-#stripeBtn {
-  border: none;
-  border-radius: 4px;
-  outline: none;
-  text-decoration: none;
-  color: #fff;
-  background: #32325d;
-  white-space: nowrap;
-  display: inline-block;
-  height: 40px;
-  line-height: 40px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
-  border-radius: 4px;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.025em;
-  text-decoration: none;
-  -webkit-transition: all 150ms ease;
-  transition: all 150ms ease;
-  float: left;
-  width: 100%
-}
+  button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
+    background-color: #43458b;
+  }
 
-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
-  background-color: #43458b;
-}
+  .stripe-form {
+    padding: 5px 30px;
+  }
 
-.stripe-form {
-  padding: 5px 30px;
-}
+  #card-errors {
+    height: 20px;
+    padding: 4px 0;
+    color: #fa755a;
+  }
 
-#card-errors {
-  height: 20px;
-  padding: 4px 0;
-  color: #fa755a;
-}
+  .stripe-form-row {
+    width: 100%;
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 
-.stripe-form-row {
-  width: 100%;
-  float: left;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-/**
+  /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
  * how you can use CSS to style your Element's container.
  */
-.StripeElement {
-  box-sizing: border-box;
+  .StripeElement {
+    box-sizing: border-box;
 
-  height: 40px;
+    height: 40px;
 
-  padding: 10px 12px;
+    padding: 10px 12px;
 
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background-color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
 
-  box-shadow: 0 1px 3px 0 #e6ebf1;
-  -webkit-transition: box-shadow 150ms ease;
-  transition: box-shadow 150ms ease;
-}
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
 
-.StripeElement--focus {
-  box-shadow: 0 1px 3px 0 #cfd7df;
-}
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
 
-.StripeElement--invalid {
-  border-color: #fa755a;
-}
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
 
-.StripeElement--webkit-autofill {
-  background-color: #fefde5 !important;
-}
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
 
-.current-card-form {
-  display: none;
-}
-
+  .current-card-form {
+    display: none;
+  }
 </style>
 {% endblock extra_head %}
 
-{% block content %}
+{% block content %} {% load widget_tweaks %}
 
-  <main >
-    <div class="container wow fadeIn">
+<main>
+  <div class="container wow fadeIn">
 
-      <h2 class="my-5 h2 text-center">Payment</h2>
+    <h2 class="my-5 h2 text-center">Payment</h2>
 
-      <div class="row">
+    <div class="row">
 
-        <div class="col-md-12 mb-4">
-          <div class="card">
+      <div class="col-md-12 mb-4">
+        <div class="card">
 
-            <script src="https://js.stripe.com/v3/"></script>
-            {% if card %}
-              <div style="padding: 5px 30px;">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" name="use_default_card" id="use_default_card">
-                  <label class="custom-control-label" for="use_default_card">Use default card:
-                    **** **** **** {{ card.last4 }} 
-                  <span>Exp: {{ card.exp_month }}/{{ card.exp_year }}</span></label>
+          <script src="https://js.stripe.com/v3/"></script>
+          <!-- {% if card %}
+          <div style="padding: 5px 30px;">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" name="use_default_card" id="use_default_card">
+              <label class="custom-control-label" for="use_default_card">Use default card:
+                **** **** **** {{ card.last4 }}
+                <span>Exp: {{ card.exp_month }}/{{ card.exp_year }}</span></label>
+            </div>
+          </div>
+          {% endif %} -->
+
+          <!-- <div class="current-card-form">
+            <form action="." method="post" class="stripe-form">
+              {% csrf_token %}
+              <input type="hidden" name="use_default" value="true">
+              <div class="stripe-form-row">
+                <button id="stripeBtn">Submit Payment</button>
+              </div>
+              <div id="card-errors" role="alert"></div>
+            </form>
+          </div> -->
+
+          <!-- <div class="new-card-form">
+            <form action="." method="post" class="stripe-form" id="stripe-form">
+              {% csrf_token %}
+              <div class="stripe-form-row" id="creditCard">
+                <label for="card-element" id="stripeBtnLabel">
+                  Credit or debit card
+                </label>
+                <div id="card-element" class="StripeElement StripeElement--empty">
+                  <div class="__PrivateStripeElement"
+                    style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
+                    <iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeFrame5"
+                      allowpaymentrequest="true"
+                      src="https://js.stripe.com/v3/elements-inner-card-19066928f2ed1ba3ffada645e45f5b50.html#style[base][color]=%2332325d&amp;style[base][fontFamily]=%22Helvetica+Neue%22%2C+Helvetica%2C+sans-serif&amp;style[base][fontSmoothing]=antialiased&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23aab7c4&amp;style[invalid][color]=%23fa755a&amp;style[invalid][iconColor]=%23fa755a&amp;componentName=card&amp;wait=false&amp;rtl=false&amp;keyMode=test&amp;origin=https%3A%2F%2Fstripe.com&amp;referrer=https%3A%2F%2Fstripe.com%2Fdocs%2Fstripe-js&amp;controllerId=__privateStripeController1"
+                      title="Secure payment input frame"
+                      style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; height: 19.2px;"></iframe><input
+                      class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" " autocomplete="false"
+                      maxlength="1"
+                      style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
+                  </div>
                 </div>
               </div>
-            {% endif %}
-
-            <div class="current-card-form">
-              <form action="." method="post" class="stripe-form">
-                  {% csrf_token %}
-                  <input type="hidden" name="use_default" value="true">
-                  <div class="stripe-form-row">
-                    <button id="stripeBtn">Submit Payment</button>
-                  </div>
-                  <div id="card-errors" role="alert"></div>
-              </form>
+              <div class="stripe-form-row">
+                <button id="stripeBtn">Submit Payment</button>
+              </div>
+              <div class="stripe-form-row">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" name="save" id="save_card_info">
+                  <label class="custom-control-label" for="save_card_info">Save for future purchases</label>
+                </div>
+              </div>
+              <div id="card-errors" role="alert"></div>
+            </form>
+          </div> -->
+          <form method="POST" class="d-flex  justify-content-left">
+            <!-- Default input -->
+            <div class="p-2 d-flex">
+              {% csrf_token %} {% for field in form %}
+              <div class="form-group px-1">
+                {{ field.errors }}
+                <label for="" class="">{{ field.label_tag }}</label>
+                {{ field | add_class:'form-control' }} {% if field.help_text%}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+              </div>
+              {% endfor %}
             </div>
-
-            <div class="new-card-form">
-              <form action="." method="post" class="stripe-form" id="stripe-form">
-                  {% csrf_token %}
-                  <div class="stripe-form-row" id="creditCard">
-                      <label for="card-element" id="stripeBtnLabel">
-                          Credit or debit card
-                      </label>
-                      <div id="card-element" class="StripeElement StripeElement--empty"><div class="__PrivateStripeElement" style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;"><iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeFrame5" allowpaymentrequest="true" src="https://js.stripe.com/v3/elements-inner-card-19066928f2ed1ba3ffada645e45f5b50.html#style[base][color]=%2332325d&amp;style[base][fontFamily]=%22Helvetica+Neue%22%2C+Helvetica%2C+sans-serif&amp;style[base][fontSmoothing]=antialiased&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23aab7c4&amp;style[invalid][color]=%23fa755a&amp;style[invalid][iconColor]=%23fa755a&amp;componentName=card&amp;wait=false&amp;rtl=false&amp;keyMode=test&amp;origin=https%3A%2F%2Fstripe.com&amp;referrer=https%3A%2F%2Fstripe.com%2Fdocs%2Fstripe-js&amp;controllerId=__privateStripeController1" title="Secure payment input frame" style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; height: 19.2px;"></iframe><input class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" " autocomplete="false" maxlength="1" style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;"></div></div>
-                  </div>
-                  <div class="stripe-form-row">
-                    <button id="stripeBtn">Submit Payment</button>
-                  </div>
-                  <div class="stripe-form-row">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" name="save" id="save_card_info">
-                      <label class="custom-control-label" for="save_card_info">Save for future purchases</label>
-                    </div>
-                  </div>
-                  <div id="card-errors" role="alert"></div>
-              </form>
-            </div>
-
-          </div>
+          </form>
         </div>
-
-        {% include "order_snippet.html" %}
-
       </div>
 
+      <!--  -->
+      <div class="container">
+        <div class="table-responsive text-nowrap">
+          <h2>Your cart</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Item title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Item Price</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order_item in object.items.all %}
+              <tr class="ct-table-content">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><img height="64" src="{{ order_item.product.images.first }}" alt="{{ order_item.product.title }}" />
+                </td>
+                <td>{{ order_item.product.title }}</td>
+                <td>{{ order_item.product.get_price }} vnđ</td>
+                <td>
+                  <a style="color: #aaa;" href="{% url 'cart:descrease-quantity' order_item.id %}"><i
+                      class="fa fa-minus mr-2"></i></a>
+                  {{ order_item.quantity }}
+                  <a style="color: #aaa;" href="{% url 'cart:increase-quantity' order_item.id %}"><i
+                      class="fa fa-plus ml-2"></i></a>
+                </td>
+                <td>
+                  {% if order_item.item.discount_price %} ${{
+                  order_item.get_total_discount_item_price }}
+                  <span class="badge badge-primary">Saving ${{ order_item.get_amount_saved }}</span>
+                  {% else %} {{ order_item.get_total_item_price }} vnđ{% endif %}
+                </td>
+                <td> <a style="color: red;" href="{% url 'cart:remove_from_cart' order_item.id %}">
+                    <i class="fa fa-close "></i>
+                  </a></td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="5">Your cart is empty</td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <a class="btn btn-primary float-right" href="{% url 'cart:product-list' %}">Continue shopping</a>
+                </td>
+              </tr>
+              {% endfor %} {% if object.coupon %}
+              <tr>
+                <td colspan="4"><b>Coupon</b></td>
+                <td><b>-${{ object.coupon.amount }}</b></td>
+              </tr>
+              {% endif %} {% if object.get_total %}
+              <tr>
+                <td colspan="4"><b>Order Total</b></td>
+                <td><b>${{ object.get_total }}</b></td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <a class="btn btn-warning float-right ml-2" href="/checkout/">Proceed to checkout</a>
+                  <a class="btn btn-primary float-right" href="/">Continue shopping</a>
+                </td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+        {% if object.items.count > 0 %}
+        <div class="row">
+          <div class="col-md-4">
+            <a href="{% url 'cart:product-list' %}" class="bold-text btn btn-outline-success">Continue Shopping</a>
+          </div>
+
+          <div class="col-md-8">
+            <div class="row justify-content-end">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12 text-right border-bottom mb-5">
+                    <h3 class="text-black h4 text-uppercase">Cart Totals: {{object.get_total_price}} vnđ</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <!--  -->
+
     </div>
-  </main>
+
+  </div>
+</main>
 
 {% endblock content %}
 
@@ -195,13 +308,13 @@ button:hover {
   };
 
   // Create an instance of the card Element.
-  var card = elements.create('card', {style: style});
+  var card = elements.create('card', { style: style });
 
   // Add an instance of the card Element into the `card-element` <div>.
   card.mount('#card-element');
 
   // Handle real-time validation errors from the card Element.
-  card.addEventListener('change', function(event) {
+  card.addEventListener('change', function (event) {
     var displayError = document.getElementById('card-errors');
     if (event.error) {
       displayError.textContent = event.error.message;
@@ -212,10 +325,10 @@ button:hover {
 
   // Handle form submission.
   var form = document.getElementById('stripe-form');
-  form.addEventListener('submit', function(event) {
+  form.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    stripe.createToken(card).then(function(result) {
+    stripe.createToken(card).then(function (result) {
       if (result.error) {
         // Inform the user if there was an error.
         var errorElement = document.getElementById('card-errors');
@@ -244,7 +357,7 @@ button:hover {
   var currentCardForm = $('.current-card-form');
   var newCardForm = $('.new-card-form');
   var use_default_card = document.querySelector("input[name=use_default_card]");
-  use_default_card.addEventListener('change', function() {
+  use_default_card.addEventListener('change', function () {
     if (this.checked) {
       newCardForm.hide();
       currentCardForm.show()
@@ -257,7 +370,3 @@ button:hover {
 </script>
 
 {% endblock extra_scripts %}
-
-
-
-

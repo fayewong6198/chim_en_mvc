@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .utils import get_or_set_order_session, get_or_set_favorite_session
 from django.shortcuts import get_object_or_404, reverse
-from .forms import AddToCartForm
+from .forms import AddToCartForm, PaymentForm
 from django.http import HttpResponseRedirect
 # Create your views here.
 
@@ -122,3 +122,13 @@ class TymOrUnTym(generic.View):
             new_tym.product = product
             new_tym.order = favorite
             new_tym.save()
+
+
+class PaymentView(generic.FormView):
+    template_name = 'payment.html'
+    form_class = PaymentForm
+
+    def get_context_data(self, **kwargs):
+        context = super(PaymentView, self).get_context_data(**kwargs)
+        context["object"] = get_or_set_order_session(self.request)
+        return context
