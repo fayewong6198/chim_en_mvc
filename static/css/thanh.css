@@ -1,6 +1,9 @@
 a {
   text-decoration: none !important;
 }
+html {
+  scroll-behavior: smooth;
+}
 .line {
   border-bottom: 1px solid #eee;
 }
@@ -1331,4 +1334,127 @@ i,
 }
 footer .footer-icons ul li {
   display: inline-block;
+  padding: 15px;
+  font-size: 16px;
+  color: #ababab;
+}
+footer .footer-icons ul {
+  padding-left: unset !important;
+}
+footer .footer-icons ul li:hover {
+  color: #5fbd74;
+}
+.fab .fa-facebook {
+  color: #ababab !important;
+}
+footer .footer-head p {
+  line-height: 24px;
+  color: #ababab;
+}
+footer .footer-area {
+  padding: 3rem 0 3rem 0;
+  background: #444444;
+}
+footer .footer-head h4 {
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding-top: 1.7rem;
+}
+
+.footer-head a {
+  display: flex;
+  color: #ababab;
+  padding: 10px 0 10px 0;
+}
+footer .col-md-2 .footer-head a:hover:before {
+  color: #5fbd74 !important;
+  content: " - ";
+}
+footer .col-md-2 .footer-head a:hover {
+  padding-left: 5px;
+  transition: 0.4s;
+  color: #5fbd74 !important;
+}
+
+.subcribe .form-control {
+  height: 50px;
+  border-color: #ffffff;
+  border-radius: 0;
+}
+.subcribe .content.form-control:focus {
+  box-shadow: none;
+  border: 2px solid #243c4f;
+}
+.icons {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+footer .footer-head button {
+  border-radius: unset;
+  min-height: 38px;
+}
+/* area bootom footer */
+
+.right-footer-head {
+  position: absolute;
+}
+footer {
+  position: relative;
+}
+.total-footer {
+  position: relative;
+}
+.footer-area-bottom {
+  display: flex;
+  background-color: #333;
+}
+.mid-footer-head button {
+  position: relative;
+  width: 107px;
+  height: 87px;
+  background-color: #333;
+  border-radius: 50%;
+  bottom: 50%;
+  border: none;
+  outline: none;
+}
+.mid-footer-head button:focus {
+  outline: 0 !important;
+  border: none;
+  outline: none;
+}
+.mid-footer-head i:hover {
+  margin-bottom: 0.7rem;
+  transition: 0.4s;
+}
+.mid-footer-head i {
+  position: absolute;
+  color: #5fbd74;
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  bottom: 30%;
+  left: 37%;
+  font-size: 35px !important;
+}
+.footer-area-bottom .row .col-2,
+.footer-area-bottom .row .col-5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 575px) {
+  .footer-area-bottom .row .col-5 {
+    display: none;
+  }
+  .footer-area-bottom .row .col-2 {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
