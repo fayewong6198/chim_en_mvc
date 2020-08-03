@@ -18,9 +18,11 @@ class HomeView(generic.ListView):
         if self.request.user.is_authenticated:
             for like_item in FavoriteProduct.objects.filter(user=self.request.user):
                 liked.append(like_item.product.id)
+
+            self.request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
+                user=self.request.user).count()
+
         context['liked'] = liked
-        self.request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
-            user=self.request.user).count()
 
         return context
 
