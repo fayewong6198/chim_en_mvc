@@ -5,14 +5,14 @@ from rest_framework.response import Response
 
 
 class UserSerializer(serializers.ModelSerializer):
-    addresses = serializers.StringRelatedField(many=True)
-    favorites = serializers.StringRelatedField(many=True)
-    orders = serializers.StringRelatedField(many=True)
+    addresses = serializers.StringRelatedField()
+    # favorites = serializers.StringRelatedField(many=True)
+    # orders = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name',
-                  'last_name', 'gender', 'date_of_birth', 'addresses', 'favorites', 'orders']
+                  'last_name', 'gender', 'date_of_birth', 'addresses']
 
 # Register Serializer
 

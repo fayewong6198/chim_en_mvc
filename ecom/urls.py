@@ -30,6 +30,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     # API
     path('api/', include(router.urls)),
+    path('api/products/images',
+         cart_apis.ProductImageView.as_view(), name='product-image'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('api/auth/', include('knox.urls'))
 ]
