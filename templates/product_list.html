@@ -14,7 +14,8 @@
   <div class="site-section">
     <div class="container">
       <div class="row mb-5">
-        {% for product in object_list %}
+        {% for product in products.items.all %}
+
         <div class="ct-product-card ct-primary-color col-md-3 col-sm-6 col-xs-12" data-aos="fade-up">
           <!-- Card Image -->
           <figure class="block-4-image">
@@ -42,10 +43,20 @@
                   <a data-toggle="tooltip" data-placement="top" title="Add to cart" class="bold-text"
                     href="{% url 'cart:product-detail' product.slug %} "><i class="fa fa-cart-plus"></i></a>
                 </div>
+
+                {% if product.id in liked %}
+
                 <div class="col">
                   <a data-toggle="tooltip" data-placement="top" title="Add to favorite" class="bold-text"
-                    href="{% url 'cart:tym'%}"><i class="fa fa-heart-o"></i></a>
+                    href="{% url 'cart:tym' product.id %}"><i class="fa fa-heart"></i> Liked</a>
                 </div>
+
+                {%else%}
+                <div class="col">
+                  <a data-toggle="tooltip" data-placement="top" title="Add to favorite" class="bold-text"
+                    href="{% url 'cart:tym' product.id %}"><i class="fa fa-heart-o"></i></a>
+                </div>
+                {% endif %}
 
                 <div class="col">
                   <a data-toggle="modal" data-target="#product{{product.id}}"><i data-toggle="tooltip" placement="top"

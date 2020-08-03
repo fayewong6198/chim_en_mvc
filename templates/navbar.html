@@ -49,13 +49,13 @@
             </div>
 
             <div class="col">
-              {% if request.session.products_in_cart %}
+              {% if request.session.products_in_favorite %}
               <a class="fa-stack has-badge pl-2" data-count="{{ request.session.products_in_favorite }}">
                 <i class="fa fa-heart-o fa-stack-1x"></i>
               </a>
 
               {% else %}
-              <a class="fa-stack has-badge pl-2" data-count="10">
+              <a class="fa-stack has-badge pl-2">
                 <i class="fa fa-heart-o fa-stack-1x"></i>
               </a>
               {% endif %}

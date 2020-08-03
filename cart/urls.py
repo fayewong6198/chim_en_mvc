@@ -14,7 +14,7 @@ urlpatterns = [
          name='remove_from_cart'),
     path('check_out/', views.CheckOutView.as_view(),
          name='check_out'),
-    path('tym_or_unTym', views.TymOrUnTym.as_view(),
+    path('tym_or_unTym/<int:product_id>', views.TymOrUnTym.as_view(),
          name='tym'),
     path('payment', views.PaymentView.as_view(),
          name='payment'),

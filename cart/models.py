@@ -7,6 +7,23 @@ from django.shortcuts import reverse
 User = get_user_model()
 
 
+class City(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class District(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.ForeignKey(
+        City, max_length=25, on_delete=models.CASCADE, related_name='districts')
+    ship_fee = models.FloatField(default=25000)
+
+    def __str__(self):
+        return self.name
+
+
 class Address(models.Model):
     ADDRESS_CHOICES = (
         ('B', 'Billing'),
@@ -14,10 +31,11 @@ class Address(models.Model):
     )
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="addresses")
-    address_line_1 = models.CharField(max_length=255)
-    address_line_2 = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    zip_code = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    districts = models.ForeignKey(
+        District, on_delete=models.CASCADE, null=True, blank=True)
+    city = models.ForeignKey(
+        City, on_delete=models.CASCADE, blank=True, null=True)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
     default = models.BooleanField(default=False)
 
@@ -109,13 +127,13 @@ class OrderItem(models.Model):
         return self.quantity * self.product.price
 
 
-class FavoriteItem(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True, related_name="favorites")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+# class FavoriteItem(models.Model):
+#     user = models.ForeignKey(
+#         User, on_delete=models.CASCADE, blank=True, null=True, related_name="favorites")
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"{self.user.username} x {self.product.title}"
+#     def __str__(self):
+#         return f"{self.user.username} x {self.product.title}"
 
 
 class Order(models.Model):
@@ -125,11 +143,8 @@ class Order(models.Model):
     ordered_date = models.DateTimeField(blank=True, null=True)
     ordered = models.BooleanField(default=False)
 
-    billing_address = models.ForeignKey(
-        Address, related_name='billing_address', blank=True, null=True, on_delete=models.SET_NULL)
-
-    shipping_address = models.ForeignKey(
-        Address, related_name='shipping_address', blank=True, null=True, on_delete=models.SET_NULL)
+    order_address = models.ForeignKey(
+        Address, related_name='orderaddresses', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.reference_number
@@ -181,6 +196,7 @@ pre_save.connect(pre_save_product_receicer, sender=Product)
 
 
 class Favorite(models.Model):
+
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='favorite')
 
@@ -189,10 +205,11 @@ class Favorite(models.Model):
 
 
 class FavoriteProduct(models.Model):
-    favorite = models.ForeignKey(
-        Favorite, related_name='products', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='favorites', blank=True, null=True)
+
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE)
+        Product, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"FavoriteProduct-{self.pk}"

@@ -1,5 +1,5 @@
-from ..models import Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, FavoriteItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage
-from .serializers import PaymentSerializer, ProductSerializer, AddressSerializer, OrderItemSerializer, OrderSerializer, FavoriteItemSerializer, FavoriteProductSerializer, FavoriteSerializer, ProductImageSerializer
+from ..models import Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage
+from .serializers import PaymentSerializer, ProductSerializer, AddressSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -53,24 +53,6 @@ class OrderViewSet(viewsets.ModelViewSet):
     """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
-class FavoriteViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Favorite.objects.all()
-    serializer_class = FavoriteSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
-class FavoriteItemViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = FavoriteItem.objects.all()
-    serializer_class = FavoriteItemSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 

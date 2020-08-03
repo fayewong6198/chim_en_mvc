@@ -15,13 +15,13 @@ router.register(r'products', cart_apis.ProductViewSet)
 router.register(r'payments', cart_apis.PaymentViewSet)
 router.register(r'order-items', cart_apis.OrderItemViewSet)
 router.register(r'orders', cart_apis.OrderViewSet)
-router.register(r'favorites', cart_apis.FavoriteViewSet)
-router.register(r'favorite-items', cart_apis.FavoriteItemViewSet)
+
 router.register(r'addresses', cart_apis.AddressViewSet)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', views.HomeView.as_view(), name='home'),
     path('', views.HomeView.as_view(), name='index'),
     path('contact/', views.ContactView.as_view(), name='contact'),

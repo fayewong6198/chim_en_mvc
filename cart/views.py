@@ -6,12 +6,19 @@ from .forms import AddToCartForm, PaymentForm
 from django.http import HttpResponseRedirect
 # Create your views here.
 
-from .models import Product, OrderItem, FavoriteProduct, Favorite
+from .models import Product, OrderItem, FavoriteProduct
 
 
-class ProductListView(generic.ListView):
+class ProductListView(generic.TemplateView):
     template_name = 'product_list.html'
-    queryset = Product.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductListView, self).get_context_data(**kwargs)
+        context['products'] = Product.objects.all()
+        liked = []
+        for like_item in FavoriteProduct.objects.filter(user=self.request.user):
+            liked.append(like_item.product.id)
+        context['liked'] = liked
 
 
 class ProductDetailView(generic.FormView):
@@ -104,24 +111,36 @@ class RemoveFromCartView(generic.View):
 
 class TymOrUnTym(generic.View):
 
-    def get_object(self):
-        return get_object_or_404(Product, slug=self.kwargs["slug"])
+    def get(self, request, *args, **kwargs):
 
-    def get_success_url(self):
-        return Redirect
+        product = Product.objects.get(pk=kwargs['product_id'])
+        try:
 
-    def get(sefl, request, *args, **kwargs):
-        favorite_item = get_object_or_404(FavoriteProduct, id=kwargs['pk'])
-        if favorite_item:
-            favorite_item.delete()
-        else:
-            favorite = get_or_set_favorite_session(self.request)
-            product = self.get_object()
+            favorite = FavoriteProduct.objects.get(
+                product=product.id, user=request.user)
+            print("Delete")
+            favorite.delete()
+        except FavoriteProduct.DoesNotExist:
+            print("add new")
+            new_favorite = FavoriteProduct()
+            new_favorite.user = request.user
+            new_favorite.product = product
+            new_favorite.save()
 
-            new_tym = Favorite()
-            new_tym.product = product
-            new_tym.order = favorite
-            new_tym.save()
+        request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
+            user=request.user).count()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        # if favorite_item:
+        #     favorite_item.delete()
+        # else:
+        #     favorite = get_or_set_favorite_session(self.request)
+        #     product = self.get_object()
+
+        #     new_tym = Favorite()
+        #     new_tym.product = product
+        #     new_tym.order = favorite
+        #     new_tym.save()
 
 
 class PaymentView(generic.FormView):

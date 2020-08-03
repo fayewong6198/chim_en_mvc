@@ -1,4 +1,4 @@
-from ..models import ProductImage, Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, FavoriteItem, Order, Payment,  Favorite, FavoriteProduct, Category
+from ..models import ProductImage, Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, Category
 from rest_framework import serializers
 
 
@@ -42,13 +42,6 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class FavoriteItemSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Favorite
-        fields = '__all__'
-
-
 class OrderSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
 
@@ -62,14 +55,6 @@ class PaymentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Payment
-        fields = '__all__'
-
-
-class FavoriteSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-
-    class Meta:
-        model = Favorite
         fields = '__all__'
 
 

@@ -19,7 +19,7 @@
           {% for order_item in object.items.all %}
           <tr class="ct-table-content">
             <th scope="row">{{ forloop.counter }}</th>
-            <td><img height="64" src="{{ order_item.product.images..first }}" alt="{{ order_item.product.title }}" />
+            <td><img height="64" src="{{ order_item.product.images.first }}" alt="{{ order_item.product.title }}" />
             </td>
             <td>{{ order_item.product.title }}</td>
             <td>{{ order_item.product.get_price }} vnđ</td>
