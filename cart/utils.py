@@ -48,5 +48,5 @@ def get_or_set_favorite_session(request):
         favorite.save()
 
     request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
-        order=order.id).count() or 0
+        favorite=favorite.id).count() or 0
     return favorite

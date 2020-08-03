@@ -23,6 +23,7 @@ class ProductDetailView(generic.FormView):
 
     def get_success_url(self):
         return reverse("cart:summary")
+        # return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
 
     def get_form_kwargs(self):
         kwargs = super(ProductDetailView, self).get_form_kwargs()
@@ -52,9 +53,7 @@ class ProductDetailView(generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
-
         context['object'] = self.get_object()
-
         return context
 
 
@@ -108,6 +107,9 @@ class TymOrUnTym(generic.View):
     def get_object(self):
         return get_object_or_404(Product, slug=self.kwargs["slug"])
 
+    def get_success_url(self):
+        return Redirect
+
     def get(sefl, request, *args, **kwargs):
         favorite_item = get_object_or_404(FavoriteProduct, id=kwargs['pk'])
         if favorite_item:
@@ -115,9 +117,8 @@ class TymOrUnTym(generic.View):
         else:
             favorite = get_or_set_favorite_session(self.request)
             product = self.get_object()
+
             new_tym = Favorite()
             new_tym.product = product
             new_tym.order = favorite
             new_tym.save()
-
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
