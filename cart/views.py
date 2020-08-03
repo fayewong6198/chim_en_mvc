@@ -4,9 +4,11 @@ from .utils import get_or_set_order_session, get_or_set_favorite_session
 from django.shortcuts import get_object_or_404, reverse
 from .forms import AddToCartForm, PaymentForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required, permission_required
 # Create your views here.
 
 from .models import Product, OrderItem, FavoriteProduct
+from django.utils.decorators import method_decorator
 
 
 class ProductListView(generic.TemplateView):
@@ -16,9 +18,14 @@ class ProductListView(generic.TemplateView):
         context = super(ProductListView, self).get_context_data(**kwargs)
         context['products'] = Product.objects.all()
         liked = []
-        for like_item in FavoriteProduct.objects.filter(user=self.request.user):
-            liked.append(like_item.product.id)
+        if self.request.user.is_authenticated:
+            for like_item in FavoriteProduct.objects.filter(user=self.request.user):
+                liked.append(like_item.product.id)
         context['liked'] = liked
+        self.request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
+            user=self.request.user).count()
+
+        return context
 
 
 class ProductDetailView(generic.FormView):
@@ -110,9 +117,8 @@ class RemoveFromCartView(generic.View):
 
 
 class TymOrUnTym(generic.View):
-
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-
         product = Product.objects.get(pk=kwargs['product_id'])
         try:
 

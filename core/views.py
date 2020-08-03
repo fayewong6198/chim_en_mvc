@@ -5,12 +5,24 @@ from django.conf import settings
 
 from django.views import generic
 from .forms import ContactForm
-from cart.models import Product
+from cart.models import Product, FavoriteProduct
 
 
 class HomeView(generic.ListView):
     template_name = 'index.html'
     queryset = Product.objects.all()[:4]
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        liked = []
+        if self.request.user.is_authenticated:
+            for like_item in FavoriteProduct.objects.filter(user=self.request.user):
+                liked.append(like_item.product.id)
+        context['liked'] = liked
+        self.request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
+            user=self.request.user).count()
+
+        return context
 
 
 class ContactView(generic.FormView):
