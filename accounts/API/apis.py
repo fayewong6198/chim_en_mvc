@@ -5,6 +5,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
 from django.shortcuts import get_object_or_404
+from ecom.pagination import StandardResultsSetPagination, PaginationHandlerMixin, LargeResultsSetPagination
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -13,7 +14,8 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
+    pagination_class = StandardResultsSetPagination
 
 
 class RegisterAPI(generics.GenericAPIView):
