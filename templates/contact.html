@@ -1,33 +1,254 @@
 {% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
-
-<div class="bg-light py-3">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 mb-0">
-        <a href="{% url 'home' %}">Home</a>
-        <span class="mx-2 mb-0"></span>
-        <strong class="text-black">Contact</strong>
+<div class="contact-page">
+  <div class="contact-content">
+    <!-- <img src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/big_title_bg_1.png" alt=""> -->
+    <div class="contact-title">
+      <div class="title">Contact Us</div>
+      <div class="line-contact-page">
+        <div class="contact-line"></div>
+        <i class="fas fa-fan fa-1x"></i>
+        <div class="contact-line"></div>
       </div>
     </div>
   </div>
-  <div class="site-section">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-7">
-          <h2 class="h3 mb-3 text-black">Get in touch</h2>
-        </div>
-        <div class="col-md-5">
-          <form method="POST">
-            {% csrf_token %} {{ form|crispy }}
-            <input
-              type="submit"
-              class="btn btn-primary btn-lg btn-block"
-              value="Submit"
-            />
-          </form>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <div class="container">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Library</li>
+      </div>
+    </ol>
+  </nav>
+  <div class="get-in-touch pt-5">
+    <div class="text-center">
+      <div class="in-touch">
+        <h1>Get in Touch</h1>
+        <h3>HEALTHY ORGANIC FARM</h3>
+        <div class="line-contact-page">
+          <div class="contact-line"></div>
+          <i class="fas fa-fan fa-1x"></i>
+          <div class="contact-line"></div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="container">
+    <div class="map pt-4"><iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15675.128488263985!2d106.67859!3d10.8279789!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x571af5147b007a7!2zQ8O0bmcgdHkgVE5ISCBDw7RuZyBOZ2jhu4cgVGjDtG5nIFRpbiBWaXNpdGVr!5e0!3m2!1svi!2s!4v1596429084442!5m2!1svi!2s"
+        width="100%" height="600px" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+        tabindex="0"></iframe></div>
+  </div>
+
+  <div class="footer-contact py-5">
+    <div class="container">
+      <div class="row pb-4">
+        <div class="col-xs-3 col-md-3 col-12 col-sm-12">
+          <div class="text-center">
+            <div class="center-header">
+              <i class="fas fa-map-marker-alt"></i>
+              <h4 class="py-3">ADDRESS</h4>
+              <p>86 Đường số 7, Dự án Center Hills Gò Vấp, Gò Vấp, Thành phố Hồ Chí Minh</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3 col-md-3 col-12 col-sm-12">
+          <div class="text-center">
+            <div class="center-header">
+              <i class="fas fa-phone-volume"></i>
+              <h4 class="py-3">HOTLINE</h4>
+              <p>0567 055 912</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3 col-md-3 col-12 col-sm-12">
+          <div class="text-center">
+            <div class="center-header">
+              <i class="fas fa-envelope"></i>
+              <h4 class="py-3">EMAIL CONTACT</h4>
+              <p>Visitekvn@gmail.com</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3 col-md-3 col-12 col-sm-12">
+          <div class="text-center">
+            <div class="center-header">
+              <i class="fas fa-globe"></i>
+              <h4 class="py-3">WEBSITE</h4>
+              <a href="https://https://visitek.com.vn/" target="_blank">https://visitek.com.vn</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border-bottom: 1px solid #eee;"></div>
+    </div>
+  </div>
+  <div class="leave-mess">
+    <div class="container">
+      <div class="text-center">
+        <div class="in-touch">
+          <h1>Leave us a message</h1>
+          <div class="line-contact-page">
+            <div class="contact-line"></div>
+            <i class="fas fa-fan fa-1x"></i>
+            <div class="contact-line"></div>
+          </div>
+        </div>
+      </div>
+      <form id="contact-form" method="post" action="" role="form">
+        <div class="row" style="width: 100%">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="form_name">First Name</label>
+              <input id="form_name" type="text" name="firstname" class="form-control"
+                data-error="Lastname is required.">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="form_lastname">Last Name</label>
+              <input id="form_lastname" type="text" name="lastname" class="form-control"
+                data-error="Lastname is required.">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="form_email">Email</label>
+              <input id="form_email" type="email" name="email" class="form-control" required="required"
+                data-error="Valid email is required.">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="form_phone">Phone</label>
+              <input id="form_phone" type="tel" name="phone" class="form-control">
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="form_subject">Subject</label>
+              <input id="form_subject" type="text" name="subject" required class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="form_message">Message</label>
+              <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4"
+                required data-error="Please,leave us a message."></textarea>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="text-center">
+              <input type="submit" class="btn btn-success btn-send" value="Send Us Now">
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+    </form>
   </div>
 </div>
+<!-- footer -->
+<footer class="footer">
+  <div class="footer-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 col-sm-5 col-xs-12">
+          <div class="footer-content logo-footer">
+            <div class="footer-head">
+              <div class="footer-logo">
+                <!-- <a href="#"><img src alt="Visitek logo "></a> -->
+                <h4>Organic Logo</h4>
+              </div>
+              <p>
+                Welcome to Organik. Our products are freshly harvested, washed ready for box and finally delivered from
+                our family farm
+                right to your doorstep.
+              </p>
+              <div class="footer-icons">
+                <ul>
+                  <li>
+                    <a title=" Facebook" target="blank"
+                      href="https://www.facebook.com/Visitek-Co-Ltd-105792077700159/">
+                      <i class="fab fa-facebook"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a title=" Twitter">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a title=" Google">
+                      <i class="fab fa-google"></i>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a title=" Instagram">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end single footer -->
+        <div class="col-md-4 col-sm-3 col-xs-12">
+          <div class="footer-content">
+            <div class="footer-head">
+              <h4>Dịch vụ</h4>
+
+            </div>
+          </div>
+        </div>
+        <!-- end single footer -->
+        <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="footer-content last-content">
+            <div class="footer-head">
+              <h4>Liên hệ</h4>
+              <div class="footer-contacts">
+                <p><span>Địa chỉ :</span>86 đường số 7 , phường 7 , khu Cityland Center Hills , Gò
+                  Vấp , TP HCM</p>
+                <p><span>Tel :</span> 0567055912</p>
+                <p><span>Email :</span> Visitekvn@gmail.com</p>
+                
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Start Footer Bottom Area -->
+  <div class="footer-area-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="copyright">
+            <p>
+              Copyright © 2020
+              <a title="Công ty Visitek 2020" href="/">Visitek</a> All Rights Reserved
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Footer Bottom Area -->
+</footer>
+</div>
+
+
 {% endblock content %}

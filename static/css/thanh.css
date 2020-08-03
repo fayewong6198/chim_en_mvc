@@ -1157,7 +1157,7 @@ i,
   position: relative;
   height: 100%;
 }
-
+/* 
 .swiper-container {
   width: 100%;
   height: 100%;
@@ -1168,7 +1168,6 @@ i,
   font-size: 18px;
   background: #fff;
 
-  /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -1181,4 +1180,155 @@ i,
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+} */
+
+/* contact page */
+.breadcrumb .breadcrumb-item a {
+  color: #333;
+}
+.breadcrumb .breadcrumb-item a:hover {
+  color: #5fbd74;
+}
+.breadcrumb li {
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #5fbd74 !important;
+  display: inline;
+  border-bottom: 1px solid #eee;
+}
+
+.contact-content {
+  background: #7fca90;
+  box-sizing: inherit;
+}
+.contact-title {
+  padding-top: 110px;
+  padding-bottom: 170px;
+  color: #fff;
+  background: #7fca90;
+  text-align: center;
+  background-image: url(https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/big_title_bg_1.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  font-size: 56px;
+  text-transform: uppercase;
+  font-family: sans-serif;
+}
+.contact-line {
+  border-bottom: 1px solid #fff;
+  width: 100px;
+}
+.in-touch .contact-line {
+  border-bottom: 1px solid #5e5a54 !important;
+}
+
+.line-contact-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  color: #5fbd74;
+}
+.in-touch .fa-1x {
+  color: #5fbd74 !important;
+  animation: unset;
+}
+.in-touch .fa-1x:hover {
+  animation: xoayvong 2s linear 0s infinite !important;
+}
+.fa-1x {
+  font-size: 30px !important;
+  margin: 0 10px 0 10px;
+  color: #fff;
+  animation: xoayvong 2s linear 0s infinite;
+  -webkit-animation: xoayvong 2s linear 0s infinite;
+  -moz-animation: xoayvong 2s linear 0s infinite;
+  -o-animation: xoayvong 2s linear 0s infinite;
+}
+@-webkit-keyframes xoayvong {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+}
+/* Standard syntax */
+@keyframes xoayvong {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+}
+.in-touch h1 {
+  font-size: 56px;
+  line-height: 76px;
+  color: #5fbd74;
+  font-weight: 600;
+}
+.in-touch h3 {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  line-height: 50px;
+  text-transform: uppercase;
+}
+
+/* footer-contact */
+.footer-contact {
+  display: flex;
+  align-items: center;
+}
+.center-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.footer-contact .center-header i {
+  color: #5fbd74;
+  font-size: 33px !important;
+}
+.footer-contact h4 {
+  font-size: 17px;
+  font-weight: 600;
+}
+.footer-contact p,
+.footer-contact a {
+  font-size: 16px;
+  line-height: 25px;
+  color: #5e5a54;
+}
+#contact-form .row {
+  margin-left: unset;
+  margin-right: unset;
+}
+#contact-form label {
+  text-transform: uppercase;
+  color: #5e5a54;
+  font-size: 16px;
+  line-height: 25px;
+}
+#contact-form .col-md-12 .btn-send {
+  text-transform: uppercase;
+  font-size: 16px;
+  background-color: #5fbd74 !important;
+  padding: 10px 26px 10px 26px;
+}
+#contact-form .col-md-12 .btn-send:hover {
+  background-color: #96d8ad;
+}
+footer .footer-icons ul li {
+  display: inline-block;
 }
