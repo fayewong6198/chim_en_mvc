@@ -88,7 +88,7 @@ class ProductImageView(APIView):
         product = get_object_or_404(Product, pk=product_id)
 
         # converts querydict to original dict
-        images = dict((request.data).lists())['image']
+        images = dict((request.data).lists())['images']
         flag = 1
         arr = []
         for img_name in images:
