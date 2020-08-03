@@ -2,7 +2,7 @@ from ..models import Payment, Product, Address, ColorVariation, SizeVariation, O
 from .serializers import PaymentSerializer, ProductSerializer, AddressSerializer, OrderItemSerializer, OrderSerializer, FavoriteItemSerializer, FavoriteProductSerializer, FavoriteSerializer, ProductImageSerializer
 from rest_framework import viewsets
 from rest_framework import permissions
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from ecom.helpers import modify_input_for_multiple_files
 from rest_framework.views import APIView
 from django.http import JsonResponse
@@ -107,10 +107,15 @@ class ProductImageView(APIView):
             return Response(arr, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(selt, request, *args, **kwargs):
-        image_ids = request.data['ids']
-        images = ProductImage.objects.filter(id__in=image_ids)
-        try:
-            images.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        parser_classes = (JSONParser,)
+
+        print(request.data)
+        if 'ids' in request.data:
+            image_ids = request.data['ids']
+            images = ProductImage.objects.filter(id__in=image_ids)
+            try:
+                images.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            except:
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
