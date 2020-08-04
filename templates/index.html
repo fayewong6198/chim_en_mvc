@@ -221,8 +221,8 @@
               <ul class="cart-icon">
                 <li><a href="{% url 'cart:product-detail' product.slug %} "><i data-toggle="tooltip"
                       data-placement="top" title="Add to cart" class="fas fa-shopping-bag"></i></a></li>
-                <li><a data-toggle="modal" data-target="#wishlist" href=""><i data-toggle="tooltip"
-                      data-placement="top" title="Add to wishlist" class="fas fa-heart"></i></a></li>
+                <li><a data-toggle="modal" data-target="#wishlist" href=""><i data-toggle="tooltip" data-placement="top"
+                      title="Add to wishlist" class="fas fa-heart"></i></a></li>
                 <li><a data-toggle="modal" data-target="#product{{product.id}}" href="#"><i data-toggle="tooltip"
                       data-placement="top" title="Quick view" class="fas fa-search"></i></a></li>
                 <li><a href="#"><i data-toggle="tooltip" data-placement="top" title="Compare"
@@ -250,7 +250,7 @@
                       <li data-target="#view_carousel" data-slide-to="1"></li>
                       <li data-target="#view_carousel" data-slide-to="2"></li>
                     </ol>
-                    <div class="carousel-inner view_carousel">
+                    <div class="carousel-inner" id='view_carousel'>
                       {% for image in product.images.all %}
                       <div class="carousel-item active">
                         <img src="{{image}}" alt="First slide">
