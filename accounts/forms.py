@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm, Textarea, TextInput, PasswordInput
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm, PasswordResetForm
 from .models import User
+from cart.models import Address
 
 
 class RegisterForm(UserCreationForm):
@@ -29,12 +30,22 @@ class LoginForm(forms.Form):
 class CustomUserChangeForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name',
+        fields = ('username', 'first_name',
                   'last_name', 'mobile')
         widgets = {
             'username': TextInput(attrs={'class': 'form-control'}),
             'email': TextInput(attrs={'class': 'form-control'}),
             'date_of_birth': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Select a date', 'type': 'date'}),
+        }
+
+
+class AddressChangeForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ('city', 'districts',
+                  'address')
+        widgets = {
+            'address': TextInput(attrs={'class': 'form-control'})
         }
 
 

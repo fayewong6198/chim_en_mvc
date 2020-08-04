@@ -10,7 +10,7 @@
                     <a href="/accounts/profile/address" class="btn btn-outline-primary">Address</a>
                 </div>
                 <div class='col-6 offset-2'>
-                    <h1>Profile</h1>
+                    <h1>Address</h1>
                     <form action="/accounts/profile/" method="POST">
                         {% csrf_token %} {% for field in form %}
                         <div class="form-group">
@@ -20,15 +20,9 @@
                             {{ field |add_class:'form-control' }} {% if field.help_text %}
                             <p class="help">{{ field.help_text|safe }}</p>
                             {% endif %}
-
                         </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-outline-success"> Update profile</button>
-
-                        <p class="my-1">
-                            Do you want to change your password?
-                            <a href="{% url 'change-password' %}">change password</a>
-                        </p>
+                        <button type="submit" class="btn btn-outline-success"> Update address</button>
                     </form>
                 </div>
             </div>

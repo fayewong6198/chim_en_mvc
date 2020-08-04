@@ -3,7 +3,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from .models import User
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from .forms import RegisterForm, LoginForm, CustomUserChangeForm, CustomPasswordChangeForm, CustomPasswordResetForm
+from .forms import RegisterForm, LoginForm, CustomUserChangeForm, CustomPasswordChangeForm, CustomPasswordResetForm, AddressChangeForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
@@ -69,18 +69,7 @@ def register(request):
         user.is_active = False
         user.save()
         current_site = get_current_site(request)
-        # subject = 'Activate your blog account.'
-        # message = render_to_string('accounts/acc_active_email.html', {
-        #     'user': user,
-        #     'domain': current_site.domain,
-        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        #     'token': account_activation_token.make_token(user),
-        # })
 
-        # to_email = form.cleaned_data.get('email')
-        # email = EmailMessage(
-        #     subject, message, to=[to_email]
-        # )
         subject = 'Activate your account'
         html_message = render_to_string(
             'accounts/acc_active_email.html', {
@@ -110,14 +99,30 @@ def register(request):
 @login_required
 def profile(request):
     if request.method == "GET":
-
         form = CustomUserChangeForm(instance=request.user)
-        return render(request, 'accounts/profile.html', {'form': form})
+        form1 = AddressChangeForm(instance=request.user)
+        return render(request, 'accounts/profile.html', {'form': form, 'form1': form1})
 
     form = CustomUserChangeForm(data=request.POST, instance=request.user)
+    form1 = AddressChangeForm(data=request.POST, instance=request.user)
     if form.is_valid():
         user = form.save(commit=False)
         user.save()
+    if form1.is_valid():
+        address = form1.save(commit=False)
+        address.save()
+    return redirect('/accounts/profile')
+
+
+@login_required
+def address(request):
+    if request.method == "GET":
+        form = AddressChangeForm(instance=request.user)
+        return render(request, 'accounts/address.html', {'form': form})
+    form1 = AddressChangeForm(data=request.POST, instance=request.user)
+    if form1.is_valid():
+        address = form1.save(commit=False)
+        address.save()
     return redirect('/accounts/profile')
 
 
