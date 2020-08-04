@@ -16,8 +16,10 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
-from django.core.mail import EmailMessage, send_mail
-from ecom.settings import EMAIL_HOST_USER
+from django.core import mail
+from django.conf import settings
+from django.utils.html import strip_tags
+
 
 from .models import User as UserModel
 
@@ -67,20 +69,35 @@ def register(request):
         user.is_active = False
         user.save()
         current_site = get_current_site(request)
-        subject = 'Activate your blog account.'
-        message = render_to_string('accounts/acc_active_email.html', {
-            'user': user,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': account_activation_token.make_token(user),
-        })
+        # subject = 'Activate your blog account.'
+        # message = render_to_string('accounts/acc_active_email.html', {
+        #     'user': user,
+        #     'domain': current_site.domain,
+        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        #     'token': account_activation_token.make_token(user),
+        # })
 
-        to_email = form.cleaned_data.get('email')
-        email = EmailMessage(
-            subject, message, to=[to_email]
-        )
+        # to_email = form.cleaned_data.get('email')
+        # email = EmailMessage(
+        #     subject, message, to=[to_email]
+        # )
+        subject = 'Activate your account'
+        html_message = render_to_string(
+            'accounts/acc_active_email.html', {
+                'user': user,
+                # 'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+        plain_message = strip_tags(html_message)
+        from_email = settings.EMAIL_HOST_USER
+        to = 'minhthienpham0611@gmail.com'
+
         try:
-            email.send()
+            mail.send_mail(subject=subject, message='http://www.google.com', from_email=from_email, fail_silently=False,
+                           auth_user=None,
+                           auth_password=None,
+                           recipient_list=[to], html_message=html_message)
             return HttpResponse('Please confirm your email address to complete the registration')
         except:
             return redirect('register')
@@ -117,37 +134,6 @@ def changePassword(request):
         return redirect('/accounts/profile')
     else:
         return render(request, 'accounts/password_change.html', {'form': form_edit_password})
-
-
-# @login_required
-# def userPayments(request):
-#     payments = Payment.objects.filter(
-#         user=request.user).order_by('-created_at')
-#     categories = Category.objects.all()
-
-#     context = {
-#         'payments': payments,
-#         'categories': categories
-#     }
-
-#     return render(request, 'accounts/user_payments.html', context)
-
-
-# @login_required
-# def userPayment(request, id):
-#     payment = get_object_or_404(Payment, user=request.user, pk=id)
-#     products = ProductInPayment.objects.filter(
-#         payment=payment).select_related('product')
-
-#     categories = Category.objects.all()
-
-#     context = {
-#         'payment': payment,
-#         'products': products,
-#         'categories': categories
-#     }
-
-#     return render(request, 'accounts/user_payment.html', context)
 
 
 def activate(request, uidb64, token):

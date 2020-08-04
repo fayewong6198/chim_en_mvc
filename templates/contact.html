@@ -95,7 +95,8 @@
           </div>
         </div>
       </div>
-      <form id="contact-form" method="post" action="" role="form">
+      <form id="contact-form" method="POST" action="{% url 'contact' %}" role="form">
+        {% csrf_token %}
         <div class="row" style="width: 100%">
           <div class="col-md-6">
             <div class="form-group">

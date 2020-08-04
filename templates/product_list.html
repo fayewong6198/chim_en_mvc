@@ -59,6 +59,7 @@
                 {% endif %}
 
                 <div class="col">
+
                   <a data-toggle="modal" data-target="#product{{product.id}}"><i data-toggle="tooltip" placement="top"
                       title="Quick view" class="fa fa-search-plus bold-text"></i></a>
                 </div>
@@ -186,19 +187,43 @@
     </div>
     <div class="navigation-page">
       <nav aria-label="...">
+        {% if products.has_other_pages %}
+
         <ul class="pagination">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-          </li>
-          <li class="page-item active"><a class="page-link" href="#">1<span class="sr-only">(current)</span></a></li>
-          <li class="page-item ">
-            <a class="page-link" href="#">2 </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          {% if products.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="#">Next</a>
+            <a href="?page={{products.previous_page_number}}" class="page-link">&laquo</a>
           </li>
+          {% else %}
+          <li class="page-item">
+            <a class="page-link disable">&laquo</a>
+          </li>
+          {% endif %}
+
+          {% for i in products.paginator.page_range %}
+
+          {% if products.number == i %}
+          <li class="page-item active">
+            <a href="?page={{i}}" class="page-link">{{i}}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a href="?page={{i}}" class="page-link">{{i}}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          {% if products.has_next %}
+          <li class="page-item">
+            <a href="?page={{products.next_page_number}}" class="page-link">&raquo</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a class="page-link disable">&raquo</a>
+          </li>
+          {% endif %}
         </ul>
+        {% endif %}
+
       </nav>
     </div>
     {% endblock content %}

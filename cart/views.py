@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, reverse
 from .forms import AddToCartForm, PaymentForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 from .models import Product, OrderItem, FavoriteProduct
@@ -15,8 +16,20 @@ class ProductListView(generic.TemplateView):
     template_name = 'product_list.html'
 
     def get_context_data(self, **kwargs):
+        limit = 8
+        if ('limit' in self.request.GET):
+
+            limit = self.request.GET['limit']
+        products = Product.objects.all()
+        # paginator
+        paginator = Paginator(products, limit)
+        page = 1
+        if ('page' in self.request.GET):
+            page = self.request.GET['page']
+        paged_listings = paginator.get_page(page)
+
         context = super(ProductListView, self).get_context_data(**kwargs)
-        context['products'] = Product.objects.all()
+        context['products'] = paged_listings
         liked = []
         if self.request.user.is_authenticated:
             for like_item in FavoriteProduct.objects.filter(user=self.request.user):
@@ -119,7 +132,7 @@ class RemoveFromCartView(generic.View):
 
 
 class TymOrUnTym(generic.View):
-    @method_decorator(login_required)
+    @ method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         product = Product.objects.get(pk=kwargs['product_id'])
         try:

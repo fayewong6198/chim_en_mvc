@@ -1,19 +1,21 @@
 from django.core.mail import send_mail
-from django.shortcuts import reverse
+from django.shortcuts import reverse, render, redirect
 from django.contrib import messages
 from django.conf import settings
 
 from django.views import generic
 from .forms import ContactForm
 from cart.models import Product, FavoriteProduct
+from .models import Contact
 
 
-class HomeView(generic.ListView):
+class HomeView(generic.TemplateView):
     template_name = 'index.html'
-    queryset = Product.objects.all()[:4]
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
+        products = Product.objects.all()[:4]
+        context['products'] = products
         liked = []
         if self.request.user.is_authenticated:
             for like_item in FavoriteProduct.objects.filter(user=self.request.user):
@@ -27,32 +29,32 @@ class HomeView(generic.ListView):
         return context
 
 
-class ContactView(generic.FormView):
-    form_class = ContactForm
-    template_name = 'contact.html'
+class ContactView(generic.View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'contact.html')
 
-    def get_success_url(self):
-        return reverse('contact')
+    def post(self, request, *args, **kwargs):
 
-    def form_valid(self, form):
-        messages.info(
-            self.request, "Thanks to get in touch. We have received your message.")
-        name = form.cleaned_data.get("name")
-        email = form.cleaned_data.get("email")
-        message = form.cleaned_data.get("message")
+        new_contact = Contact()
+        new_contact.first_name = request.POST.get('firstname')
+        new_contact.last_name = request.POST.get('lastname')
+        new_contact.email = request.POST.get('email')
+        new_contact.phone = request.POST.get('phone')
+        new_contact.subject = request.POST.get('subject')
+        new_contact.message = request.POST.get('message')
+        new_contact.save()
 
-        full_message = f"""
-            Recived message below from {name}, {email}
-
-            {message}
-        """
-
-        send_mail(subject="Received contact form mubmission",
-                  message=full_message,
-                  from_email=settings.DEFAULT_FROM_EMAIL,
-                  recipient_list=[settings.NOTIFY_EMAIL]
+        send_mail(subject=request.POST.get('email')+" vừa gửi 1 câu chửi tới sếp",
+                  message=" nội dung Lời chửi bới" +
+                  request.POST.get('message'),
+                  from_email=settings.EMAIL_HOST_USER,
+                  recipient_list=['minhthienpham0611@gmail.com'],
+                  fail_silently=False,
+                  auth_user=None,
+                  auth_password=None,
+                  html_message=None
                   )
-        return super(ContactView, self).form_valid(form)
+        return redirect('/contact')
 
 
 class AboutView(generic.TemplateView):
