@@ -3,12 +3,16 @@ from .serializers import PaymentSerializer, ProductSerializer, AddressSerializer
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
-from ecom.helpers import modify_input_for_multiple_files
+from ecom.helpers import modify_input_for_multiple_files, modify_input_for_single_image
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+
+import json
+
+from django.http import HttpResponse
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
@@ -26,14 +30,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.AllowAny]
-
-
-class BlogImageViewSet(viewsets.ModelViewSet):
-    parser_classes = (MultiPartParser, FormParser)
-
-    queryset = BlogImage.objects.all()
-    serializer_class = BlogImageSerializer
     permission_classes = [permissions.AllowAny]
 
 
@@ -109,3 +105,23 @@ class ProductImageView(APIView):
             except:
                 return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class BlogImageViewSet(viewsets.ModelViewSet):
+    parser_classes = (MultiPartParser, FormParser)
+
+    queryset = BlogImage.objects.all()
+    serializer_class = BlogImageSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def create(self, request):
+        print(request.data['image'])
+        image = request.data['image']
+        try:
+            print(2)
+            image = BlogImage.objects.create(image=image)
+            print(3)
+            print(image.image.url)
+            return HttpResponse(json.dumps({'data': {"link": image.image.url}}), status=200)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
