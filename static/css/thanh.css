@@ -595,6 +595,9 @@ html {
   text-align: center;
   color: #fff;
   position: relative;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
 }
 .product-card .product-content,
 .product-card:after {
@@ -863,6 +866,9 @@ html {
 .view_carousel img {
   width: 100%;
   height: auto;
+}
+.item-property dd {
+  height: 100px;
 }
 
 /* Styling modal */
@@ -1457,4 +1463,9 @@ footer {
     margin-right: auto;
     margin-left: auto;
   }
+}
+/* navigation */
+.navigation {
+  display: flex;
+  justify-content: center;
 }
