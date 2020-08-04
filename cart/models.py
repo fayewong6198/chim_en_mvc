@@ -79,6 +79,7 @@ class Product(models.Model):
         Category, on_delete=models.CASCADE, related_name='products', null=True)
 
     description = models.TextField()
+    full_description = models.TextField(null=True, blank=True, default="")
     price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -95,6 +96,13 @@ class Product(models.Model):
 
     def get_price(self):
         return self.price
+
+
+class BlogImage(models.Model):
+    image = models.ImageField(upload_to='blogs/')
+
+    def __str__(self):
+        return self.image.url
 
 
 class ProductImage(models.Model):
