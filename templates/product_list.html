@@ -1,5 +1,43 @@
 {% extends 'base.html' %} {% block content %}
 
+
+<script>
+  function page_navigation(key,value) {
+    console.log("page_navigation");
+    console.log('cc');
+    _url = window.location.href;
+    console.log(0);
+    split_url = _url.split('?')[1];
+    if (split_url != null) {
+    n = split_url.indexOf(key)
+    if (n === -1) {
+      console.log("Not found");
+      _url = _url + '&' + key + value;
+      window.location.href =  _url;
+    }
+    else {
+      console.log(2);
+      i = n;
+      str = '';
+      while (i < split_url.length && split_url.charAt(i) !== '&') {
+        str += split_url.charAt(i);
+        i++;
+      }
+      
+    window.location.href = window.location.href.replace(str, key + value);
+    }
+  }
+  else {
+    _url = _url + '?page=';
+    _url += page_number;
+    window.location.href =  _url;
+  }
+                                
+                                
+}
+</script>
+
+
 <div class="bg-light py-3">
   <div class="container">
     <nav aria-label="breadcrumb">
@@ -10,8 +48,48 @@
     </nav>
   </div>
 
-
   <div class="site-section">
+
+       <select id="lblimit" name="lblimit" class="nb_item" onchange="page_navigation('limit=', this.options[this.selectedIndex].value)
+                                ">
+                        {% for key, value in limit_choices.items %}
+                            {% if key == limit %}
+                            <option value="{{key}}" selected>{{value}}</option>
+                            {% else %}
+                            <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+            </select>
+
+            <div class="sort">
+            <span>Sắp xếp</span>
+            <select class="selectProductSort" id="lbsort" onchange="page_navigation('sort=', this.options[this.selectedIndex].value)">
+                        <option value="">Mặc định</option>
+                        {% if sort == 'price'%}
+                        <option value="price" selected>Gi&#225; tăng dần</option>
+                        {% else %}
+                        <option value="price" >Gi&#225; tăng dần</option>
+                        {% endif %}
+
+                        {% if sort == '-price'%}
+                        <option value="-price" selected>Gi&#225; giảm dần</option>
+                        {% else %}
+                        <option value="-price" >Gi&#225; giảm dần</option>
+                        {% endif %}
+
+                        {% if sort == 'title'%}
+                        <option value="title" selected>Gi&#225; A to Z</option>
+                        {% else %}
+                        <option value="title" >Gi&#225; A to Z</option>
+                        {% endif %}
+
+                        {% if sort == '-title'%}
+                        <option value="-title" selected>Gi&#225; Z to A</option>
+                        {% else %}
+                        <option value="-title" >Gi&#225; Z to A</option>
+                        {% endif %}
+            </select>
+        </div>
     <div class="container">
       <div class="row mb-5">
         {% for product in products %}
@@ -192,7 +270,7 @@
         <ul class="pagination">
           {% if products.has_previous %}
           <li class="page-item">
-            <a href="?page={{products.previous_page_number}}" class="page-link">&laquo</a>
+            <a onclick="page_navigation('page=', {{products.previous_page_number}})" class="page-link">&laquo</a>
           </li>
           {% else %}
           <li class="page-item">
@@ -204,24 +282,17 @@
 
           {% if products.number == i %}
           <li class="page-item active">
-            <a href="?page={{i}}" class="page-link">{{i}}</a>
+            <a onclick="page_navigation('page=', {{i}})" class="page-link">{{i}}</a>
           </li>
           {% else %}
           <li class="page-item">
-            <a href="?page={{i}}" class="page-link">{{i}}</a>
+            <a onclick="page_navigation('page=',{{i}})" class="page-link">{{i}}</a>
           </li>
           {% endif %}
           {% endfor %}
           {% if products.has_next %}
           <li class="page-item">
-            <a href="?page={{products.next_page_number}}" class="page-link">&raquo</a>
-          <li class="page-item"><a class="page-link" href="#">1<span class="sr-only">(current)</span></a></li>
-          <li class="page-item ">
-            <a class="page-link" href="#">2 </a>
-          </li>
-          {% else %}
-          <li class="page-item">
-            <a class="page-link disable">&raquo</a>
+            <a onclick="page_navigation('page=', {{products.next_page_number}})"  class="page-link">&raquo</a>
           </li>
           {% endif %}
         </ul>
@@ -232,3 +303,5 @@
     {% endblock content %}
   </div>
 </div>
+
+

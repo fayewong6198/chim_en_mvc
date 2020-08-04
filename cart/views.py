@@ -10,17 +10,38 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Product, OrderItem, FavoriteProduct
 from django.utils.decorators import method_decorator
+from .choices import limit_choices as l, price_choices
 
 
 class ProductListView(generic.TemplateView):
     template_name = 'product_list.html'
 
     def get_context_data(self, **kwargs):
-        limit = 8
+        limit = 1
         if ('limit' in self.request.GET):
-
             limit = self.request.GET['limit']
         products = Product.objects.all()
+
+        # Category
+        category = ''
+        if "category" in self.request.GET:
+            category = self.request.GET['category']
+            if category:
+                products = products.filter(category=category)
+
+        # Search
+        search = ''
+        if "search" in self.request.GET:
+            search = self.request.GET['search']
+            if search:
+                products = products.filter(title__icontains=search)
+
+        # Sort
+        sort = ''
+        if "sort" in self.request.GET:
+            sort = self.request.GET['sort']
+            if sort:
+                products = products.order_by(sort)
         # paginator
         paginator = Paginator(products, limit)
         page = 1
@@ -38,6 +59,13 @@ class ProductListView(generic.TemplateView):
             self.request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
                 user=self.request.user).count()
 
+        # Choices
+        limit_choices = l
+        context['limit'] = limit
+        context['limit_choices'] = limit_choices
+        context['sort'] = sort
+        context['category'] = category
+        context['search'] = search
         context['liked'] = liked
 
         return context
