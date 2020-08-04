@@ -60,7 +60,7 @@
           <div class="row justify-content-end align-items-center">
             <!-- Search -->
             <form class="search-box" action="{% url 'cart:product-list' %}">
-              <input type="text" name="search" placeholder="Search..">
+              <input type="text" name="search" placeholder="Search.." value={{search}}>
               {% if limit is not None %}
               <input type="hidden" name="limit" value="{{limit}}">
               {% endif %}
