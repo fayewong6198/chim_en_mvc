@@ -17,7 +17,9 @@
   height: 80px;
   transition: height 0.3s, opacity 0.3s linear;
 }
-
+.navbar-white .col-6 .row i {
+  font-size: 19px;
+}
 .navbar-white a {
   color: var(--text-primary-color);
 }
@@ -91,11 +93,17 @@
   width: 200px;
   outline: none;
 }
-
+.fa-heart-o {
+  padding: unset !important;
+  margin: unset !important;
+}
+.has-badge {
+  padding: unset !important;
+  margin: unset !important;
+}
 .fa-stack[data-count]:after {
   position: absolute;
   right: 0%;
-  top: 1%;
   content: attr(data-count);
   font-size: 50%;
   padding: 0.6em;
@@ -104,7 +112,6 @@
   color: white;
   background: rgba(255, 0, 0, 0.85);
   text-align: center;
-  min-width: 2em;
   font-weight: bold;
 }
 
@@ -321,4 +328,77 @@
 .ct-table-content td,
 .ct-table-content th {
   line-height: 64px;
+}
+/* search */
+.search-box input[type="text"] {
+  display: block;
+  margin: 0 10px 0 auto;
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: white;
+  background-image: url("searchicon.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 5px 13px 5px 33px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+.search-box input[type="text"]:focus {
+  width: 100%;
+}
+.top-nav .dropdown:hover > .dropdown-menu {
+  display: block;
+  background-color: #999999 !important;
+}
+.top-nav .dropdown-menu a {
+  color: #fff !important;
+}
+.top-nav .dropdown-menu a:hover {
+  background-color: unset !important;
+  color: #eee !important;
+  opacity: 0.8;
+}
+
+.top-nav .dropdown-menu {
+  background-color: #999999 !important;
+}
+.top-nav .dropdown > .dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
+.top-nav .dropdown > button {
+  background-color: unset !important;
+  border: unset !important;
+  color: #999999;
+  font-size: 15px;
+}
+.top-nav .header-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.top-nav .header-right {
+  font-size: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.top-nav .header-right .login {
+  border-right: 1px solid #999999;
+  padding-right: 10px;
+}
+.top-nav .header-right .register {
+  border-right: 1px solid #999999;
+  padding: 0 10px 0 10px;
+}
+.top-nav .header-right a {
+  color: #999999;
+}
+.top-nav {
+  font-size: 14px;
+  background-color: #444444;
+  color: #999999;
 }
