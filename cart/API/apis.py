@@ -30,6 +30,8 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 
 class BlogImageViewSet(viewsets.ModelViewSet):
+    parser_classes = (MultiPartParser, FormParser)
+
     queryset = BlogImage.objects.all()
     serializer_class = BlogImageSerializer
     permission_classes = [permissions.AllowAny]
