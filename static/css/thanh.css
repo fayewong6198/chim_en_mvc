@@ -1465,7 +1465,7 @@ footer {
   }
 }
 /* navigation */
-.navigation {
+.navigation-page {
   display: flex;
-  justify-content: center;
+  justify-content: center !important;
 }
