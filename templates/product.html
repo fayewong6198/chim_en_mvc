@@ -72,7 +72,7 @@
           </form>
 
           <hr class="ct-divider" />
-
+          
           {% comment %}
           <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
             Add to cart
@@ -83,12 +83,14 @@
           </a>
           {% endcomment %}
         </div>
+        
         <!--Content-->
       </div>
       <!--Grid column-->
     </div>
     <!--Grid row-->
-
+   <h1>Full description </h1>
+        <p>{{ object.full_description|safe }}</p>
     <hr />
 
     <!--Grid row-->
@@ -148,6 +150,7 @@
 
               <p>{{ object.description }}</p>
             </div>
+         
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               cc2
             </div>
@@ -159,6 +162,7 @@
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   </div>
