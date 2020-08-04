@@ -117,11 +117,15 @@ class BlogImageViewSet(viewsets.ModelViewSet):
     def create(self, request):
         print(request.data['image'])
         image = request.data['image']
+        product_id = request.data['product']
+        print(("product"))
+        print(product_id)
         try:
-            print(2)
-            image = BlogImage.objects.create(image=image)
+            product = Product.objects.get(pk=product_id)
+            print(3)
+            image = BlogImage.objects.create(image=image, product=product)
             print(3)
             print(image.image.url)
-            return HttpResponse(json.dumps({'data': {"link": 'http://localhost:8000' + image.image.url}}), status=200)
+            return HttpResponse(json.dumps({'id': image.id, 'data': {'data': {"link": 'http://localhost:8000' + image.image.url}}}), status=200)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

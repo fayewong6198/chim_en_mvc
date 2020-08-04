@@ -99,6 +99,8 @@ class Product(models.Model):
 
 
 class BlogImage(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="blog_images", blank=True, null=True)
     image = models.ImageField(upload_to='blogs/')
 
     def __str__(self):
