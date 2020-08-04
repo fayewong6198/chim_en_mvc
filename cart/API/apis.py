@@ -117,13 +117,13 @@ class BlogImageViewSet(viewsets.ModelViewSet):
     def create(self, request):
         print(request.data['image'])
         image = request.data['image']
-        product_id = request.data['product']
-        print(("product"))
-        print(product_id)
+        # product_id = request.data['product']
+        # print(("product"))
+        # print(product_id)
         try:
-            product = Product.objects.get(pk=product_id)
-            print(3)
-            image = BlogImage.objects.create(image=image, product=product)
+            # product = Product.objects.get(pk=product_id)
+            # print(3)
+            image = BlogImage.objects.create(image=image)
             print(3)
             print(image.image.url)
             return HttpResponse(json.dumps({'id': image.id, 'data': {"location": 'http://localhost:8000' + image.image.url}}), status=200)
