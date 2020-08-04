@@ -65,29 +65,14 @@
             <span>Sắp xếp</span>
             <select class="selectProductSort" id="lbsort" onchange="page_navigation('sort=', this.options[this.selectedIndex].value)">
                         <option value="">Mặc định</option>
-                        {% if sort == 'price'%}
-                        <option value="price" selected>Gi&#225; tăng dần</option>
-                        {% else %}
-                        <option value="price" >Gi&#225; tăng dần</option>
-                        {% endif %}
-
-                        {% if sort == '-price'%}
-                        <option value="-price" selected>Gi&#225; giảm dần</option>
-                        {% else %}
-                        <option value="-price" >Gi&#225; giảm dần</option>
-                        {% endif %}
-
-                        {% if sort == 'title'%}
-                        <option value="title" selected>Gi&#225; A to Z</option>
-                        {% else %}
-                        <option value="title" >Gi&#225; A to Z</option>
-                        {% endif %}
-
-                        {% if sort == '-title'%}
-                        <option value="-title" selected>Gi&#225; Z to A</option>
-                        {% else %}
-                        <option value="-title" >Gi&#225; Z to A</option>
-                        {% endif %}
+                        {% for key, value in sort_choices.items %}
+                            {% if key == limit %}
+                            <option value="{{key}}" selected>{{value}}</option>
+                            {% else %}
+                            <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                        
             </select>
         </div>
     <div class="container">

@@ -36,3 +36,10 @@ limit_choices = {
     '200': '200',
     '500': '500'
 }
+
+sort_choice = {
+    'price': 'Giá tăng dần',
+    '-price': 'Giá giảm dần',
+    'title': 'Sản phẩm từ A đến Z',
+    '-title': 'Sản phẩm từ Z đến A'
+}

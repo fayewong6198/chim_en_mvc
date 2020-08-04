@@ -61,7 +61,9 @@
             <!-- Search -->
             <form class="search-box" action="{% url 'cart:product-list' %}">
               <input type="text" name="search" placeholder="Search..">
+              {% if limit is not None %}
               <input type="hidden" name="limit" value="{{limit}}">
+              {% endif %}
             </form>
             <a class="fa-stack has-badge" data-count="10"><i class="fab fa-gratipay"></i></a>
 

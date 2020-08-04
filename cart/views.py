@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Product, OrderItem, FavoriteProduct
 from django.utils.decorators import method_decorator
-from .choices import limit_choices as l, price_choices
+from .choices import limit_choices as l, price_choices, sort_choice
 
 
 class ProductListView(generic.TemplateView):
@@ -63,6 +63,7 @@ class ProductListView(generic.TemplateView):
         limit_choices = l
         context['limit'] = limit
         context['limit_choices'] = limit_choices
+        context['sort_choices'] = sort_choice
         context['sort'] = sort
         context['category'] = category
         context['search'] = search
