@@ -126,6 +126,6 @@ class BlogImageViewSet(viewsets.ModelViewSet):
             image = BlogImage.objects.create(image=image, product=product)
             print(3)
             print(image.image.url)
-            return HttpResponse(json.dumps({'id': image.id, 'data': {'data': {"link": 'http://localhost:8000' + image.image.url}}}), status=200)
+            return HttpResponse(json.dumps({'id': image.id, 'data': {"location": 'http://localhost:8000' + image.image.url}}), status=200)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
