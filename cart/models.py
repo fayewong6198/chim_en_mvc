@@ -82,7 +82,7 @@ class Product(models.Model):
     price = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    promotion = models.IntegerField(default=0)
     # available_colors = models.ManyToManyField(ColorVariation)
     # available_sizes = models.ManyToManyField(SizeVariation)
     active = models.BooleanField(default=False)
@@ -95,6 +95,10 @@ class Product(models.Model):
 
     def get_price(self):
         return self.price
+
+    def get_promotion_price(self):
+        if self.promotion != 0:
+            return self.price-self.promotion/100*self.price
 
 
 class BlogImage(models.Model):
@@ -129,20 +133,11 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.quantity} x {self.product.title}"
 
-    # def get_raw_total_item_price(self):
-    #     return self.quantity * self.product.price
-
     def get_total_item_price(self):
-        return self.quantity * self.product.price
-
-
-# class FavoriteItem(models.Model):
-#     user = models.ForeignKey(
-#         User, on_delete=models.CASCADE, blank=True, null=True, related_name="favorites")
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-#     def __str__(self):
-#         return f"{self.user.username} x {self.product.title}"
+        if self.product.promotion > 0:
+            return self.quantity * self.product.get_promotion_price()
+        else:
+            return self.quantity * self.product.price
 
 
 class Order(models.Model):

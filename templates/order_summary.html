@@ -22,7 +22,13 @@
             <td><img height="64" src="{{ order_item.product.images.first }}" alt="{{ order_item.product.title }}" />
             </td>
             <td>{{ order_item.product.title }}</td>
+            {% if order_item.product.promotion > 0 %}
+            <td>
+              {{ order_item.product.get_price }} vnđ <span class="fa-stack has-badge"
+                data-count="-{{ order_item.product.promotion }} %"></span> </td>
+            {% else %}
             <td>{{ order_item.product.get_price }} vnđ</td>
+            {%endif %}
             <td>
               <a style="color: #aaa;" href="{% url 'cart:descrease-quantity' order_item.id %}"><i
                   class="fa fa-minus mr-2"></i></a>

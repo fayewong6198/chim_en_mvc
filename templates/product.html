@@ -21,18 +21,16 @@
 
           <h2>{{object.title}}</h2>
 
-          <p class="lead bold-text ct-primary-color">
-            {% if object.discount_price %}
+          <p class="lead">
+            {% if object.promotion > 0 %}
             <span class="mr-1">
               <del>${{ object.price }}</del>
             </span>
-            <span>${{ object.discount_price }}</span>
+            <span class="bold-text ct-primary-color">${{ object.get_promotion_price }}</span>
             {% else %}
-            <span>${{ object.price }}</span>
+            <span class=" bold-text ct-primary-color">${{ object.price }}</span>
             {% endif %}
           </p>
-
-
 
           <p>{{ object.description }}</p>
 
@@ -72,25 +70,16 @@
           </form>
 
           <hr class="ct-divider" />
-          
-          {% comment %}
-          <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
-            Add to cart
-            <i class="fas fa-shopping-cart ml-1"></i>
-          </a>
-          <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
-            Remove from cart
-          </a>
-          {% endcomment %}
+
         </div>
-        
+
         <!--Content-->
       </div>
       <!--Grid column-->
     </div>
     <!--Grid row-->
-   <h1>Full description </h1>
-        <p>{{ object.full_description|safe }}</p>
+    <h1>Full description </h1>
+    <p>{{ object.full_description|safe }}</p>
     <hr />
 
     <!--Grid row-->
@@ -150,7 +139,7 @@
 
               <p>{{ object.description }}</p>
             </div>
-         
+
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               cc2
             </div>
@@ -162,7 +151,7 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>
