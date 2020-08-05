@@ -4,4 +4,4 @@ $(function () {
 });
 var swiper = new Swiper(".swiper-container");
 //map api
-
+//payment
