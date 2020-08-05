@@ -11,7 +11,7 @@
                 </div>
                 <div class='col-6 offset-2'>
                     <h1>Address</h1>
-                    <form action="/accounts/profile/" method="POST">
+                    <form action="/accounts/profile/address" method="POST">
                         {% csrf_token %} {% for field in form %}
                         <div class="form-group">
                             <small class="text-danger"> {{ field.errors}}</small>

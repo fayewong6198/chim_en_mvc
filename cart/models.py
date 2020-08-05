@@ -29,21 +29,20 @@ class Address(models.Model):
         ('B', 'Billing'),
         ('S', 'Shipping'),
     )
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="addresses")
     address = models.CharField(max_length=255, null=True, blank=True)
     districts = models.ForeignKey(
         District, on_delete=models.CASCADE, null=True, blank=True)
     city = models.ForeignKey(
         City, on_delete=models.CASCADE, blank=True, null=True)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
+
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.address_line_1}, {self.address_line_2}, {self.city}, {self.zip_code}"
+        return f"{self.address}, {self.districts}, {self.city}"
 
     def get_absolute_url(self):
-        print("cc")
+
         print(reverse("cart:product-detail", kwargs={"slug": self.slug}))
         return reverse("cart:product-detail", kwargs={"slug": self.slug})
 

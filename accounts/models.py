@@ -73,6 +73,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     mobile = models.CharField(max_length=20, null=True, blank=True)
     fax = models.CharField(max_length=20, null=True, blank=True)
     telephone = models.CharField(max_length=20, null=True, blank=True)
+    address = models.ForeignKey(
+        'cart.Address', on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(default=datetime.now)
 
     objects = UserManager()

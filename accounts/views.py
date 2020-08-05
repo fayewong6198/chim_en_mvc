@@ -19,7 +19,7 @@ from .tokens import account_activation_token
 from django.core import mail
 from django.conf import settings
 from django.utils.html import strip_tags
-
+from cart.models import Address
 
 from .models import User as UserModel
 
@@ -100,30 +100,27 @@ def register(request):
 def profile(request):
     if request.method == "GET":
         form = CustomUserChangeForm(instance=request.user)
-        form1 = AddressChangeForm(instance=request.user)
-        return render(request, 'accounts/profile.html', {'form': form, 'form1': form1})
 
+        return render(request, 'accounts/profile.html', {'form': form})
     form = CustomUserChangeForm(data=request.POST, instance=request.user)
-    form1 = AddressChangeForm(data=request.POST, instance=request.user)
+
     if form.is_valid():
         user = form.save(commit=False)
         user.save()
-    if form1.is_valid():
-        address = form1.save(commit=False)
-        address.save()
     return redirect('/accounts/profile')
 
 
 @login_required
-def address(request):
+def AddressView(request):
+    address = Address.objects.get(pk=request.user.address.id)
     if request.method == "GET":
-        form = AddressChangeForm(instance=request.user)
+        form = AddressChangeForm(instance=address)
         return render(request, 'accounts/address.html', {'form': form})
-    form1 = AddressChangeForm(data=request.POST, instance=request.user)
-    if form1.is_valid():
-        address = form1.save(commit=False)
+    form = AddressChangeForm(data=request.POST, instance=address)
+    if form.is_valid():
+        address = form.save(commit=False)
         address.save()
-    return redirect('/accounts/profile')
+    return redirect('/accounts/profile/address')
 
 
 @login_required
