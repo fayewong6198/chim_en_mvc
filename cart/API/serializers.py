@@ -56,6 +56,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
+    items = OrderItemSerializer(read_only=True, many=True)
 
     class Meta:
         model = Order
