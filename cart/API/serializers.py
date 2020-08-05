@@ -44,8 +44,16 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProductInlineSerializer(serializers.ModelSerializer):
+    images = ProductImageInlineSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Product
+        fields = ('id', 'title', 'price', 'images', 'sku')
+
+
 class OrderItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
+    product = ProductInlineSerializer(read_only=True)
 
     class Meta:
         model = OrderItem
