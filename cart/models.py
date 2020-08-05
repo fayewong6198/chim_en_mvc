@@ -72,6 +72,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    sku = models.CharField(max_length=255, null=True, blank=True, default="")
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     category = models.ForeignKey(
