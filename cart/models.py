@@ -153,7 +153,7 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
 
     order_address = models.ForeignKey(
-        Address, related_name='orderaddresses', blank=True, null=True, on_delete=models.SET_NULL)
+        Address, related_name='order_addresses', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.reference_number
