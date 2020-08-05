@@ -7,14 +7,28 @@
         </span>
       </div>
       <div class="col-md-6 header-right">
+        {% if request.user.is_authenticated %}
+        <div class="dropdown">
+          <a class="bold-text" href="{% url 'login'%}">
+            <i class="fa fa-user-o"></i>
+            <span> {{request.user.username}}</span></a>
+          <div class="dropdown-content right">
+            <a href="{% url 'profile'%}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+        {% else %}
         <div class="login">
-          <a href=""><i class="fa fa-user-o"></i>
+          <a href="{% url 'login' %}"><i class="fa fa-user-o"></i>
             Login
           </a></div>
         <div class="register">
-          <a href=""><i class="fa fa-user-o "></i>
+          <a href="{% url 'register' %}"><i class="fa fa-user-o "></i>
             Register
-          </a></div>
+          </a>
+        </div>
+
+        {% endif %}
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
