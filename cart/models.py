@@ -156,6 +156,7 @@ class Order(models.Model):
     def reference_number(self):
         return f"ORDER-{self.pk}"
 
+    @property
     def get_total_price(self):
         price = 0
         for item in self.items.all():

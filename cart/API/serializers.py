@@ -58,6 +58,7 @@ class OrderSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     items = OrderItemSerializer(read_only=True, many=True)
     order_address = AddressSerializer(read_only=True)
+    get_total_price = serializers.ReadOnlyField()
 
     class Meta:
         model = Order
