@@ -146,7 +146,6 @@ class Order(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField(blank=True, null=True)
     ordered = models.BooleanField(default=False)
-
     order_address = models.ForeignKey(
         Address, related_name='order_addresses', blank=True, null=True, on_delete=models.SET_NULL)
 

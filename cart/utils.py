@@ -9,7 +9,6 @@ def get_or_set_order_session(request):
         order = Order()
         order.save()
         request.session['order_id'] = order.id
-
     else:
         try:
             order = Order.objects.get(id=order_id, ordered=False)
@@ -19,8 +18,14 @@ def get_or_set_order_session(request):
             request.session['order_id'] = order.id
 
     if request.user.is_authenticated and order.user is None:
+        # xoa het order thuoc user
+        delete_order = Order.objects.filter(user=request.user, ordered=False)
+        delete_order.delete()
+
         order.user = request.user
         order.save()
+        request.session['order_id'] = order.id
+
     request.session['products_in_cart'] = OrderItem.objects.filter(
         order=order.id).count() or 0
     return order
