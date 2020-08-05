@@ -73,7 +73,7 @@
 
           <div class="row justify-content-end align-items-center">
             <!-- Search -->
-            <form class="search-box" action="{% url 'cart:product-list' %}">
+            <form class="search-box mr-2" action="{% url 'cart:product-list' %}">
               <input type="text" name="search" placeholder="Search.." value={{search}}>
               {% if limit is not None %}
               <input type="hidden" name="limit" value="{{limit}}">
@@ -150,18 +150,31 @@
   </div>
 
   <!-- Mobile -->
-  <div class="container d-md-none">
+  <div class="container d-md-none mobile-nav">
     <div class="row">
       <!-- Menu button -->
       <div class="col-4">
         <div id="mySidenav" class="sidenav">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-          <a href="#">About</a>
-          <a href="#">Services</a>
-          <a href="#">Clients</a>
-          <a href="#">Contact</a>
+          <div class="dropdown ">
+            <a class="nav-link bold-text" id="dropdownMenuUser" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false"><img
+                src="https://secure.gravatar.com/avatar/8908e2bcc789ecb09d664850e575c012?s=96&d=mm&r=g" alt="">
+            </a>
+
+            <div class="dropdown-menu px-0 dropdown-user" aria-labelledby="dropdownMenuUser">
+              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="#">Logout</a>
+            </div>
+          </div>
+          <div class="nav-item pt-5">
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+          </div>
         </div>
-        <button onclick="openNav()">open</button>
+        <i class="fas fa-sliders-h" onclick="openNav()"></i>
       </div>
 
       <!-- Brand -->
@@ -187,9 +200,7 @@
               <a href="{% url 'contact' %}">Contact</a>
             </div>
           </div>
-
-
-          <a class="nav-link bold-text"><i class="fa fa-user-o"></i></a>
+          <!-- <a class="nav-link bold-text"><i class="fa fa-user-o"></i></a> -->
 
         </div>
       </div>
@@ -223,7 +234,7 @@
 
   /* Set the width of the side navigation to 250px */
   function openNav() {
-    modal.style.width = "250px";
+    modal.style.width = "280px";
   }
 
   /* Set the width of the side navigation to 0 */
