@@ -1,4 +1,4 @@
-from ..models import ProductImage, Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, Category, BlogImage
+from ..models import ProductImage, Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, Category, BlogImage, City, District
 from rest_framework import serializers
 
 
@@ -36,8 +36,22 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'
+
+
+class DictricSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields = '__all__'
+
+
 class AddressSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
+    city = CitySerializer(read_only=True)
+    district = DictricSerializer(read_only=True)
 
     class Meta:
         model = Address
