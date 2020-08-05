@@ -45,9 +45,7 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    product = serializers.StringRelatedField()
-    color = serializers.StringRelatedField()
-    size = serializers.StringRelatedField()
+    product = ProductSerializer(read_only=True)
 
     class Meta:
         model = OrderItem
