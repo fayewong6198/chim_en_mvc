@@ -211,12 +211,14 @@
         <div class="col-md-3 col-12 col-sm-6 mb-3">
           <div class="product-card">
             <img src="{{product.images.first}}">
-
+            {% if product.promotion > 0 %}
             <div class="sale">
               <div class="background-sale">
-                <p>Sale!</p>
+                <p>-{{product.promotion}}%</p>
               </div>
             </div>
+            {% endif %}
+
             <div class="product-content">
               <ul class="cart-icon">
                 <li><a href="{% url 'cart:product-detail' product.slug %} "><i data-toggle="tooltip"
@@ -239,8 +241,16 @@
           </div>
           <div class="product-info">
             <p class="pt-4">{{product.title}}</p>
-            <div><span class="price">%15.00</span>
-              <span class="discounted-price">{{product.price}}</span></div>
+            <div>
+              {% if product.promotion > 0 %}
+              <span class="price">{{product.price}}</span>
+              <span class="discounted-price">{{product.get_promotion_price}}</span>
+              {%else%}
+              <span class="discounted-price">{{product.price}}</span>
+              {% endif %}
+
+
+            </div>
           </div>
         </div>
 

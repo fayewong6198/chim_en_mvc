@@ -2,39 +2,39 @@
 
 
 <script>
-  function page_navigation(key,value) {
+  function page_navigation(key, value) {
     console.log("page_navigation");
     console.log('cc');
     _url = window.location.href;
     console.log(0);
     split_url = _url.split('?')[1];
     if (split_url != null) {
-    n = split_url.indexOf(key)
-    if (n === -1) {
-      console.log("Not found");
-      _url = _url + '&' + key + value;
-      window.location.href =  _url;
+      n = split_url.indexOf(key)
+      if (n === -1) {
+        console.log("Not found");
+        _url = _url + '&' + key + value;
+        window.location.href = _url;
+      }
+      else {
+        console.log(2);
+        i = n;
+        str = '';
+        while (i < split_url.length && split_url.charAt(i) !== '&') {
+          str += split_url.charAt(i);
+          i++;
+        }
+
+        window.location.href = window.location.href.replace(str, key + value);
+      }
     }
     else {
-      console.log(2);
-      i = n;
-      str = '';
-      while (i < split_url.length && split_url.charAt(i) !== '&') {
-        str += split_url.charAt(i);
-        i++;
-      }
-      
-    window.location.href = window.location.href.replace(str, key + value);
+      _url = _url + '?' + key;
+      _url += value;
+      window.location.href = _url;
     }
+
+
   }
-  else {
-    _url = _url + '?' + key;
-    _url += value;
-    window.location.href =  _url;
-  }
-                                
-                                
-}
 </script>
 
 
@@ -50,32 +50,37 @@
 
   <div class="site-section">
 
-       <select id="lblimit" name="lblimit" class="nb_item" onchange="page_navigation('limit=', this.options[this.selectedIndex].value)
-                                ">
-                        {% for key, value in limit_choices.items %}
-                            {% if key == limit %}
-                            <option value="{{key}}" selected>{{value}}</option>
-                            {% else %}
-                            <option value="{{key}}">{{value}}</option>
-                            {% endif %}
-                        {% endfor %}
-            </select>
 
-            <div class="sort">
-            <span>Sắp xếp</span>
-            <select class="selectProductSort" id="lbsort" onchange="page_navigation('sort=', this.options[this.selectedIndex].value)">
-                        <option value="">Mặc định</option>
-                        {% for key, value in sort_choices.items %}
-                            {% if key == limit %}
-                            <option value="{{key}}" selected>{{value}}</option>
-                            {% else %}
-                            <option value="{{key}}">{{value}}</option>
-                            {% endif %}
-                        {% endfor %}
-                        
-            </select>
-        </div>
+
     <div class="container">
+      <div class="row my-3">
+        <select id="lblimit" name="lblimit" class="nb_item" onchange="page_navigation('limit=', this.options[this.selectedIndex].value)
+        ">
+          {% for key, value in limit_choices.items %}
+          {% if key == limit %}
+          <option value="{{key}}" selected>{{value}}</option>
+          {% else %}
+          <option value="{{key}}">{{value}}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+
+        <div class="sort">
+
+          <select class="selectProductSort" id="lbsort"
+            onchange="page_navigation('sort=', this.options[this.selectedIndex].value)">
+            <option value="">Mặc định</option>
+            {% for key, value in sort_choices.items %}
+            {% if key == limit %}
+            <option value="{{key}}" selected>{{value}}</option>
+            {% else %}
+            <option value="{{key}}">{{value}}</option>
+            {% endif %}
+            {% endfor %}
+
+          </select>
+        </div>
+      </div>
       <div class="row mb-5">
         {% for product in products %}
 
@@ -85,9 +90,15 @@
             <a href="{% url 'cart:product-detail' product.slug %}">
               <div class="ct-container">
                 <img src="{{product.images.first}}" alt="" />
-                <div class="sale-block">
-                  <span>Sale!</span>
+
+                {% if product.promotion > 0 %}
+                <div class="sale">
+                  <div class="background-sale">
+                    <p>-{{product.promotion}}%</p>
+                  </div>
                 </div>
+                {% endif %}
+
               </div>
             </a>
           </figure>
@@ -96,7 +107,14 @@
             <a href="{% url 'cart:product-detail' product.slug %}">
               <h5>{{product.title}}</h5>
             </a>
-            <h5 class="mb-0 bold-text">{{product.price}}</h5>
+            <div>
+              {% if product.promotion > 0 %}
+              <del class="price">{{product.price}}</del>
+              <span class="discounted-price">{{product.get_promotion_price}}</span>
+              {%else%}
+              <span class="discounted-price">{{product.price}}</span>
+              {% endif %}
+            </div>
           </div>
           <!-- Card Actions -->
           <div class="block-4-action p-2">
@@ -277,7 +295,7 @@
           {% endfor %}
           {% if products.has_next %}
           <li class="page-item">
-            <a onclick="page_navigation('page=', {{products.next_page_number}})"  class="page-link">&raquo</a>
+            <a onclick="page_navigation('page=', {{products.next_page_number}})" class="page-link">&raquo</a>
           </li>
           {% endif %}
         </ul>
@@ -288,5 +306,3 @@
     {% endblock content %}
   </div>
 </div>
-
-

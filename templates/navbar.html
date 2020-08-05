@@ -74,15 +74,31 @@
           <div class="row justify-content-end align-items-center">
             <!-- Search -->
             <form class="search-box mr-2" action="{% url 'cart:product-list' %}">
-              <input type="text" name="search" placeholder="Search.." value={{search}}>
+              <input type="text" name="search" placeholder="Search..." value={{search}}>
               {% if limit is not None %}
               <input type="hidden" name="limit" value="{{limit}}">
               {% endif %}
             </form>
-            <a class="fa-stack has-badge" data-count="10"><i class="fab fa-gratipay"></i></a>
+
+            {% if request.session.products_in_favorite %}
+
+            <a class="fa-stack has-badge" data-count="{{ request.session.products_in_favorite }}"><i
+                class="fab fa-gratipay"></i></a>
+            {% else %}
+            <a class="fa-stack has-badge"><i class="fab fa-gratipay"></i></a>
+            {% endif %}
 
             <div class="dropdown pl-3">
-              <a class="fa-stack has-badge" data-count="10"><i class="fa fa-shopping-basket"></i></a>
+              {% if request.session.products_in_cart %}
+              <a class="fa-stack has-badge" data-count="{{ request.session.products_in_cart }}" href="/cart">
+                <i class="fa fa-shopping-basket"></i>
+              </a>
+              {% else %}
+              <a class="fa-stack has-badge" href="{% url 'cart:summary' %}">
+                <i class="fa fa-shopping-basket"></i>
+              </a>
+              {% endif %}
+
               <div class="dropdown-content right">
                 <a href="{% url 'cart:product-list'%}">Products</a>
                 <a href="">About us</a>
@@ -95,19 +111,7 @@
         </div>
       </div>
       <!-- <div class="col-5">
-          <div class="col">
-            {% if request.session.products_in_favorite %}
-            <a class="fa-stack has-badge pl-2" data-count="{{ request.session.products_in_favorite }}">
-              <i class="fa fa-heart-o fa-stack-1x"></i>
-            </a>
-
-            {% else %}
-            <a class="fa-stack has-badge pl-2">
-              <i class="fa fa-heart-o fa-stack-1x"></i>
-            </a>
-            {% endif %}
-
-          </div>
+         
 
           <div class="col">
             <div class="dropdown pl-2">
@@ -128,22 +132,7 @@
             </div>
           </div>
 
-          <div class="col-3">
-            {% if request.user.is_authenticated %}
-            <div class="dropdown">
-              <a class="bold-text" href="{% url 'login'%}">
-                <i class="fa fa-user-o"></i>
-                <span> {{request.user.username}}</span></a>
-              <div class="dropdown-content right">
-                <a href="{% url 'profile'%}">Profile</a>
-                <a href="{% url 'logout' %}">Logout</a>
-              </div>
-            </div>
-            {% else %}
-            <a class="btn" href="{% url 'login' %}">Login</a>
-
-            {% endif %}
-          </div>
+         
         </div> -->
 
     </div>
