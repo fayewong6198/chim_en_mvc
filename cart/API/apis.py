@@ -48,7 +48,7 @@ class AddressViewSet(viewsets.ModelViewSet):
     """
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):
