@@ -51,7 +51,7 @@ class DictricSerializer(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     city = CitySerializer(read_only=True)
-    district = DictricSerializer(read_only=True)
+    districts = DictricSerializer(read_only=True)
 
     class Meta:
         model = Address
