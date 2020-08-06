@@ -1,160 +1,299 @@
 {% extends "base.html" %} {% load widget_tweaks %} {% block content %}
 
-<main class="mt-5 pt-4">
-  <div class="container dark-grey-text mt-5">
-    <!--Grid row-->
-    <div class="row wow fadeIn">
-      <!--Grid column-->
-      <div class="col-md-6 mb-4">
-        <div class="img-magnifier-container">
-          <img id="myimage" src="{{object.images.first}}" class="img-fluid" alt="" />
-        </div>
-      </div>
-
-      <!--Grid column-->
-      <div class="col-md-6 mb-4">
-        <!--Content-->
+<div class="container dark-grey-text">
+  <!--Grid row-->
+  <div class="row">
+    <div class="col-12 col-lg-3 mb-5">
+      <div id="menu_area" class="menu-area">
         <div class="container">
-          <a href="">
-            <span class="badge purple mr-1">{{ object.get_category_display }}</span>
-          </a>
-
-          <h2>{{object.title}}</h2>
-
-          <p class="lead">
-            {% if object.promotion > 0 %}
-            <span class="mr-1">
-              <del>${{ object.price }}</del>
-            </span>
-            <span class="bold-text ct-primary-color">${{ object.get_promotion_price }}</span>
-            {% else %}
-            <span class=" bold-text ct-primary-color">${{ object.price }}</span>
-            {% endif %}
-          </p>
-
-          <p>{{ object.description }}</p>
-
-          <hr class="ct-divider" />
-
-          <!-- Actions -->
-          <form method="POST" class="d-flex flex-column justify-content-left">
-            <!-- Default input -->
-            <div class="p-2 d-flex">
-              {% csrf_token %} {% for field in form %}
-              <div class="form-group px-1">
-                {{ field.errors }}
-                <label for="" class="">{{ field.label_tag }}</label>
-                {{ field |add_class:'form-control' }} {% if field.help_text%}
-                <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
+          <div class="row">
+            <nav class="navbar navbar-light navbar-expand-lg mainmenu">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="py-3 p"><i class="fas fa-heart"></i>DANH MỤC CHÍNH</li>
+                  <li><a href="">Danh muc 1 (1)</a> </li>
+                  <li><a href="">Danh muc 1 (22)</a> </li>
+                  <li><a href="">Danh muc 1 (2)</a> </li>
+                  <li><a href="">Danh muc 1</a> </li>
+                  <li><a href="">Danh muc 1</a> </li>
+                  <li><a href="">Danh muc 1</a> </li>
+                  <li><a href="">Danh muc 1</a> </li>
+                </ul>
               </div>
-              {% endfor %}
-            </div>
-            <!-- Cart Actions -->
-            <div class="p-2">
-              <button class="btn btn-success" type="submit">
-                ADD TO CART
-                <i class="fa fa-cart-plus"></i>
-              </button>
-            </div>
-
-            <!-- Others Actions -->
-            <div class="p-2">
-              <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
-                <i class="fa fa-heart-o"></i> Add to Favorite
-              </button>
-              <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Compare">
-                <i class="fa fa-columns"></i> Compare
-              </button>
-            </div>
-          </form>
-
-          <hr class="ct-divider" />
-
+            </nav>
+          </div>
         </div>
-
-        <!--Content-->
       </div>
-      <!--Grid column-->
+      <div class="img-sidebar py-3">
+        <div class="hover-sidebar column">
+          <div>
+            <figure><img
+                src="https://www.thol.com.vn/pub/media/catalog/product/cache/small_image/300x300/beff4985b56e3afdbeabfc89641a4582/t/i/titanium-chocolate.jpg"
+                alt="day"></figure>
+          </div>
+          <div>
+            <figure><img
+                src="https://www.thol.com.vn/pub/media/catalog/product/cache/small_image/300x300/beff4985b56e3afdbeabfc89641a4582/t/i/titanium-chocolate.jpg"
+                alt="day"></figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="similar p-2">
+        <div class="py-3 similar-title text-center"><i class="fas fa-heart"></i>SẢN PHẨM LIÊN QUAN</div>
+        <div class="similar-product py-3">
+          <img
+            src="https://www.thol.com.vn/pub/media/catalog/product/cache/small_image/300x300/beff4985b56e3afdbeabfc89641a4582/e/v/evogen-super-huge.jpg"
+            alt="">
+          <div class="column-similar-product">
+            <span><a href="">Xin chao toi len la nguyen truong thanh</a></span>
+            <span class="price-similar-product pt-2"><a href="">2.000.000d</a></span>
+          </div>
+        </div>
+      </div>
     </div>
-    <!--Grid row-->
-    <h1>Full description </h1>
-    <p>{{ object.full_description|safe }}</p>
-    <hr />
+    <div class="col-12 col-lg-9">
+      <div class="row form-sort">
 
-    <!--Grid row-->
-    <div class="row d-flex justify-content-center wow fadeIn">
-      <!--Grid column-->
-      <div class="col-md-6 text-center">
-        <h4 class="my-4 h4">Additional information</h4>
-
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-          suscipit modi sapiente illo soluta odit voluptates, quibusdam officia.
-          Neque quibusdam quas a quis porro? Molestias illo neque eum in
-          laborum.
-        </p>
       </div>
-      <!--Grid column-->
-    </div>
-    <!--Grid row-->
-
-    <!--Grid row-->
-    <div class="row wow fadeIn">
-      <!--Grid column-->
-      <div class="col-lg-4 col-md-12 mb-4">
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="" />
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4">
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="" />
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-4 col-md-6 mb-4">
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="" />
-      </div>
-      <!--Grid column-->
-    </div>
-    <!--Grid row-->
-
-    <div class="container wow fadeIn">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3">
-          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="ct-tab active p-3" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-              aria-controls="v-pills-home" aria-selected="true">Description</a>
-            <a class="ct-tab p-3" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
-              aria-controls="v-pills-profile" aria-selected="false">Reviews</a>
+      <div class="row wow fadeIn p-3">
+        <!--Grid column-->
+        <div class="col-md-6 mb-4 description-img">
+          <div class="img-magnifier-container">
+            <img id="myimage" src="{{object.images.first}}" class="img-fluid" alt="" />
           </div>
         </div>
 
-        <div class="col-xs-12 col-sm-3">
-          <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-              <p class="lead font-weight-bold">Description</p>
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+          <!--Content-->
+          <div class="container">
+            <a href="">
+              <span class="badge purple mr-1">{{ object.get_category_display }}</span>
+            </a>
 
-              <p>{{ object.description }}</p>
-            </div>
+            <h2>{{object.title}}</h2>
 
-            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-              cc2
+            <p class="lead">
+              {% if object.promotion > 0 %}
+              <span class="mr-1">
+                <del>${{ object.price }}</del>
+              </span>
+              <span class="bold-text ct-primary-color">${{ object.get_promotion_price }}</span>
+              {% else %}
+              <span class=" bold-text ct-primary-color">${{ object.price }}</span>
+              {% endif %}
+            </p>
+
+            <p>{{ object.description }}</p>
+
+            <hr class="ct-divider" />
+
+            <!-- Actions -->
+            <form method="POST" class="d-flex flex-column justify-content-left">
+              <!-- Default input -->
+              <div class="p-2 d-flex">
+                {% csrf_token %} {% for field in form %}
+                <div class="form-group px-1">
+                  {{ field.errors }}
+                  <label for="" class="">{{ field.label_tag }}</label>
+                  {{ field |add_class:'form-control' }} {% if field.help_text%}
+                  <p class="help">{{ field.help_text|safe }}</p>
+                  {% endif %}
+                </div>
+                {% endfor %}
+              </div>
+              <!-- Cart Actions -->
+              <div class="p-2">
+                <button class="btn btn-success" type="submit">
+                  ADD TO CART
+                  <i class="fa fa-cart-plus"></i>
+                </button>
+              </div>
+
+              <!-- Others Actions -->
+              <div class="p-2">
+                <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
+                  <i class="fa fa-heart-o"></i> Add to Favorite
+                </button>
+                <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Compare">
+                  <i class="fa fa-columns"></i> Compare
+                </button>
+              </div>
+            </form>
+
+            <hr class="ct-divider" />
+
+          </div>
+
+          <!--Content-->
+        </div>
+        <!--Grid column-->
+      </div>
+
+      <div class="description my-2">
+        <div class="description-info">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#detail-info" role="tab">Chi tiết</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#more-info" role="tab">Thêm thông tin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#rating" role="tab">Các đánh giá</a>
+            </li>
+          </ul><!-- Tab panes -->
+          <div class="tab-content p-4">
+            <div class="tab-pane active" id="detail-info" role="tabpanel">
+              <img src="https://www.thol.com.vn/pub/media/wysiwyg/banner-product/IsoJect-banner.jpg"
+                alt="banner description">
+              <div class="highlight my-3 p-3">
+                <p>Cuộc chiến hương vị giữa các loại whey chưa bao giờ dừng lại. Envogen Nutrition luôn bảo đảm 100%
+                  nguồn protein tinh
+                  khiết có hương vị hoàn hảo, với những công nghệ mới nhất, để làm ra 25gram whey isolate cùng vị ngon
+                  nhưng lượng calor
+                  tối thiểu 110 calories.
+                  Isoject trải qua phương pháp lọc lạnh tiên tiến đến ba lần, đưa ra một thành phần siêu tinh khiết. Quá
+                  trình này đưa ra
+                  một lượng Glycomacropeptide (GMP- là loại peptide có hoạt tính sinh học cao, nhiều lợi ích cho cơ
+                  thể), hàm lượng này
+                  cao hơn so với quá trình lọc bằng phương pháp ion.</p>
+              </div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam doloribus tempore facere quam quod
+                modi ratione eaque, quidem ipsum pariatur! Inventore harum totam, consequuntur unde molestiae labore
+                quia ad voluptatem?</p>
+              <h1>TSỰ KHÁC BIỆT CỦA ISOJECT, CÔNG NGHỆ IGNITOR ENZYM MỚI NHẤT.</h1>
+              <img src="https://www.thol.com.vn/pub/media/wysiwyg/banner-product/IsoJect-banner.jpg" alt="">
+              <div class="row py-4">
+                <div class="col-5 col-md-3 col-sm-4"><img
+                    src="https://www.thol.com.vn/pub/media/wysiwyg/banner-product/IsoJect-banner.jpg" alt=""></div>
+                <div class="col-7 col-md-9 col-sm-8">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id
+                  debitis ut sequi hic
+                  aliquid, ,voluptatum itaque e tenetur!,voluptatum itaque e tenetur!</div>
+              </div>
+              <div class="how-to-use py-3">
+                <h3>Huong dan su dung</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur perspiciatis atque ea velit
+                  nulla eveniet sed quasi nostrum quod omnis esse, dolor voluptates dolorum, blanditiis reiciendis
+                  beatae! Modi, dolore aspernatur.</p>
+              </div>
+              <h3>Khuyen nghi</h3>
+              <div class="highlight my-3 p-3">
+                <p>Cuộc chiến hương vị giữa các loại whey chưa bao giờ dừng lại. Envogen Nutrition luôn bảo đảm 100%
+                  nguồn protein tinh
+                  khiết có hương vị hoàn hảo, với những công nghệ mới nhất, để làm ra 25gram whey isolate cùng vị ngon
+                  nhưng lượng calor
+                  tối thiểu 110 calories.
+                  Isoject trải qua phương pháp lọc lạnh tiên tiến đến ba lần, đưa ra một thành phần siêu tinh khiết. Quá
+                  trình này đưa ra
+                  một lượng Glycomacropeptide (GMP- là loại peptide có hoạt tính sinh học cao, nhiều lợi ích cho cơ
+                  thể), hàm lượng này
+                  cao hơn so với quá trình lọc bằng phương pháp ion.</p>
+              </div>
             </div>
-            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-              cc3
+            <div class="tab-pane" id="more-info" role="tabpanel">
+              <div class="row">
+                <div class="col-6 col-md-4">
+                  <p>Gia</p>
+                  <p>Ma vach</p>
+                  <p>Mau sac</p>
+                  <p>Nha san xuat</p>
+                  <p>Xuast xu</p>
+                </div>
+                <div class="col-6 col-md-8">
+                  <p>20.000.000</p>
+                  <p>ISOJECT</p>
+                  <p>Xanh da troi</p>
+                  <p>NTT</p>
+                  <p>Nhat Ban</p>
+                </div>
+
+              </div>
             </div>
-            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-              cc4
+            <div class="tab-pane py-4" id="rating" role="tabpanel">
+              <div class="row">
+                <div class="col">
+                  <label>Full name:</label>
+                  <input type="text" class="form-control" placeholder="name">
+                </div>
+              </div>
+              <div class="row pt-4">
+                <div class="col">
+                  <label>Subject :</label>
+                  <input type="text" class="form-control" placeholder="subject">
+                </div>
+              </div>
+              <div class="row pt-4">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Content</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="rating py-2">
+                <input type="radio" name="rating" value="1" id="1">
+                <label for="1" data-toggle="tooltip" data-placement="top" title="Rất tốt">☆</label>
+                <input type="radio" name="rating" value="2" id="2">
+                <label for="1" data-toggle="tooltip" data-placement="top" title="Tốt" for="2">☆</label>
+                <input type="radio" name="rating" value="3" id="3">
+                <label for="1" data-toggle="tooltip" data-placement="top" title="Bình thường" for="3">☆</label>
+                <input type="radio" name="rating" value="4" id="4">
+                <label for="1" data-toggle="tooltip" data-placement="top" title="Tệ" for="4">☆</label>
+                <input type="radio" name="rating" value="5" id="5">
+                <label for="1" data-toggle="tooltip" data-placement="top" title="Rất tệ" for="5">☆</label>
+              </div>
+              <button class="btn btn-dark">Gui danh gia</button>
             </div>
           </div>
         </div>
-
       </div>
+      <!--Grid row-->
+      <h1>San pham tuong tu </h1>
+      <p>{{ object.full_description|safe }}</p>
+      <hr />
+
     </div>
   </div>
-</main>
+</div>
+<!-- <div class="container wow fadeIn">
+  <div class="row">
+    <div class="col-xs-12 col-sm-3">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="ct-tab active p-3" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+          aria-controls="v-pills-home" aria-selected="true">Description</a>
+        <a class="ct-tab p-3" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+          aria-controls="v-pills-profile" aria-selected="false">Reviews</a>
+      </div>
+    </div>
 
-{% endblock content %}
+    <div class="col-xs-12 col-sm-3">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+          <p class="lead font-weight-bold">Description</p>
+
+          <p>{{ object.description }}</p>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          cc2
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+          cc3
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+          cc4
+        </div>
+      </div>
+    </div>
+
+  </div> -->
+
+  </main>
+
+  {% endblock content %}
