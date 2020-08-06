@@ -1,5 +1,5 @@
 from django import forms
-from .models import OrderItem, ColorVariation, Product, SizeVariation, FavoriteProduct, Payment, Address
+from .models import OrderItem, ColorVariation, Product, SizeVariation, FavoriteProduct, Payment, Address, CustommerDetail, ProductDetail
 
 
 class AddToCartForm(forms.ModelForm):
@@ -22,6 +22,13 @@ class PaymentForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = '__all__'
+
+
+class CustommerInformationForm(forms.ModelForm):
+    class Meta:
+        model = CustommerDetail
+        fields = ('full_name', 'email',
+                  'mobile', 'city', 'dictrict', 'address')
 
 
 # class Tym(forms.ModelForm):

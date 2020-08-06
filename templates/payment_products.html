@@ -1,0 +1,136 @@
+{% extends 'base.html' %} {% load widget_tweaks %}{% block content %}
+<section class="products-tab p-4 pt-5">
+  <div class="tab-title mt-5">
+    <div class="text-title-center">
+      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <a class="nav-item " 
+          aria-controls="nav-info" aria-selected="true">
+          <div class="class-flex">
+            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <p>01. Infomation</p>
+          </div>
+        </a>
+        <div class="bottom-line"></div>
+        <a class="nav-item active" 
+          aria-selected="false">
+          <div class="class-flex">
+            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <p>01. Infomation</p>
+          </div>
+        </a>
+        <div class="bottom-line"></div>
+        <a class="nav-item" 
+          aria-selected="false">
+          <div class="class-flex">
+            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <p>01. Infomation</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container">
+<div class="table-responsive text-nowrap py-3">
+            <h2>Your cart</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Item title</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total Item Price</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order_item in object.items.all %}
+                <tr class="ct-table-content">
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td><img height="64" src="{{ order_item.product.images.first }}"
+                      alt="{{ order_item.product.title }}" />
+                  </td>
+                  <td>{{ order_item.product.title }}</td>
+                  <td>{{ order_item.product.get_price }} vnđ</td>
+                  <td>
+                    <a style="color: #aaa;" href="{% url 'cart:descrease-quantity' order_item.id %}"><i
+                        class="fa fa-minus mr-2"></i></a>
+                    {{ order_item.quantity }}
+                    <a style="color: #aaa;" href="{% url 'cart:increase-quantity' order_item.id %}"><i
+                        class="fa fa-plus ml-2"></i></a>
+                  </td>
+                  <td>
+                    {% if order_item.item.discount_price %} ${{
+                              order_item.get_total_discount_item_price }}
+                    <span class="badge badge-primary">Saving ${{ order_item.get_amount_saved }}</span>
+                    {% else %} {{ order_item.get_total_item_price }} vnđ{% endif %}
+                  </td>
+                  <td> <a style="color: red;" href="{% url 'cart:remove_from_cart' order_item.id %}">
+                      <i class="fa fa-close "></i>
+                    </a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="5">Your cart is empty</td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <a class="btn btn-primary float-right" href="{% url 'cart:product-list' %}">Continue shopping</a>
+                  </td>
+                </tr>
+                {% endfor %} {% if object.coupon %}
+                <tr>
+                  <td colspan="4"><b>Coupon</b></td>
+                  <td><b>-${{ object.coupon.amount }}</b></td>
+                </tr>
+                {% endif %} {% if object.get_total %}
+                <tr>
+                  <td colspan="4"><b>Order Total</b></td>
+                  <td><b>${{ object.get_total }}</b></td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <a class="btn btn-warning float-right ml-2" href="/checkout/">Proceed to checkout</a>
+                    <a class="btn btn-primary float-right" href="/">Continue shopping</a>
+                  </td>
+                </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+          {% if object.items.count > 0 %}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row justify-content-end">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12 text-right border-bottom mb-5">
+                      <h3 class="text-black h4 text-uppercase">Cart Totals: {{object.get_total_price}} vnđ</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="back-shop py-5">
+            <a href=""><i class="fas fa-arrow-left" data-target="#nav-info-tab" data-toggle="tab"
+                class=" small text-uppercase nav nav-tabs"></i> Back</a>
+            <div class="back-shop py-5">
+            <a href=""><i class="fas fa-arrow-left"></i> Back to shop</a>
+            
+          </div>
+          <form method="POST" class"info" action="{% url 'cart:payment_process' %}">
+           {% csrf_token %} 
+            <button type="submit" value="submit"
+              class="a-button small text-uppercase nav nav-tabs"> BUYasd
+              </button>
+        </form>
+          </div>
+        </div>
+
+        {% endif %}
+</div>
+{% endblock content%}

@@ -2,13 +2,13 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from .utils import get_or_set_order_session, get_or_set_favorite_session
 from django.shortcuts import get_object_or_404, reverse
-from .forms import AddToCartForm, PaymentForm
+from .forms import AddToCartForm, PaymentForm, CustommerInformationForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
-from .models import Product, OrderItem, FavoriteProduct
+from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail
 from django.utils.decorators import method_decorator
 from .choices import limit_choices as l, price_choices, sort_choice
 
@@ -201,3 +201,90 @@ class PaymentView(generic.FormView):
         context = super(PaymentView, self).get_context_data(**kwargs)
         context["object"] = get_or_set_order_session(self.request)
         return context
+
+
+def payment_information(request):
+    form = CustommerInformationForm()
+    if request.method == "GET":
+
+        if (request.user.is_authenticated):
+            form = CustommerInformationForm(initial={
+                                            'full_name': request.user.username, 'email': request.user.email, 'mobile': request.user.mobile})
+
+        user_info = None
+
+        if ('user_info' in request.session):
+            user_info = request.session['user_info']
+
+        return render(request, 'payment_information.html', {'form': form, 'user_info': user_info})
+
+    if request.method == "POST":
+        request.session['user_info'] = request.POST
+
+        print("POST")
+        print(request.session['user_info'])
+
+        return redirect("/cart/payment_products")
+
+    return redirect('/cart/payment_information')
+
+
+def payment_products(request):
+    cart = get_or_set_order_session(request)
+    return render(request, 'payment_products.html', {'object': cart})
+
+
+def payment_process(request):
+    if (request.method == 'POST'):
+        payment = None
+
+        # Create Payment
+        try:
+            payment = Payment.objects.create()
+
+            user = request.session['user_info']
+            print(user)
+            user_info = CustommerDetail.objects.create(
+                full_name=user['full_name'], email=user['email'], mobile=user['mobile'], payment=payment)
+            print("ahih")
+            if (request.user.is_authenticated):
+                print(11)
+                user_info.user = request.user
+            print(1)
+            user_info.save()
+            print(2)
+            # Create Product details
+            cart = get_or_set_order_session(request)
+            total_price = 0
+            for item in cart.items.all():
+                # print(100)
+                # print(item.product.id)
+                # print(item.product.title)
+                # print(item.quantity)
+                # print(item.product.price)
+                # print(item.product.promotion)
+                total_price = total_price + item.get_total_item_price()
+                product = ProductDetail(payment=payment, product_id=item.product.id, product_name=item.product.title,
+                                        product_amount=item.quantity, product_price=item.product.price, product_promotion=item.product.promotion)
+                product.save()
+            print(cart.items.all())
+            print(3)
+            payment.amount = total_price
+            if (request.user.is_authenticated):
+                payment.user = request.user
+            payment.save()
+
+            cart.delete()
+            request.session['products_in_cart'] = 0
+
+            return render(request, 'payment_process.html', {'success': True})
+        except:
+            # Delete payment
+            if (payment is not None):
+                payment.delete()
+
+            return render(request, 'payment_process.html', {'success': False})
+            pass
+
+    else:
+        return redirect('/')

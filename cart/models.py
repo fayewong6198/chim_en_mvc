@@ -166,21 +166,20 @@ class Order(models.Model):
 
 
 class Payment(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, blank=True, null=True)
     STATUS_CHOICES = (
         ('S', 'spending'),
         ('P', 'Processing'),
         ('C', 'Complete'),
 
     )
-    order = models.ForeignKey(
-        Order, on_delete=models.CASCADE, related_name='payments')
     payment_method = models.CharField(max_length=20, choices=(
         ('Paypal', 'Paypal'),
-    ))
-    timestamp = models.DateTimeField(auto_now_add=True)
-    # successful = models.BooleanField(default=False)
-    amount = models.FloatField()
-    raw_response = models.TextField()
+    ), null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    amount = models.IntegerField(default=0)
+    raw_response = models.TextField(default='')
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default='S')
 
@@ -189,7 +188,7 @@ class Payment(models.Model):
 
     @property
     def reference_number(self):
-        return f"PAYMENT-{self.order}-{self.pk}"
+        return f"{self.pk}"
 
 
 def pre_save_product_receicer(sender, instance, *args, **kwargs):
@@ -218,3 +217,34 @@ class FavoriteProduct(models.Model):
 
     def __str__(self):
         return f"FavoriteProduct-{self.pk}"
+
+
+class CustommerDetail(models.Model):
+    user = models.ForeignKey(User, related_name="customer_details",
+                             on_delete=models.CASCADE, blank=True, null=True)
+    payment = models.ForeignKey(
+        Payment, related_name="customer_details", on_delete=models.CASCADE, blank=True, null=True)
+    full_name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    mobile = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, null=True, blank=True)
+    dictrict = models.CharField(max_length=255, null=True, blank=True)
+    address = models.TextField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.payment.pk} {self.full_name}"
+
+
+class ProductDetail(models.Model):
+    payment = models.ForeignKey(
+        Payment, related_name="product_details", on_delete=models.CASCADE, blank=True, null=True)
+
+    product_id = models.IntegerField()
+    product_name = models.TextField()
+    product_amount = models.IntegerField()
+    product_price = models.IntegerField()
+    product_promotion = models.IntegerField()
+
+    @property
+    def get_total_price(self):
+        return self.product_price * self.product_amount * self.product_promotion

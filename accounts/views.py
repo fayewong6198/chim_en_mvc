@@ -22,6 +22,7 @@ from django.utils.html import strip_tags
 from cart.models import Address
 
 from .models import User as UserModel
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def login(request):
@@ -112,13 +113,17 @@ def profile(request):
 
 @login_required
 def AddressView(request):
-    address = Address.objects.get(pk=request.user.address.id)
+    try:
+        address = Address.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        address = Address()
     if request.method == "GET":
         form = AddressChangeForm(instance=address)
         return render(request, 'accounts/address.html', {'form': form})
     form = AddressChangeForm(data=request.POST, instance=address)
     if form.is_valid():
         address = form.save(commit=False)
+        address.user = request.user
         address.save()
     return redirect('/accounts/profile/address')
 

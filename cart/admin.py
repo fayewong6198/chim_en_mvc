@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SizeVariation, Product, Order, OrderItem, Payment, ColorVariation, ProductImage, Category, Address, City, District
+from .models import SizeVariation, Product, Order, OrderItem, Payment, ColorVariation, ProductImage, Category, Address, City, District, CustommerDetail, ProductDetail
 
 
 class ProductImageInline(admin.TabularInline):
@@ -20,5 +20,7 @@ admin.site.register(Category)
 admin.site.register(Address)
 admin.site.register(City)
 admin.site.register(District)
+admin.site.register(CustommerDetail)
+admin.site.register(ProductDetail)
 
 # Register your models here.
