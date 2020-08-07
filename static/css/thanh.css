@@ -2387,7 +2387,8 @@ footer {
   border: 1px solid #eee;
   box-shadow: 2px 2px 2px 3px #eee;
   width: 100%;
-  height: auto;
+  height: 300px;
+  margin-bottom: 1.2rem;
 }
 
 .tabs-profile .container .row .col-lg-3 {
@@ -2395,38 +2396,31 @@ footer {
   justify-content: center;
 }
 
-.tabs-profile li.active {
-  background-color: #5fbd74 !important;
-}
-
 .tabs-profile .tab-pane {
   margin-left: 20px;
 }
-
-.tabs-profile a:hover {
-  background-color: unset !important;
+.profile-button ul li {
+  padding: unset !important;
+  border: none !important;
 }
-
-.tabs-profile li a {
-  font-size: 15px;
-  font-family: OpenSans, sans-serif;
-  font-weight: 700;
+.profile-button {
+  border-right: 2px solid #eee;
+}
+.profile-button ul li a {
+  width: 170px;
+  height: 50px;
+  border: 1px solid #5fbd74;
   color: #333;
-  padding: 0.6rem 1.4rem !important;
-  border: 1px solid #eee;
-  margin: unset !important;
-  border-radius: unset !important;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600px;
+  justify-content: center;
 }
-
-.tabs-profile li {
-  margin-bottom: 10px;
-}
-
-.tabs-profile li:hover {
-  opacity: 0.8;
+.profile-button ul li a:hover {
   background-color: #5fbd74;
+  border: 1px solid #5fbd74 !important;
 }
-
 /* login page */
 
 .login-page .container {
