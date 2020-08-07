@@ -19,7 +19,7 @@ from .tokens import account_activation_token
 from django.core import mail
 from django.conf import settings
 from django.utils.html import strip_tags
-from cart.models import Address
+from cart.models import Address, Payment
 
 from .models import User as UserModel
 from django.core.exceptions import ObjectDoesNotExist
@@ -156,3 +156,26 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
+
+
+@login_required
+def user_payments(request):
+    if (request.method == 'GET'):
+        payments = Payment.objects.filter(user=request.user)
+
+        context = {
+            'payments': payments
+        }
+
+        return render(request, 'accounts/user_payments.html', context)
+
+
+@login_required
+def user_payment(request, id):
+    if (request.method == 'GET'):
+        payment = get_object_or_404(Payment, pk=id)
+
+        if (payment.user != request.user):
+            return redirect('/')
+
+        return render(request, 'accounts/user_payment.html', {'payment': payment})
