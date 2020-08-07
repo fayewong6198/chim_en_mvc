@@ -185,7 +185,7 @@ class Payment(models.Model):
     amount = models.IntegerField(default=0)
     note = models.TextField(default='')
     status = models.CharField(
-        max_length=10, choices=STATUS_CHOICES, default='S')
+        max_length=10, choices=STATUS_CHOICES, default='Pending')
 
     def __str__(self):
         return self.reference_number
@@ -251,7 +251,7 @@ class ProductDetail(models.Model):
 
     @property
     def get_total_price(self):
-        return self.product_price * self.product_amount * self.product_promotion
+        return self.product_price * self.product_amount * (100 - self.product_promotion) / 100
 
 
 class Review(models.Model):

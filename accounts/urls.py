@@ -7,10 +7,11 @@ from accounts.API.apis import RegisterAPI, LoginAPI, UserAPI
 urlpatterns = [
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
+    path('user-payments/', views.user_payments, name='user-payments'),
+    path('user-payments/<int:id>', views.user_payment, name='user-payment'),
 
     path('logout/', views.logout, name='logout'),
     path('profile/', views.profile, name='profile'),
-    path('profile/address', views.AddressView, name='address'),
 
     path('changePassword/', views.changePassword, name='change-password'),
 

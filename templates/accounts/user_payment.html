@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {% load widget_tweaks %}
+
+{% block content %}
+<main>
+    <!-- <div class="container">
+        <section class="mb-4">
+            <div class="row wow fadeIn">
+                <div class='col-1 offset-1'>
+                    <a href="/accounts/profile" class="btn btn-outline-success my-2">profile</a>
+                    <a href="/accounts/profile/address" class="btn btn-outline-primary">Address</a>
+                </div>
+                <div class='col-6 offset-2'>
+                    <h1>Profile</h1>
+                    <form action="/accounts/profile/" method="POST">
+                        {% csrf_token %} {% for field in form %}
+                        <div class="form-group">
+                            <small class="text-danger"> {{ field.errors}}</small>
+                            {{ field.errors }}
+                            <label for="" class="">{{ field.label_tag }}</label>
+                            {{ field |add_class:'form-control' }} {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% endif %}
+
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-outline-success"> Update profile</button>
+
+                        <p class="my-1">
+                            Do you want to change your password?
+                            <a href="{% url 'change-password' %}">change password</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div> -->
+    <div class="tabs-profile">
+        <div class="container">
+            <div class="row">
+               {% include "left_tab_profile.html" %}
+                <div class="col-lg-8 col-sm-7 col-7">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_a">
+
+                            <section class="mb-4">
+                                <div class=" fadeIn">
+
+                                    <h1>User Payment #{{payment.id}}</h1>
+                                    {% for product in payment.product_details.all %}   
+                                    <p>Product Name: {{product.product_name}}</p>   
+                                    <p>Product Price: {{product.product_price}} VNĐ</p>   
+                                    <p>Product Amount: {{product.product_amount}}</p>   
+                                    <p>Product Promotion: {{product.product_promotion}}</p>   
+                                    <p>Total Product Price: {{product.get_total_price}} VNĐ</p>   
+                                    <hr />
+                                    {% endfor %}
+                                    <p>Total Price {{payment.amount}} VNĐ </p>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-pane" id="tab_b">
+                            <h3>2.</h3>
+
+                        </div>
+                        <div class="tab-pane" id="tab_c">
+                            <h3>3</h3>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+{% block extra_scripts %}
+<script>
+    //tabs-profile-
+    $(function () {
+        var $a = $(".tabs-profile li");
+        $a.click(function () {
+            $a.removeClass("active");
+            $(this).addClass("active");
+        });
+    });
+</script>
+{% endblock extra_scripts %}
