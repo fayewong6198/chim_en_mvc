@@ -276,10 +276,9 @@ def payment_process(request):
             payment.note = request.POST.get('note')
             if (request.user.is_authenticated):
                 payment.user = request.user
-            # payment.save()
-            # cart.delete()
-            # request.session['products_in_cart'] = 0
-            print(request.POST)
+            payment.save()
+            cart.delete()
+            request.session['products_in_cart'] = 0
 
             return render(request, 'payment_process.html', {'success': True})
         except:

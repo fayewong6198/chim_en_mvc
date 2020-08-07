@@ -46,9 +46,9 @@
           <form action="{% url 'cart:payment_process' %}" method="POST">
             {% csrf_token %}
             <strong> Ghi chú giao hàng :&nbsp;&nbsp;</strong>
-            <textarea style="width: 100%" name="note"></textarea>
+            <textarea row="3" name="note" class="form-control"></textarea>
             <div class="button-pay">
-              <button class="btn btn-success mt-3 text-center" type="submit" style="width:30%">PROCEED TO
+              <button class="btn btn-success mt-3 text-center" type="submit" style="width:30%">
                 ORDER</button>
             </div>
           </form>
