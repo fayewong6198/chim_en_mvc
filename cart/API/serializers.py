@@ -88,7 +88,7 @@ class ProductDetailsSerializer(serializers.ModelSerializer):
 
 class PaymentSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
-    customer_details = CustommerDetailSerializer(read_only=True)
+    customer_details = CustommerDetailSerializer(read_only=True, many=True)
     product_details = ProductDetailsSerializer(read_only=True, many=True)
 
     class Meta:
