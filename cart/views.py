@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
-from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail
+from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail, District, City
 from django.utils.decorators import method_decorator
 from .choices import limit_choices as l, price_choices, sort_choice
 
@@ -206,32 +206,30 @@ class PaymentView(generic.FormView):
 def payment_information(request):
     form = CustommerInformationForm()
     if request.method == "GET":
-
         if (request.user.is_authenticated):
-            form = CustommerInformationForm(initial={
-                                            'full_name': request.user.username, 'email': request.user.email, 'mobile': request.user.mobile})
-
+            form = CustommerInformationForm(instance=request.user)
         user_info = None
-
         if ('user_info' in request.session):
             user_info = request.session['user_info']
-
-        return render(request, 'payment_information.html', {'form': form, 'user_info': user_info})
+        districts = District.objects.all()
+        cities = City.objects.all()
+        return render(request, 'payment_information.html', {'form': form,
+                                                            'user_info': user_info,
+                                                            'districts': districts,
+                                                            'cities': cities})
 
     if request.method == "POST":
         request.session['user_info'] = request.POST
-
-        print("POST")
-        print(request.session['user_info'])
-
         return redirect("/cart/payment_products")
-
     return redirect('/cart/payment_information')
 
 
 def payment_products(request):
     cart = get_or_set_order_session(request)
-    return render(request, 'payment_products.html', {'object': cart})
+
+    ship = District.objects.get(
+        id=request.session['user_info']['district']).ship_fee
+    return render(request, 'payment_products.html', {'object': cart, 'ship': ship})
 
 
 def payment_process(request):
@@ -241,39 +239,22 @@ def payment_process(request):
         # Create Payment
         try:
             payment = Payment.objects.create()
-
             user = request.session['user_info']
-            print(user)
             user_info = CustommerDetail.objects.create(
                 full_name=user['full_name'], email=user['email'], mobile=user['mobile'], payment=payment)
-            print("ahih")
-            if (request.user.is_authenticated):
-                print(11)
-                user_info.user = request.user
-            print(1)
             user_info.save()
-            print(2)
             # Create Product details
             cart = get_or_set_order_session(request)
             total_price = 0
             for item in cart.items.all():
-                # print(100)
-                # print(item.product.id)
-                # print(item.product.title)
-                # print(item.quantity)
-                # print(item.product.price)
-                # print(item.product.promotion)
                 total_price = total_price + item.get_total_item_price()
                 product = ProductDetail(payment=payment, product_id=item.product.id, product_name=item.product.title,
                                         product_amount=item.quantity, product_price=item.product.price, product_promotion=item.product.promotion)
                 product.save()
-            print(cart.items.all())
-            print(3)
             payment.amount = total_price
             if (request.user.is_authenticated):
                 payment.user = request.user
             payment.save()
-
             cart.delete()
             request.session['products_in_cart'] = 0
 
@@ -282,9 +263,7 @@ def payment_process(request):
             # Delete payment
             if (payment is not None):
                 payment.delete()
-
             return render(request, 'payment_process.html', {'success': False})
             pass
-
     else:
         return redirect('/')
