@@ -249,6 +249,9 @@ def payment_products(request):
     user_info['address'] = request.session['user_info']['address'] + " , " + \
         district.name+" , "+district.city.name
     user_info['ship'] = ship
+    user_info['district'] = district.name
+    user_info['city'] = district.city.name
+
     request.session['user_info'] = user_info
 
     return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info})
@@ -259,10 +262,18 @@ def payment_process(request):
         payment = None
         # Create Payment
         try:
-            payment = Payment.objects.create()
             user = request.session['user_info']
-            user_info = CustommerDetail.objects.create(
-                full_name=user['full_name'], email=user['email'], mobile=user['mobile'], payment=payment)
+
+            payment = Payment.objects.create()
+            user_info = CustommerDetail.objects.create()
+            user_info.payment = payment
+            user_info.full_name = user['full_name']
+            user_info.email = user['email']
+            user_info.mobile = user['mobile']
+            user_info.dictrict = user['district']
+            user_info.city = user['city']
+            user_info.address = user['address']
+
             user_info.save()
             # Create Product details
             cart = get_or_set_order_session(request)
