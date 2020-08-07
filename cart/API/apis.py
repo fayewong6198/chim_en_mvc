@@ -1,5 +1,5 @@
-from ..models import Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage, BlogImage, Category
-from .serializers import PaymentSerializer, ProductSerializer, AddressSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer, BlogImageSerializer, CategorySerializer
+from ..models import Payment, Product, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage, BlogImage, Category
+from .serializers import PaymentSerializer, ProductSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer, BlogImageSerializer, CategorySerializer
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -39,15 +39,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [permissions.AllowAny]
-
-
-class AddressViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Address.objects.all()
-    serializer_class = AddressSerializer
     permission_classes = [permissions.AllowAny]
 
 

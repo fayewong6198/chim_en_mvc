@@ -16,7 +16,6 @@ router.register(r'payments', cart_apis.PaymentViewSet)
 router.register(r'order-items', cart_apis.OrderItemViewSet)
 router.register(r'orders', cart_apis.OrderViewSet)
 
-router.register(r'addresses', cart_apis.AddressViewSet)
 router.register(r'blog_images', cart_apis.BlogImageViewSet)
 router.register(r'categories', cart_apis.CategoryViewSet)
 
