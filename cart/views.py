@@ -266,7 +266,6 @@ def payment_process(request):
 
             payment = Payment.objects.create()
             user_info = CustommerDetail.objects.create()
-            user_info.user = request.user or null
             user_info.payment = payment
             user_info.full_name = user['full_name']
             user_info.email = user['email']
