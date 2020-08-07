@@ -284,6 +284,7 @@ def payment_process(request):
                                         product_amount=item.quantity, product_price=item.product.price, product_promotion=item.product.promotion)
                 product.save()
             payment.amount = total_price+request.session['user_info']['ship']
+            payment.ship = request.session['user_info']['ship']
             payment.note = request.POST.get('note')
             if (request.user.is_authenticated):
                 payment.user = request.user
