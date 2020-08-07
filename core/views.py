@@ -43,11 +43,12 @@ class ContactView(generic.View):
         new_contact.subject = request.POST.get('subject')
         new_contact.message = request.POST.get('message')
         new_contact.save()
-
-        send_mail(subject=request.POST.get('email')+" vừa gửi 1 câu chửi tới sếp",
-                  message=" nội dung Lời chửi bới" +
-                  request.POST.get('message'),
-                  from_email=settings.EMAIL_HOST_USER,
+        subject = request.POST.get('email')+" vừa gửi 1 câu chửi tới sếp"
+        message = " nội dung Lời chửi bới" + request.POST.get('message')
+        from_email = settings.EMAIL_HOST_USER
+        send_mail(subject=subject,
+                  message=message,
+                  from_email=from_email,
                   recipient_list=['minhthienpham0611@gmail.com'],
                   fail_silently=False,
                   auth_user=None,
