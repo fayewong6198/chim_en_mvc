@@ -74,7 +74,7 @@
               <li data-target="#view_carousel" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner" id='view_carousel'>
-              <div class="carousel-item active">
+              <!-- <div class="carousel-item active">
                 <img
                   src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg"
                   alt="First slide">
@@ -87,7 +87,14 @@
                 <img
                   src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg"
                   alt="First slide">
+              </div> -->
+              {% for image in object.images.all %}
+              {% if forloop.counter == 1 %}
+              <div class="carousel-item active">
+                <img src="{{image}}" alt="">
               </div>
+              {% endif %}
+              {% endfor %}
             </div>
             <a class="carousel-control-prev" href="#view_carousel" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>

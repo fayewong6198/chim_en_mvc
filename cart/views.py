@@ -17,7 +17,7 @@ class ProductListView(generic.TemplateView):
     template_name = 'product_list.html'
 
     def get_context_data(self, **kwargs):
-        limit = 3
+        limit = 6
         if ('limit' in self.request.GET):
             limit = self.request.GET['limit']
         products = Product.objects.all()
