@@ -183,6 +183,7 @@ class Payment(models.Model):
     ), null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField(default=0)
+    ship = models.IntegerField(max_length=255, default=0)
     note = models.TextField(default='')
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default='Pending')
@@ -234,7 +235,6 @@ class CustommerDetail(models.Model):
     city = models.CharField(max_length=255, null=True, blank=True)
     dictrict = models.CharField(max_length=255, null=True, blank=True)
     address = models.TextField(max_length=255, null=True, blank=True)
-    ship = models.IntegerField(max_length=255, default=0)
 
     def __str__(self):
         return f"{self.payment.pk} {self.full_name}"
