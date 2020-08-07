@@ -97,7 +97,7 @@
               <label>District : </label>
               <select class="form-control" name="district">
                 {% for district in districts %}
-                {% if district.id == request.user.districts.id %}
+                {% if district.id == request.user.district.id %}
                 <option value="{{district.id}}" selected>{{district.name}}</option>
                 {%else %}
                 <option value="{{district.id}}">{{district.name}}</option>
