@@ -179,7 +179,7 @@ class Payment(models.Model):
     ), null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField(default=0)
-    raw_response = models.TextField(default='')
+    note = models.TextField(default='')
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default='S')
 

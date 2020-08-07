@@ -226,10 +226,16 @@ def payment_information(request):
 
 def payment_products(request):
     cart = get_or_set_order_session(request)
+    district = District.objects.get(
+        id=request.session['user_info']['district'])
+    ship = district.ship_fee
+    user_info = request.session['user_info']
 
-    ship = District.objects.get(
-        id=request.session['user_info']['district']).ship_fee
-    return render(request, 'payment_products.html', {'object': cart, 'ship': ship})
+    total = cart.get_total_price + ship
+    address = request.session['user_info']['address'] + " , " + \
+        district.name+" , "+district.city.name
+
+    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'ship': ship, 'address': address, 'total': total})
 
 
 def payment_process(request):
