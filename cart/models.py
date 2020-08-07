@@ -67,6 +67,10 @@ class SizeVariation(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
 
+    @property
+    def get_products_number(self):
+        return self.products.all().count()
+
     def __str__(self):
         return self.title
 
@@ -248,3 +252,12 @@ class ProductDetail(models.Model):
     @property
     def get_total_price(self):
         return self.product_price * self.product_amount * self.product_promotion
+
+
+class Review(models.Model):
+    full_name = models.CharField(max_length=255)
+    subject = models.CharField(max_length=255)
+    content = models.TextField()
+    rating = models.DecimalField(max_digits=1, decimal_places=1)
+
+    created_at = models.DateTimeField(auto_now_add=True)

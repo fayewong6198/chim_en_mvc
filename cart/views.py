@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
-from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail
+from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail, Category
 from django.utils.decorators import method_decorator
 from .choices import limit_choices as l, price_choices, sort_choice
 
@@ -27,7 +27,11 @@ class ProductListView(generic.TemplateView):
         if "category" in self.request.GET:
             category = self.request.GET['category']
             if category:
-                products = products.filter(category=category)
+                try:
+                    category = Category.objects.get(title=category)
+                    products = products.filter(category=category)
+                except:
+                    pass
 
         # Search
         search = ''
@@ -58,6 +62,7 @@ class ProductListView(generic.TemplateView):
 
             self.request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
                 user=self.request.user).count()
+        categories = Category.objects.all()
 
         # Choices
         limit_choices = l
@@ -65,6 +70,7 @@ class ProductListView(generic.TemplateView):
         context['limit_choices'] = limit_choices
         context['sort_choices'] = sort_choice
         context['sort'] = sort
+        context['categories'] = categories
         context['category'] = category
         context['search'] = search
         context['liked'] = liked
@@ -111,7 +117,9 @@ class ProductDetailView(generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
+        categories = Category.objects.all()
         context['object'] = self.get_object()
+        context['categories'] = categories
         return context
 
 

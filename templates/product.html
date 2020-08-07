@@ -15,13 +15,9 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="py-3 p"><i class="fas fa-heart"></i>DANH MỤC CHÍNH</li>
-                  <li><a href="">Danh muc 1 (1)</a> </li>
-                  <li><a href="">Danh muc 1 (22)</a> </li>
-                  <li><a href="">Danh muc 1 (2)</a> </li>
-                  <li><a href="">Danh muc 1</a> </li>
-                  <li><a href="">Danh muc 1</a> </li>
-                  <li><a href="">Danh muc 1</a> </li>
-                  <li><a href="">Danh muc 1</a> </li>
+                  {% for category in categories %}
+                  <li><a href="/cart/shop?category={{category.title}}">{{category.title}} ({{category.get_products_number}})</a> </li>
+                  {% endfor %}
                 </ul>
               </div>
             </nav>
