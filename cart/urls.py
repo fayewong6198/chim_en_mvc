@@ -24,4 +24,5 @@ urlpatterns = [
     path('tym_or_unTym/<product_id>',
          views.TymOrUnTym.as_view(), name='tym'),
 
+    path('/review', views.review, name='review')
 ]

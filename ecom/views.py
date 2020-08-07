@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
-from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail, District, City, Category, Review
+from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail
 from django.utils.decorators import method_decorator
 from .choices import limit_choices as l, price_choices, sort_choice
 
@@ -27,11 +27,7 @@ class ProductListView(generic.TemplateView):
         if "category" in self.request.GET:
             category = self.request.GET['category']
             if category:
-                try:
-                    category = Category.objects.get(title=category)
-                    products = products.filter(category=category)
-                except:
-                    pass
+                products = products.filter(category=category)
 
         # Search
         search = ''
@@ -62,7 +58,6 @@ class ProductListView(generic.TemplateView):
 
             self.request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
                 user=self.request.user).count()
-        categories = Category.objects.all()
 
         # Choices
         limit_choices = l
@@ -70,7 +65,6 @@ class ProductListView(generic.TemplateView):
         context['limit_choices'] = limit_choices
         context['sort_choices'] = sort_choice
         context['sort'] = sort
-        context['categories'] = categories
         context['category'] = category
         context['search'] = search
         context['liked'] = liked
@@ -83,14 +77,11 @@ class ProductDetailView(generic.FormView):
     form_class = AddToCartForm
 
     def get_object(self):
-        print("get object")
         return get_object_or_404(Product, slug=self.kwargs["slug"])
 
     def get_success_url(self):
-        print("get success url")
         return reverse("cart:summary")
-        # return
-        # HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
+        # return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
 
     def get_form_kwargs(self):
         kwargs = super(ProductDetailView, self).get_form_kwargs()
@@ -120,13 +111,7 @@ class ProductDetailView(generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
-        categories = Category.objects.all()
-        reviews = Review.objects.filter(product=self.get_object())
-        if ('review_limit' in self.request.GET):
-            reviews = reviews[:int(self.request.GET['review_limit'])]
         context['object'] = self.get_object()
-        context['categories'] = categories
-        context['reviews'] = reviews
         return context
 
 
@@ -221,30 +206,32 @@ class PaymentView(generic.FormView):
 def payment_information(request):
     form = CustommerInformationForm()
     if request.method == "GET":
+
         if (request.user.is_authenticated):
-            form = CustommerInformationForm(instance=request.user)
+            form = CustommerInformationForm(initial={
+                                            'full_name': request.user.username, 'email': request.user.email, 'mobile': request.user.mobile})
+
         user_info = None
+
         if ('user_info' in request.session):
             user_info = request.session['user_info']
-        districts = District.objects.all()
-        cities = City.objects.all()
-        return render(request, 'payment_information.html', {'form': form,
-                                                            'user_info': user_info,
-                                                            'districts': districts,
-                                                            'cities': cities})
+
+        return render(request, 'payment_information.html', {'form': form, 'user_info': user_info})
 
     if request.method == "POST":
         request.session['user_info'] = request.POST
+
+        print("POST")
+        print(request.session['user_info'])
+
         return redirect("/cart/payment_products")
+
     return redirect('/cart/payment_information')
 
 
 def payment_products(request):
     cart = get_or_set_order_session(request)
-
-    ship = District.objects.get(
-        id=request.session['user_info']['district']).ship_fee
-    return render(request, 'payment_products.html', {'object': cart, 'ship': ship})
+    return render(request, 'payment_products.html', {'object': cart})
 
 
 def payment_process(request):
@@ -254,22 +241,39 @@ def payment_process(request):
         # Create Payment
         try:
             payment = Payment.objects.create()
+
             user = request.session['user_info']
+            print(user)
             user_info = CustommerDetail.objects.create(
                 full_name=user['full_name'], email=user['email'], mobile=user['mobile'], payment=payment)
+            print("ahih")
+            if (request.user.is_authenticated):
+                print(11)
+                user_info.user = request.user
+            print(1)
             user_info.save()
+            print(2)
             # Create Product details
             cart = get_or_set_order_session(request)
             total_price = 0
             for item in cart.items.all():
+                # print(100)
+                # print(item.product.id)
+                # print(item.product.title)
+                # print(item.quantity)
+                # print(item.product.price)
+                # print(item.product.promotion)
                 total_price = total_price + item.get_total_item_price()
                 product = ProductDetail(payment=payment, product_id=item.product.id, product_name=item.product.title,
                                         product_amount=item.quantity, product_price=item.product.price, product_promotion=item.product.promotion)
                 product.save()
+            print(cart.items.all())
+            print(3)
             payment.amount = total_price
             if (request.user.is_authenticated):
                 payment.user = request.user
             payment.save()
+
             cart.delete()
             request.session['products_in_cart'] = 0
 
@@ -278,21 +282,9 @@ def payment_process(request):
             # Delete payment
             if (payment is not None):
                 payment.delete()
+
             return render(request, 'payment_process.html', {'success': False})
             pass
+
     else:
         return redirect('/')
-
-
-def review(request):
-    if (request.method == 'POST'):
-        print(request.POST)
-        product = get_object_or_404(Product, pk=request.POST['product'])
-        params = request.POST
-        review = Review.objects.create(product=product,
-                                       full_name=params['full_name'], subject=params['subject'], content=params['content'], rating=params['rating'])
-        print(request.POST)
-
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
