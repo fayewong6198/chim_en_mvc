@@ -35,7 +35,7 @@
 
 
         <form method="POST" action="{% url 'cart:payment_information' %}" class="info p-4">
-          <h2 class="py-3">Customer Infomation</h2>
+          <h5 class="py-3"><u>Customer Infomation</u> </h5>
           {% csrf_token %}
           <div class="row">
             <div class="col">
@@ -47,7 +47,7 @@
               <input required type="text" class="form-control" placeholder="name" name="full_name"
                 value="{{user_info.full_name}}">
               {% else %}
-              <input required type="text" class="form-control" name="full_name" placeholder="name">
+              <input required type="text" class="form-control" name="full_name" placeholder="full_name">
               {% endif %}
             </div>
             <div class="col">
@@ -81,13 +81,13 @@
             <div class="col">
               <label>Address :</label>
               {% if request.user.is_authenticated %}
-              <input required type="text" class="form-control" placeholder="address" name="email"
+              <input required type="text" class="form-control" placeholder="address" name="address"
                 value="{{request.user.address}}">
               {% elif user_info is not None %}
-              <input required type="text" class="form-control" placeholder="address" name="email"
+              <input required type="text" class="form-control" placeholder="address" name="address"
                 value="{{user_info.address}}">
               {% else %}
-              <input required type="text" class="form-control" name="address" placeholder="email">
+              <input required type="text" class="form-control" name="address" placeholder="address">
               {% endif %}
 
             </div>
