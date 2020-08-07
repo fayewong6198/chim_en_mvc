@@ -211,41 +211,55 @@
 
               </div>
             </div>
+            
             <div class="tab-pane py-4" id="rating" role="tabpanel">
+            <form method="POST" action="{% url 'cart:review' %}">
+             {% csrf_token %} 
+             <input type='hidden' value='{{object.id}}' name='product'>
               <div class="row">
                 <div class="col">
                   <label>Full name:</label>
-                  <input type="text" class="form-control" placeholder="name">
+                  <input required name="full_name" type="text" class="form-control" placeholder="name">
                 </div>
               </div>
               <div class="row pt-4">
                 <div class="col">
                   <label>Subject :</label>
-                  <input type="text" class="form-control" placeholder="subject">
+                  <input required  name="subject" type="text" class="form-control" placeholder="subject">
                 </div>
               </div>
               <div class="row pt-4">
                 <div class="col">
                   <div class="form-group">
                     <label for="exampleFormControlTextarea1">Content</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea required name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                   </div>
                 </div>
               </div>
               <div class="rating py-2">
-                <input type="radio" name="rating" value="1" id="1">
+                <input type="radio" name="rating" value="1" id="1" required>
                 <label for="1" data-toggle="tooltip" data-placement="top" title="Rất tốt">☆</label>
-                <input type="radio" name="rating" value="2" id="2">
+                <input required type="radio" name="rating" value="2" id="2">
                 <label for="1" data-toggle="tooltip" data-placement="top" title="Tốt" for="2">☆</label>
-                <input type="radio" name="rating" value="3" id="3">
+                <input required type="radio" name="rating" value="3" id="3">
                 <label for="1" data-toggle="tooltip" data-placement="top" title="Bình thường" for="3">☆</label>
-                <input type="radio" name="rating" value="4" id="4">
+                <input required type="radio" name="rating" value="4" id="4">
                 <label for="1" data-toggle="tooltip" data-placement="top" title="Tệ" for="4">☆</label>
-                <input type="radio" name="rating" value="5" id="5">
+                <input required type="radio" name="rating" value="5" id="5">
                 <label for="1" data-toggle="tooltip" data-placement="top" title="Rất tệ" for="5">☆</label>
               </div>
-              <button class="btn btn-dark">Gui danh gia</button>
+              <button type="submit" value="submit" class="btn btn-dark">Gui danh gia</button>
+            </form>
+            {% for review in reviews %}
+            <p>Full Name: {{review.full_name}}</p>
+            <p>Subject: {{review.subject}}</p>
+            <p>Content: {{review.content}}</p>
+            <p>Rating: {{review.rating}}</p>
+            {% empty %}
+              <p>There is no review yet</p>
+            {% endfor %}
             </div>
+            
           </div>
         </div>
       </div>
