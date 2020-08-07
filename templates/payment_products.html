@@ -37,21 +37,24 @@
           <p><strong> Full Name:&nbsp; &nbsp;</strong> {{user_info.full_name}} </p>
           <p><strong> Phone: &nbsp;&nbsp;</strong> {{user_info.mobile}}</p>
           <p><strong> Email:&nbsp;&nbsp; </strong>{{user_info.email}}</p>
-          <p><strong> Address:&nbsp;&nbsp; </strong>{{address}}</p>
+          <p><strong> Address:&nbsp;&nbsp; </strong>{{user_info.address}}</p>
         </div>
         <div class="col-12 col-lg-6 col-sm-6">
           <p><strong> Tiền hàng :&nbsp;&nbsp;</strong> {{object.get_total_price}} vnđ</p>
-          <p><strong> Ship:&nbsp;&nbsp;</strong> {{ship}} vnđ</p>
-          <p><strong> Tổng :&nbsp;&nbsp;</strong> {{total}} vnđ</p>
-          <p><strong> Ghi chú giao hàng :&nbsp;&nbsp;</strong></p>
-          <textarea style="width: 100%"></textarea>
-
+          <p><strong> Ship:&nbsp;&nbsp;</strong> {{user_info.ship}} vnđ</p>
+          <p><strong> Tổng :&nbsp;&nbsp;</strong> {{user_info.totalprice}} vnđ</p>
+          <form action="{% url 'cart:payment_process' %}" method="POST">
+            {% csrf_token %}
+            <strong> Ghi chú giao hàng :&nbsp;&nbsp;</strong>
+            <textarea style="width: 100%" name="note"></textarea>
+            <div class="button-pay">
+              <button class="btn btn-success mt-3 text-center" type="submit" style="width:30%">PROCEED TO
+                ORDER</button>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="button-pay">
-        <button class="btn btn-success mt-3 text-center" style="width:30%">PROCEED TO
-          ORDER</button>
-      </div>
+
       <div class="back-shop my-2 justify-content-center">
         <a id="step3_prev"><i class="fas fa-arrow-left"></i> Back</a>
       </div>

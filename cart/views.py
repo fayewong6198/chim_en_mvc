@@ -238,18 +238,18 @@ def payment_products(request):
         id=request.session['user_info']['district'])
     ship = district.ship_fee
     user_info = request.session['user_info']
-
-    total = cart.get_total_price + ship
-    address = request.session['user_info']['address'] + " , " + \
+    user_info['totalprice'] = cart.get_total_price + ship
+    user_info['address'] = request.session['user_info']['address'] + " , " + \
         district.name+" , "+district.city.name
+    user_info['ship'] = ship
+    request.session['user_info'] = user_info
 
-    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'ship': ship, 'address': address, 'total': total})
+    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info})
 
 
 def payment_process(request):
     if (request.method == 'POST'):
         payment = None
-
         # Create Payment
         try:
             payment = Payment.objects.create()
@@ -265,16 +265,19 @@ def payment_process(request):
                 product = ProductDetail(payment=payment, product_id=item.product.id, product_name=item.product.title,
                                         product_amount=item.quantity, product_price=item.product.price, product_promotion=item.product.promotion)
                 product.save()
-            payment.amount = total_price
+            payment.amount = total_price+request.session['user_info']['ship']
+            payment.note = request.POST.get('note')
             if (request.user.is_authenticated):
                 payment.user = request.user
-            payment.save()
-            cart.delete()
-            request.session['products_in_cart'] = 0
+            # payment.save()
+            # cart.delete()
+            # request.session['products_in_cart'] = 0
+            print(request.POST)
 
             return render(request, 'payment_process.html', {'success': True})
         except:
             # Delete payment
+
             if (payment is not None):
                 payment.delete()
             return render(request, 'payment_process.html', {'success': False})
