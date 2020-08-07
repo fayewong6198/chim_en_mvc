@@ -29,14 +29,3 @@ class CustommerInformationForm(forms.ModelForm):
         model = CustommerDetail
         fields = ('full_name', 'email',
                   'mobile', 'city', 'dictrict', 'address')
-
-
-# class Tym(forms.ModelForm):
-
-#     class Meta:
-#         model = FavoriteProduct
-
-#     def __init__(self, *args, **kwargs):
-#         product_id = kwargs.pop('product_id')
-#         product = Product.objects.get(id=product_id)
-#         super().__init__(*args, **kwargs)
