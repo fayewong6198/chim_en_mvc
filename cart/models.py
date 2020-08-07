@@ -173,9 +173,9 @@ class Payment(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.DO_NOTHING, blank=True, null=True)
     STATUS_CHOICES = (
-        ('S', 'spending'),
-        ('P', 'Processing'),
-        ('C', 'Complete'),
+        ('Pending', 'Pending'),
+        ('Processing', 'Processing'),
+        ('Complete', 'Complete'),
 
     )
     payment_method = models.CharField(max_length=20, choices=(

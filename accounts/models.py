@@ -76,7 +76,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     address = models.CharField(max_length=255, null=True, blank=True)
 
-    districts = models.ForeignKey(
+    district = models.ForeignKey(
         'cart.District', on_delete=models.CASCADE, null=True, blank=True)
     city = models.ForeignKey(
         'cart.City', on_delete=models.CASCADE, blank=True, null=True)

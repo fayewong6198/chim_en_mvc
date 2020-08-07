@@ -31,7 +31,7 @@ class CustomUserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'first_name',
-                  'last_name', 'mobile')
+                  'last_name', 'mobile', 'city', 'district', 'address')
         widgets = {
             'username': TextInput(attrs={'class': 'form-control'}),
             'email': TextInput(attrs={'class': 'form-control'}),
