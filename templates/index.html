@@ -1,128 +1,132 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div>
-  <!-- Carousel -->
-  <div id="carouselExampleIndicators" id="top" class="carousel main-banner slide mb-5" data-ride="carousel">
-    <ol class="carousel-indicators main-carousel">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <!-- slide 1 -->
-      <div class="carousel-item main-item active">
-        <img src="https://i.pinimg.com/originals/89/61/0e/89610e51686fc18228e108cc081d0bdd.jpg" alt="First slide">
-        <!-- Static Header -->
-        <div class="header-text hidden-xs">
-          <div class="row text-center">
-            <div class="col-md-6 col-12 col-sm-12 text-center first-slide-left">
-              <img class="animated fadeInDown"
-                src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-1.png" alt="">
-              <div class="inline-leaf">
-                <img class="animated-late zoomIn"
-                  src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-2.png"></img>
-                <h3 class="pl-5 pr-5 pt-3 animated fadeInDown">Eat Organic</h3>
-                <img class="animated-late zoomOut"
-                  src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-3.png"></img>
+  <!-- Swiper -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="carousel-inner">
+          <!-- slide 1 -->
+          <div class="carousel-item main-item active">
+            <img src="https://i.pinimg.com/originals/89/61/0e/89610e51686fc18228e108cc081d0bdd.jpg" alt="First slide">
+            <!-- Static Header -->
+            <div class="header-text hidden-xs">
+              <div class="row text-center">
+                <div class="col-md-6 col-12 col-sm-12 text-center first-slide-left">
+                  <img class="animated fadeInDown"
+                    src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-1.png" alt="">
+                  <div class="inline-leaf">
+                    <img class="animated-late zoomIn"
+                      src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-2.png"></img>
+                    <h3 class="pl-5 pr-5 pt-3 animated fadeInDown">Eat Organic</h3>
+                    <img class="animated-late zoomOut"
+                      src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-3.png"></img>
+                  </div>
+
+
+                  <h6 class="pb-3 animated-fadeIn fadeIn">Reach for a healthier you with organic foods</h6>
+                  <button type="button" class="btn btn-primary animated-fadeIn fadeIn">Only $29 - Buy now</button>
+                </div>
+                <div class="col-md-6 col-12 col-sm-12 text-center first-slide-right">
+                  <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-4.png" alt="">
+                </div>
               </div>
-
-
-              <h6 class="pb-3 animated-fadeIn fadeIn">Reach for a healthier you with organic foods</h6>
-              <button type="button" class="btn btn-primary animated-fadeIn fadeIn">Only $29 - Buy now</button>
-            </div>
-            <div class="col-md-6 col-12 col-sm-12 text-center first-slide-right">
-              <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-4.png" alt="">
+            </div><!-- /header-text -->
+            <div class="img-bottom-slide">
+              <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-8.png" alt="">
             </div>
           </div>
-        </div><!-- /header-text -->
-        <div class="img-bottom-slide">
-          <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-8.png" alt="">
         </div>
       </div>
-
-      <!-- slide 2 -->
-
-      <div class="carousel-item main-item">
-        <img
-          src="https://us.123rf.com/450wm/kvitkanastroyu/kvitkanastroyu1904/kvitkanastroyu190400149/121819971-light-violet-purple-color-background-with-a-delicate-rose-floral-pattern-absract-background.jpg?ver=6"
-          alt="Second slide">
-        <!-- Static Header -->
-        <div class="header-text hidden-xs">
-          <div class="row">
-            <div class="col-md-6 col-12 col-sm-12 text-center second-slide-left">
-              <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-5.png" alt=" ">
-              <h3 class="pt-3">Reach for a healthier you with </h3>
-              <h3>Organic foods. </h3>
-              <h6 class="pb-3 pt-1">Reach for a healthier you with organic foods</h6>
-              <button type="button" class="btn btn-primary">Only $29 - Buy now</button>
-            </div>
-            <div class="col-md-6 col-12 col-sm-12 text-center second-slide-right">
-              <div class="second-slider1 animated-late zoomOut">
-                <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-2.png" alt="">
+      <div class="swiper-slide">
+        <div class="carousel-inner">
+          <!-- slide 2 -->
+          <div class="carousel-item main-item active">
+            <img
+              src="https://us.123rf.com/450wm/kvitkanastroyu/kvitkanastroyu1904/kvitkanastroyu190400149/121819971-light-violet-purple-color-background-with-a-delicate-rose-floral-pattern-absract-background.jpg?ver=6"
+              alt="Second slide">
+            <!-- Static Header -->
+            <div class="header-text hidden-xs">
+              <div class="row">
+                <div class="col-md-6 col-12 col-sm-12 text-center second-slide-left">
+                  <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-5.png" alt=" ">
+                  <h3 class="pt-3">Reach for a healthier you with </h3>
+                  <h3>Organic foods. </h3>
+                  <h6 class="pb-3 pt-1">Reach for a healthier you with organic foods</h6>
+                  <button type="button" class="btn btn-primary">Only $29 - Buy now</button>
+                </div>
+                <div class="col-md-6 col-12 col-sm-12 text-center second-slide-right">
+                  <div class="second-slider1 animated-late zoomOut">
+                    <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-2.png" alt="">
+                  </div>
+                  <div class="second-slider2  animated fadeInSpeed">
+                    <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-1.png" alt="">
+                  </div>
+                  <div class="second-slider3 animated-late zoomIn">
+                    <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-3.png" alt="">
+                  </div>
+                  <div class="second-slider4 animated-fadeIn fadeInDown">
+                    <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-4.png" alt="">
+                  </div>
+                </div>
               </div>
-              <div class="second-slider2  animated fadeInSpeed">
-                <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-1.png" alt="">
-              </div>
-              <div class="second-slider3 animated-late zoomIn">
-                <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-3.png" alt="">
-              </div>
-              <div class="second-slider4 animated-fadeIn fadeInDown">
-                <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-4.png" alt="">
-              </div>
+            </div><!-- /header-text -->
+            <div class="img-bottom-slide">
+              <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-8.png" alt="">
             </div>
           </div>
-        </div><!-- /header-text -->
-        <div class="img-bottom-slide">
-          <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-8.png" alt="">
         </div>
       </div>
-      <!-- slide 3 -->
-
-      <div class="carousel-item main-item">
-        <img src="https://img.wallpapersafari.com/tablet/2560/1700/34/54/jJafGN.png" alt="Third slide">
-        <!-- Static Header -->
-        <div class="header-text hidden-xs">
-          <div class="row">
-            <div class="col-md-6 col-12 col-sm-12 text-center carousel-left">
-              <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-5.png" alt="">
-              <h3 class="pt-3">Eat clean and green. </h3>
-              <h3>Eat Organic</h3>
-              <h6 class="pb-3 pt-1">Reach for a healthier you with organic foods</h6>
-              <button type="button" class="btn btn-primary">Only $29 - Buy now</button>
-            </div>
-            <div class="col-md-6 col-12 col-sm-12 text-center carousel-right">
-              <div class="slider1 animated fadeInSpeed">
-                <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-1.png" alt="">
+      <div class="swiper-slide">
+        <div class="carousel-inner">
+          <div class="carousel-item main-item active">
+            <img src="https://img.wallpapersafari.com/tablet/2560/1700/34/54/jJafGN.png" alt="Third slide">
+            <!-- Static Header -->
+            <div class="header-text hidden-xs">
+              <div class="row">
+                <div class="col-md-6 col-12 col-sm-12 text-center carousel-left">
+                  <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-5.png" alt="">
+                  <h3 class="pt-3">Eat clean and green. </h3>
+                  <h3>Eat Organic</h3>
+                  <h6 class="pb-3 pt-1">Reach for a healthier you with organic foods</h6>
+                  <button type="button" class="btn btn-primary">Only $29 - Buy now</button>
+                </div>
+                <div class="col-md-6 col-12 col-sm-12 text-center carousel-right">
+                  <div class="slider1 animated fadeInSpeed">
+                    <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-1.png" alt="">
+                  </div>
+                  <div class="slider4 animated-late zoomOut ">
+                    <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-4.png" alt="">
+                  </div>
+                  <div class="slider3 animated-late zoomIn ">
+                    <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-3.png" alt="">
+                  </div>
+                  <div class="slider2 animated-fadeIn fadeInDown">
+                    <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-2.png" alt="">
+                  </div>
+                </div>
               </div>
-              <div class="slider4 animated-late zoomOut ">
-                <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-4.png" alt="">
-              </div>
-              <div class="slider3 animated-late zoomIn ">
-                <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-3.png" alt="">
-              </div>
-              <div class="slider2 animated-fadeIn fadeInDown">
-                <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider3-2.png" alt="">
-              </div>
+            </div><!-- /header-text -->
+            <div class="img-bottom-slide">
+              <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-8.png" alt="">
             </div>
           </div>
-        </div><!-- /header-text -->
-      </div>
-      <div class="img-bottom-slide">
-        <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider-1-8.png" alt="">
+        </div>
       </div>
     </div>
-    <!-- Controls -->
-  </div><!-- /carousel -->
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
 
+  </div>
+  <!-- bannerhome -->
   <div class="banner-home  p-4">
     <div class="row">
-      <div class="col-md-4 col-12 col-xs-12 col-sm-12 mb-3">
+      <div class="col-lg-4 col-12 col-xs-12 col-sm-12 mb-3">
         <img src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-banner-01.png" alt="">
       </div>
-      <div class="col-md-4 col-12 col-xs-12 col-sm-12 mb-3">
+      <div class="col-lg-4 col-12 col-xs-12 col-sm-12 mb-3">
         <img src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-banner-02.png" alt="">
       </div>
-      <div class="col-md-4 col-12 col-xs-12 col-sm-12 mb-3">
+      <div class="col-lg-4 col-12 col-xs-12 col-sm-12 mb-3">
         <img src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-banner-03.png" alt="">
       </div>
     </div>
@@ -208,7 +212,7 @@
     <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
       <div class="row mt-4">
         {% for product in products %}
-        <div class="col-md-3 col-12 col-sm-6 mb-3">
+        <div class="col-lg-3 col-12 col-sm-6 mb-3">
           <div class="product-card">
             <img src="{{product.images.first}}">
             {% if product.promotion > 0 %}
@@ -451,206 +455,224 @@
 </div>
 <section class="banner-home banner-home-under p-4">
   <div class="row">
-    <div class="col-md-8 col-12 col-xs-12 col-sm-12 mb-3">
+    <div class="col-lg-8 col-12 col-xs-12 col-sm-12 mb-3">
       <img src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-banner-04.png" alt="">
     </div>
-    <div class="col-md-4 col-12 col-xs-12 col-sm-12 mb-3">
+    <div class="col-lg-4 col-12 col-xs-12 col-sm-12 mb-3">
       <img src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-banner-05.png" alt="">
     </div>
 
   </div>
 </section>
+
+<!-- reason love us -->
 <section class="reason-love p-4">
   <div class="row pt-5">
-    <div class="col-md-3 col-12 col-sm-12">
+    <div class="col-lg-3 col-12 col-sm-12">
       <h1>Why do people love us?</h1>
       <p class="py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. maiores ex assumenda exercitationem
         .</p>
       <a href="" class="view-all">View all <i class="fas fa-arrow-right"></i></a>
     </div>
-    <div class="col-md-9 col-12 col-sm-12">
-      <div id="blogCarousel" class="carousel slide view-detail" data-interval="false" data-ride="carousel">
+    <div class="col-lg-9 col-12 col-sm-12">
+      <!-- Swiper -->
+      <div class="swiper-container" id="swiper-love">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <!-- Carousel items -->
+            <div class="carousel-inner reason-love-carousel">
 
-        <ol class="carousel-indicators view-indicators">
-          <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#blogCarousel" data-slide-to="1"></li>
-        </ol>
-
-        <!-- Carousel items -->
-        <div class="carousel-inner reason-love-carousel">
-
-          <div class="carousel-item active">
-            <div class="row">
-              <div class="col-md-4 col-sm-12 col-12">
-                <div class="inner px-4" style="background-color: rgb(237, 245, 239);">
-                  <div class="quote-inner pt-4"><img
-                      src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
-                      alt=""></div>
-                  <div class="text pb-4">
-                    <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s features,
-                    design
-                    quality,
-                    flexibility, customizability and support service!
-                  </div>
-                  <div class="info">
-                    <div class="photo pr-2"><img
-                        src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
-                        class="attachment-full size-full" alt=""></div>
-                    <div class="author"> <span class="name">Askley Simpsons</span>
-                      <span class="tagline">
-                        /Designer</span>
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-4 col-sm-12 col-12">
+                    <div class="inner px-4" style="background-color: rgb(237, 245, 239);">
+                      <div class="quote-inner pt-4"><img
+                          src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
+                          alt=""></div>
+                      <div class="text pb-4">
+                        <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s
+                        features,
+                        design
+                        quality,
+                        flexibility, customizability and support service!
+                      </div>
+                      <div class="info">
+                        <div class="photo pr-2"><img
+                            src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
+                            class="attachment-full size-full" alt=""></div>
+                        <div class="author"> <span class="name">Askley Simpsons</span>
+                          <span class="tagline">
+                            /Designer</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-12 col-12 none-card">
-                <div class="inner px-4" style="background-color: #eaeff7">
-                  <div class="quote-inner pt-4"><img
-                      src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
-                      alt=""></div>
-                  <div class="text pb-4">
-                    <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s features,
-                    design
-                    quality,
-                    flexibility, customizability and support service!
-                  </div>
-                  <div class="info">
-                    <div class="photo pr-2"><img
-                        src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
-                        class="attachment-full size-full" alt=""></div>
-                    <div class="author"> <span class="name">Askley Simpsons</span>
-                      <span class="tagline">
-                        /Designer</span>
+                  <div class="col-md-4 col-sm-12 col-12">
+                    <div class="inner px-4" style="background-color: rgb(237, 245, 239);">
+                      <div class="quote-inner pt-4"><img
+                          src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
+                          alt=""></div>
+                      <div class="text pb-4">
+                        <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s
+                        features,
+                        design
+                        quality,
+                        flexibility, customizability and support service!
+                      </div>
+                      <div class="info">
+                        <div class="photo pr-2"><img
+                            src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
+                            class="attachment-full size-full" alt=""></div>
+                        <div class="author"> <span class="name">Askley Simpsons</span>
+                          <span class="tagline">
+                            /Designer</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-sm-12 col-12 none-card">
-                <div class="inner px-4" style="background-color: rgb(250, 248, 246);">
-                  <div class="quote-inner pt-4"><img
-                      src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
-                      alt=""></div>
-                  <div class="text pb-4">
-                    <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s features,
-                    design
-                    quality,
-                    flexibility, customizability and support service!
-                  </div>
-                  <div class="info">
-                    <div class="photo pr-2"><img
-                        src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
-                        class="attachment-full size-full" alt=""></div>
-                    <div class="author"> <span class="name">Askley Simpsons</span>
-                      <span class="tagline">
-                        /Designer</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--.row-->
-          </div>
-          <!--.item-->
-
-          <div class="carousel-item">
-            <div class="row">
-              <div class="col-md-4 col-sm-12 col-12 none-card">
-                <div class="inner px-4" style="background-color: rgb(250, 248, 246);">
-                  <div class="quote-inner pt-4"><img
-                      src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
-                      alt=""></div>
-                  <div class="text pb-4">
-                    <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s features,
-                    design
-                    quality,
-                    flexibility, customizability and support service!
-                  </div>
-                  <div class="info">
-                    <div class="photo pr-2"><img
-                        src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
-                        class="attachment-full size-full" alt=""></div>
-                    <div class="author"> <span class="name">Askley Simpsons</span>
-                      <span class="tagline">
-                        /Designer</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-sm-12 col-12 none-card">
-                <div class="inner px-4" style="background-color: rgb(250, 248, 246);">
-                  <div class="quote-inner pt-4"><img
-                      src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
-                      alt=""></div>
-                  <div class="text pb-4">
-                    <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s features,
-                    design
-                    quality,
-                    flexibility, customizability and support service!
-                  </div>
-                  <div class="info">
-                    <div class="photo pr-2"><img
-                        src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
-                        class="attachment-full size-full" alt=""></div>
-                    <div class="author"> <span class="name">Askley Simpsons</span>
-                      <span class="tagline">
-                        /Designer</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 col-sm-12 col-12 none-card">
-                <div class="inner px-4" style="background-color: rgb(250, 248, 246);">
-                  <div class="quote-inner pt-4"><img
-                      src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
-                      alt=""></div>
-                  <div class="text pb-4">
-                    <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s features,
-                    design
-                    quality,
-                    flexibility, customizability and support service!
-                  </div>
-                  <div class="info">
-                    <div class="photo pr-2"><img
-                        src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
-                        class="attachment-full size-full" alt=""></div>
-                    <div class="author"> <span class="name">Askley Simpsons</span>
-                      <span class="tagline">
-                        /Designer</span>
+                  <div class="col-md-4 col-sm-12 col-12">
+                    <div class="inner px-4" style="background-color: rgb(237, 245, 239);">
+                      <div class="quote-inner pt-4"><img
+                          src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
+                          alt=""></div>
+                      <div class="text pb-4">
+                        <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s
+                        features,
+                        design
+                        quality,
+                        flexibility, customizability and support service!
+                      </div>
+                      <div class="info">
+                        <div class="photo pr-2"><img
+                            src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
+                            class="attachment-full size-full" alt=""></div>
+                        <div class="author"> <span class="name">Askley Simpsons</span>
+                          <span class="tagline">
+                            /Designer</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!--.row-->
           </div>
-          <!--.item-->
+          <div class="swiper-slide">
+            <!-- Carousel items -->
+            <div class="carousel-inner reason-love-carousel">
+
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-4 col-sm-12 col-12">
+                    <div class="inner px-4" style="background-color: rgb(152, 160, 154);">
+                      <div class="quote-inner pt-4"><img
+                          src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
+                          alt=""></div>
+                      <div class="text pb-4">
+                        <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s
+                        features,
+                        design
+                        quality,
+                        flexibility, customizability and support service!
+                      </div>
+                      <div class="info">
+                        <div class="photo pr-2"><img
+                            src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
+                            class="attachment-full size-full" alt=""></div>
+                        <div class="author"> <span class="name">Askley Simpsons</span>
+                          <span class="tagline">
+                            /Designer</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12 col-12">
+                    <div class="inner px-4" style="background-color: rgb(237, 245, 239);">
+                      <div class="quote-inner pt-4"><img
+                          src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
+                          alt=""></div>
+                      <div class="text pb-4">
+                        <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s
+                        features,
+                        design
+                        quality,
+                        flexibility, customizability and support service!
+                      </div>
+                      <div class="info">
+                        <div class="photo pr-2"><img
+                            src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
+                            class="attachment-full size-full" alt=""></div>
+                        <div class="author"> <span class="name">Askley Simpsons</span>
+                          <span class="tagline">
+                            /Designer</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12 col-12">
+                    <div class="inner px-4" style="background-color: rgb(237, 245, 239);">
+                      <div class="quote-inner pt-4"><img
+                          src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
+                          alt=""></div>
+                      <div class="text pb-4">
+                        <div class="heading pb-3">Code quality!</div> ThemeMove deserves 5 star for theme’s
+                        features,
+                        design
+                        quality,
+                        flexibility, customizability and support service!
+                      </div>
+                      <div class="info">
+                        <div class="photo pr-2"><img
+                            src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-ava-02.png"
+                            class="attachment-full size-full" alt=""></div>
+                        <div class="author"> <span class="name">Askley Simpsons</span>
+                          <span class="tagline">
+                            /Designer</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <!-- <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-pagination"></div> -->
+        <!-- Add Pagination -->
+        <div class="swiper-pagination" id="swiper-pagination-love"></div>
+
       </div>
       <!--.carousel-inner-->
     </div>
     <!--.Carousel-->
   </div>
 </section>
-<!-- <div class="body">
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">Slide 1</div>
-      <div class="swiper-slide">Slide 2</div>
-      <div class="swiper-slide">Slide 3</div>
-      <div class="swiper-slide">Slide 4</div>
-      <div class="swiper-slide">Slide 5</div>
-      <div class="swiper-slide">Slide 6</div>
-      <div class="swiper-slide">Slide 7</div>
-      <div class="swiper-slide">Slide 8</div>
-      <div class="swiper-slide">Slide 9</div>
-      <div class="swiper-slide">Slide 10</div>
-    </div>
-  </div>
-</div> -->
+
 
 {% endblock content %}
+
+{% block extra_scripts %}
+
+<script type="module">
+  var swiper = new Swiper('.swiper-container', {
+    loop: true,
+    grabCursor: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+
+  });
+  // var mySwiper = new Swiper('.swiper-container', {
+  //   autoplay: {
+  //     delay: 3000,
+  //   },
+  // });
+</script>
+<script type="module">
+  var swiper = new Swiper('#swiper-love', {
+    loop: true,
+  });
+</script>
+
+{% endblock extra_scripts %}

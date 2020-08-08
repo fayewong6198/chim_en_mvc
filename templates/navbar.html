@@ -43,90 +43,88 @@
       </div>
     </div>
   </div>
-  <div class="dropdown-divider"></div>
 </div>
 
 <nav id="navbar" class="navbar-white pl-3 pr-3">
   <!-- Desktop -->
-  <div class="container">
-    <div class="container-fluid d-none d-md-block">
-      <div class="row justify-content-around">
-        <!-- Left-side -->
-        <div class="col-5">
-          <a class="navbar-brand" href="#">Organic</a>
+  <div class="container-fluid d-none d-md-block">
+    <div class="row justify-content-around">
+      <!-- Left-side -->
+      <div class="col-5">
+        <a class="navbar-brand" href="#">Organic</a>
 
-          <a class="nav-link bold-text active d-inline" href="{% url 'home' %}">Home <span
-              class="sr-only">(current)</span></a>
-          <div class="dropdown">
-            <a class="nav-link bold-text d-inline" href="#">Pages</a>
+        <a class="nav-link bold-text active d-inline" href="{% url 'home' %}">Home <span
+            class="sr-only">(current)</span></a>
+        <div class="dropdown">
+          <a class="nav-link bold-text d-inline" href="#">Pages</a>
 
-            <div class="dropdown-content">
-              <a href="{% url 'cart:product-list'%}">Products</a>
-              <a href="">About us</a>
-              <a href="{% url 'contact' %}">Contact</a>
-            </div>
+          <div class="dropdown-content">
+            <a href="{% url 'cart:product-list'%}">Products</a>
+            <a href="">About us</a>
+            <a href="{% url 'contact' %}">Contact</a>
           </div>
         </div>
+      </div>
 
-        <!-- Right side -->
-        <div class="col-6">
+      <!-- Right side -->
+      <div class="col-6">
 
-          <div class="row justify-content-end align-items-center">
-            <!-- Search -->
-            <!-- <form class="search-box mr-2" action="{% url 'cart:product-list' %}">
+        <div class="row justify-content-end align-items-center">
+          <!-- Search -->
+          <!-- <form class="search-box mr-2" action="{% url 'cart:product-list' %}">
               <input type="text" name="search" placeholder="Search..." value={{search}}>
               {% if limit is not None %}
               <input type="hidden" name="limit" value="{{limit}}">
               {% endif %} -->
-            <!-- <form class="search-box mr-2" action="{% url 'cart:product-list' %}">
+          <!-- <form class="search-box mr-2" action="{% url 'cart:product-list' %}">
                 <input type="text" name="search" placeholder="Search.." value={{search}}>
                 {% if limit is not None %}
                 <input type="hidden" name="limit" value="{{limit}}">
                 {% endif %}
                 <i class="fas fa-user-circle"></i>
               </form> -->
-            <form id="custom-search-form" class="form-search form-horizontal pull-right"
-              action="{% url 'cart:product-list' %}"">
+          <form id="custom-search-form" class="form-search form-horizontal pull-right"
+            action="{% url 'cart:product-list' %}"">
               <div class=" input-append span12">
-              {% if limit is not None %}
-              <input type="hidden" name="limit" value="{{limit}}">
-              {% endif %}
-              <input type="text" class="search-query" placeholder="Tim kiem" value={{search}}>
-              <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+            {% if limit is not None %}
+            <input type="hidden" name="limit" value="{{limit}}">
+            {% endif %}
+            <input type="text" class="search-query" placeholder="Tim kiem" value={{search}}>
+            <button type="submit" class="btn"><i class="fas fa-search"></i></button>
 
-            </form>
-          </div>
-          {% if request.session.products_in_favorite %}
+          </form>
+        </div>
+        {% if request.session.products_in_favorite %}
 
-          <a class="fa-stack has-badge" data-count="{{ request.session.products_in_favorite }}"><i
-              class="fab fa-gratipay"></i></a>
+        <a class="fa-stack has-badge" data-count="{{ request.session.products_in_favorite }}"><i
+            class="fab fa-gratipay"></i></a>
+        {% else %}
+        <a class="fa-stack has-badge"><i class="fab fa-gratipay"></i></a>
+        {% endif %}
+
+        <div class="dropdown pl-3">
+          {% if request.session.products_in_cart %}
+          <a class="fa-stack has-badge" data-count="{{ request.session.products_in_cart }}" href="/cart">
+            <i class="fa fa-shopping-basket"></i>
+          </a>
           {% else %}
-          <a class="fa-stack has-badge"><i class="fab fa-gratipay"></i></a>
+          <a class="fa-stack has-badge" href="{% url 'cart:summary' %}">
+            <i class="fa fa-shopping-basket"></i>
+          </a>
           {% endif %}
 
-          <div class="dropdown pl-3">
-            {% if request.session.products_in_cart %}
-            <a class="fa-stack has-badge" data-count="{{ request.session.products_in_cart }}" href="/cart">
-              <i class="fa fa-shopping-basket"></i>
-            </a>
-            {% else %}
-            <a class="fa-stack has-badge" href="{% url 'cart:summary' %}">
-              <i class="fa fa-shopping-basket"></i>
-            </a>
-            {% endif %}
-
-            <div class="dropdown-content right">
-              <a href="{% url 'cart:product-list'%}">Products</a>
-              <a href="">About us</a>
-              <a href="{% url 'contact' %}">Contact</a>
-            </div>
+          <div class="dropdown-content right">
+            <a href="{% url 'cart:product-list'%}">Products</a>
+            <a href="">About us</a>
+            <a href="{% url 'contact' %}">Contact</a>
           </div>
-          <!-- <a class="nav-link bold-text"><i class="fas fa-user-circle"></i></a> -->
-
         </div>
+        <!-- <a class="nav-link bold-text"><i class="fas fa-user-circle"></i></a> -->
+
       </div>
     </div>
-    <!-- <div class="col-5">
+  </div>
+  <!-- <div class="col-5">
 
         =======
     </div>
@@ -168,7 +166,6 @@
          
         </div> -->
 
-  </div>
   </div>
 
   <!-- Mobile -->

@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% load widget_tweaks %} {% block content %}
 
+
+
 <div class="container dark-grey-text">
   <!--Grid row-->
   <div class="row">
@@ -57,7 +59,7 @@
       <div class="row form-sort">
 
       </div>
-      <div class="row wow fadeIn p-3">
+      <div class="row wow fadeIn p-3 product-in-dedail">
         <!--Grid column-->
         <!-- <div class="col-md-6 mb-4 description-img">
           <div class="img-magnifier-container">
@@ -67,14 +69,15 @@
 
 
         <div class="col-12 col-md-6 col-sm-12 description-img">
-          <div id="view_carousel" class="carousel view-detail slide" data-ride="carousel">
+          <!-- comment to change carousel content -->
+          <!-- <div id="view_carousel" class="carousel view-detail slide" data-ride="carousel">
             <ol class="carousel-indicators view-indicators">
               <li data-target="#view_carousel" data-slide-to="0" class="active"></li>
               <li data-target="#view_carousel" data-slide-to="1"></li>
               <li data-target="#view_carousel" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner" id='view_carousel'>
-              <!-- <div class="carousel-item active">
+            <div class="carousel-inner" id='view_carousel'> -->
+          <!-- <div class="carousel-item active">
                 <img
                   src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg"
                   alt="First slide">
@@ -88,7 +91,7 @@
                   src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg"
                   alt="First slide">
               </div> -->
-              {% for image in object.images.all %}
+          <!-- {% for image in object.images.all %}
               {% if forloop.counter == 1 %}
               <div class="carousel-item active">
                 <img src="{{image}}" alt="">
@@ -104,18 +107,52 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
+          </div> -->
+          <div class="swiper-container gallery-top">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img
+                  src="https://img4.thuthuatphanmem.vn/uploads/2020/02/12/nhung-hinh-anh-may-man-dep-nhat_100909608.jpg"
+                  alt=""></div>
+              <div class="swiper-slide"><img
+                  src="https://img.thuthuattinhoc.vn/uploads/2019/01/13/hinh-anh-chup-anh-cuoi-de-thuong-nhat-cua-cap-doi_104523962.jpg"
+                  alt=""></div>
+              <div class="swiper-slide"><img
+                  src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg"
+                  alt=""></div>
+              <div class="swiper-slide"><img src="https://cdn.tgdd.vn/Files/2019/11/04/1215526/img_0984_800x450.jpg"
+                  alt=""></div>
+
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-white"></div>
+            <div class="swiper-button-prev swiper-button-white"></div>
+          </div>
+          <div class="swiper-container gallery-thumbs">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img
+                  src="https://img4.thuthuatphanmem.vn/uploads/2020/02/12/nhung-hinh-anh-may-man-dep-nhat_100909608.jpg"
+                  alt=""></div>
+              <div class="swiper-slide"><img
+                  src="https://img.thuthuattinhoc.vn/uploads/2019/01/13/hinh-anh-chup-anh-cuoi-de-thuong-nhat-cua-cap-doi_104523962.jpg"
+                  alt=""></div>
+              <div class="swiper-slide"><img
+                  src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg"
+                  alt=""></div>
+              <div class="swiper-slide"><img src="https://cdn.tgdd.vn/Files/2019/11/04/1215526/img_0984_800x450.jpg"
+                  alt=""></div>
+            </div>
           </div>
         </div>
         <!-- end modal quick view -->
         <!--Grid column-->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 description-info-product">
           <!--Content-->
           <div class="container">
             <a href="">
               <span class="badge purple mr-1">{{ object.get_category_display }}</span>
             </a>
 
-            <h2>{{object.title}}</h2>
+            <h2 class="pt-3">{{object.title}}</h2>
 
             <p class="lead">
               {% if object.promotion > 0 %}
@@ -184,7 +221,10 @@
               <a class="nav-link" data-toggle="tab" href="#more-info" role="tab">Thêm thông tin</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#rating" role="tab">Các đánh giá</a>
+              <a class="nav-link" data-toggle="tab" href="#rating" role="tab"> đánh giá</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#comments" role="tab">Bai đánh giá</a>
             </li>
           </ul><!-- Tab panes -->
           <div class="tab-content p-4">
@@ -303,12 +343,84 @@
               <p>There is no review yet</p>
               {% endfor %}
             </div>
+            {% for review in reviews %}
+            <div class="tab-pane" id="comments" role="tabpanel">
+              <div class="card card-comment">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-2 col-3 col-sm-3">
+                      <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                      <p class="text-secondary text-center">15 Minutes</p>
+                    </div>
+                    <div class="col-lg-10 col-9 col-sm-9">
+                      <p>
+                        <a class="float-left name-comment" href=""><strong>{{review.full_name}}</strong></a>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
 
+                      </p>
+                      <div class="clearfix"></div>
+                      <span>{{review.subject}}</span>
+                      <p class="content-comment">{{review.content}}</p>
+                      <p>
+                      <div class="text-like">
+                        <i class="fas fa-ellipsis-h ml-3" id="drop-in-comment" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false"></i>
+                        <div class="dropdown-menu" aria-labelledby="drop-in-comment">
+                          <a class="dropdown-item" href="#"></i>Delete</a>
+                          <a class="dropdown-item" href="#">Something else </a>
+                        </div>
+                        <a class=" ml-3" href=""> Reply</a>
+                        <a class="" href="">Like</a>
+                      </div>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card card-inner ml-4">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-lg-2 col-3 col-sm-3">
+                          <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                          <p class="text-secondary text-center">11 Minutes</p>
+                        </div>
+                        <div class="col-lg-10 col-9 col-sm-9">
+                          <div><a class="name-comment" href=""><strong>Minh Thien</strong></a></div>
+
+                          <span>tieu de duoc reply</span>
+                          <p class="content-comment">Lorem Ipsum is simply dummy text of the pr make but also the leap
+                            into
+                            electronic typesetting,
+                            remaining
+                            essentially unchanged.
+                            versions of Lorem Ipsum.</p>
+                          <p>
+                          <div class="text-like">
+                            <i class="fas fa-ellipsis-h ml-3" d="drop-in-comment" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown-menu" aria-labelledby="drop-in-comment">
+                              <a class="dropdown-item" href="#"></i>Delete</a>
+                              <a class="dropdown-item" href="#">Something else </a>
+                            </div>
+                            <a class="  ml-3" href=""> Reply</a>
+                            <a class="" href="">Like</a>
+                          </div>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </div>{% endfor %}
+
       </div>
       <!--Grid row-->
-      <h1>San pham tuong tu </h1>
+
+      <h1>San pham tuong tu</h1>
       <p>{{ object.full_description|safe }}</p>
       <hr />
 
@@ -351,3 +463,32 @@
 </main>
 
 {% endblock content %}
+
+{% block extra_scripts %}
+
+<!-- Initialize Swiper -->
+<script>
+  var galleryThumbs = new Swiper('.gallery-thumbs', {
+    spaceBetween: 10,
+    slidesPerView: 3,
+    loop: true,
+    freeMode: true,
+    loopedSlides: 5, //looped slides should be the same
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    grabCursor: true,
+  });
+  var galleryTop = new Swiper('.gallery-top', {
+    grabCursor: true,
+    loop: true,
+    loopedSlides: 5, //looped slides should be the same
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    thumbs: {
+      swiper: galleryThumbs,
+    },
+  });
+</script>
+{% endblock extra_scripts %}

@@ -12,8 +12,10 @@
 
 .navbar-white {
   background-color: var(--background-color) !important;
+  /* background-color: #aaaaaa !important; */
   color: var(--custom-color);
-  padding: 10px;
+  display: flex;
+  align-items: center;
   height: 80px;
   transition: height 0.3s, opacity 0.3s linear;
 }
@@ -47,7 +49,7 @@
   background-color: var(--background-color);
   min-width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 1111;
   transition: visibility 0.3s, opacity 0.5s linear;
 }
 .dropdown-content.right {
@@ -128,6 +130,7 @@
   height: 60px;
   opacity: 0.95;
   z-index: 1500;
+  background-color: #d4cfcf !important;
 }
 
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
