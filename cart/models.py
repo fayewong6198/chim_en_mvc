@@ -88,6 +88,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     promotion = models.IntegerField(default=0)
+    # available = models.IntegerField(default=1)
     # available_colors = models.ManyToManyField(ColorVariation)
     # available_sizes = models.ManyToManyField(SizeVariation)
     active = models.BooleanField(default=False)
@@ -183,7 +184,7 @@ class Payment(models.Model):
     ), null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField(default=0)
-    ship = models.IntegerField(max_length=255, default=0)
+    ship = models.IntegerField(default=0)
     note = models.TextField(default='')
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default='Pending')
