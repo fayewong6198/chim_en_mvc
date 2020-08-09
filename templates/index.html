@@ -234,12 +234,12 @@
                 <li><a href="{% url 'cart:product-detail' product.slug %} "><i data-toggle="tooltip"
                       data-placement="top" title="Add to cart" class="fa fa-cart-plus"></i></a></li>
                 {% if product.id in liked %}
-                <li><a data-toggle="modal" data-target="#wishlist" href="{% url 'cart:tym' product.id %}">
+                <li><a href="{% url 'cart:tym' product.id %}">
                     <i data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="fa fa-heart"></i></a>
                 </li>
                 {%else%}
-                <li><a data-toggle="modal" data-target="#wishlist" href="{% url 'cart:tym' product.id %}"><i
-                      data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="fa fa-heart-o"></i></a>
+                <li><a href="{% url 'cart:tym' product.id %}"><i data-toggle="tooltip" data-placement="top"
+                      title="Add to wishlist" class="fa fa-heart-o"></i></a>
                 </li>
                 {% endif %}
                 <li><a data-toggle="modal" data-target="#product{{product.id}}" href="#"><i data-toggle="tooltip"
@@ -342,7 +342,8 @@
 
                     </div>
                     <div class="compare">
-                      <i class="far fa-star pr-2"></i><span>Add to Wishlist</span>
+                      <a href="{% url 'cart:tym' product.id %}"><i class="far fa-star pr-2"></i><span>Add to
+                          favorite</span></a>
                       <i class="fas fa-compress-alt pr-2"></i><span>Compare</span>
                     </div>
                     <div class="line pb-3"></div>

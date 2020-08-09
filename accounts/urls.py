@@ -14,6 +14,8 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
 
     path('changePassword/', views.changePassword, name='change-password'),
+    path('changeEmail/', views.change_email, name='change-email'),
+
 
     # path('payment/', views.userPayments, name='user_payments'),
     # path('payment/<int:id>', views.userPayment, name='user_payment'),

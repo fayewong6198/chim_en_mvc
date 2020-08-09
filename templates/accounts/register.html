@@ -76,7 +76,7 @@
           <div class="row">
             <div class="col-12 col-md-7 text-center">
               <h2 class="mb-4">Create Account</h2>
-              <form action="/accounts/login/?next={{next}}" method="POST">
+              <form action="{% url 'register' %}" method="POST">
                 {% csrf_token %} {% for field in form %}
                 <div class="form-group">
                   {{ field.errors }}
@@ -92,7 +92,7 @@
 
                 <!-- <input type="submit" value="Login" class="btn btn-default" /> -->
                 <div class="login-welcome py-4">
-                  <button class="btn btn-primary">Sign in</button>
+                  <button class="btn btn-primary">Create</button>
                 </div>
                 <!-- <p class="my-1">
                           Don't have a account?
