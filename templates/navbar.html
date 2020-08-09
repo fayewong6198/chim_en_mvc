@@ -10,7 +10,7 @@
         {% if request.user.is_authenticated %}
         <div class="dropdown">
           <a class="bold-text" href="{% url 'login'%}">
-            <i class="fa fa-user-o"></i>
+            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" id="img-nav" />
             <span> {{request.user.username}}</span></a>
           <div class="dropdown-content right">
             <a href="{% url 'profile'%}">Profile</a>
@@ -47,7 +47,7 @@
 
 <nav id="navbar" class="navbar-white pl-3 pr-3">
   <!-- Desktop -->
-  <div class="container-fluid d-none d-md-block">
+  <div class="container d-none d-md-block">
     <div class="row justify-content-around">
       <!-- Left-side -->
       <div class="col-5">
@@ -78,7 +78,7 @@
             <input type="hidden" name="limit" value="{{limit}}">
             {% endif %}
             <input type="text" class="search-query" placeholder="Tim kiem" value="{{search}}" name="search">
-            <button type="submit" class="btn"><i class="fas fa-search"></i></button>
+            <button type="submit" class="btn"><i class="fas fa-search-plus"></i></button>
 
           </form>
         </div>

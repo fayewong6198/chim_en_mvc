@@ -123,7 +123,7 @@
           </div>
           <div class="row">
             {% for product in products %}
-            <div class="ct-product-card ct-primary-color col-lg-4 col-12" data-aos="fade-up">
+            <div class="ct-product-card ct-primary-color col-md-4 col-12" data-aos="fade-up">
               <div class="product-card">
                 <img src="{{product.images.first}}">
                 {% if product.promotion > 0 %}
@@ -161,6 +161,17 @@
                           class="fas fa-compress-alt"></i></a>
                     </li>
                   </ul>
+                </div>
+              </div>
+              <div class="product-info">
+                <p class="pt-4">{{product.title}}</p>
+                <div>
+                  {% if product.promotion > 0 %}
+                  <span class="price">{{product.price}}</span>
+                  <span class="discounted-price">{{product.get_promotion_price}}</span>
+                  {%else%}
+                  <span class="discounted-price">{{product.price}}</span>
+                  {% endif %}
                 </div>
               </div>
             </div>
