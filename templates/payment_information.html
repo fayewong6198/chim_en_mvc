@@ -3,24 +3,24 @@
   <div class="tab-title mt-5">
     <div class="text-title-center">
       <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-        <a class="nav-item " aria-controls="nav-info active" aria-selected="true">
-          <div class="class-flex">
+        <a class="nav-item active" aria-controls="nav-info active" aria-selected="true">
+          <div class="class-flex" id="step1">
             <button class="btn btn-circle"><i class="fa fa-check"></i></button>
             <p>01. Infomation</p>
           </div>
         </a>
         <div class="bottom-line"></div>
         <a class="nav-item " aria-selected="false">
-          <div class="class-flex">
+          <div class="class-flex" id="step2">
             <button class="btn btn-circle"><i class="fa fa-check"></i></button>
-            <p>01. Infomation</p>
+            <p>02. Checkout </p>
           </div>
         </a>
         <div class="bottom-line"></div>
         <a class="nav-item" aria-selected="false">
-          <div class="class-flex">
+          <div class="class-flex" id="step3">
             <button class="btn btn-circle"><i class="fa fa-check"></i></button>
-            <p>01. Infomation</p>
+            <p>03. Confirms</p>
           </div>
         </a>
       </div>
@@ -120,16 +120,61 @@
           </div>
           <div class="back-shop py-5">
             <a href=""><i class="fas fa-arrow-left"></i> Back to shop</a>
-            <button type="submit" value="submit" class="a-button small text-uppercase nav nav-tabs">NEXT
+            <button type="submit" value="submit" id="step1_next" class="a-button small text-uppercase nav nav-tabs">NEXT
             </button>
           </div>
         </form>
 
       </div>
-
-
-
     </div>
   </div>
 </div>
 {% endblock content%}
+{% block extra_scripts %}
+
+<script>
+
+  // var step1 = document.getElementById("step1");
+  // var step2 = document.getElementById("step2");
+  // var step3 = document.getElementById("step3");
+  // // var x = document.getElementById("info");
+  // //   var x = document.getElementById("check");
+  // //   var x = document.getElementById("pay");
+  // var x = document.getElementsByClassName("payment");
+  // var step1_next = document.getElementById("step1_next");
+  // var step2_prev = document.getElementById("step2_prev");
+  // var step2_next = document.getElementById("step2_next");
+  // var step3_prev = document.getElementById("step3_prev");
+  // window.onload = function () {
+  //   step1.classList.add("active")
+  //   x[0].style.display = "block";
+  //   x[1].style.display = "none";
+  //   x[2].style.display = "none";
+  // };
+  // step1_next.addEventListener("click", () => {
+  //   step2.classList.add("active")
+
+  //   x[0].style.display = "none";
+  //   x[1].style.display = "block";
+  //   x[2].style.display = "none";
+  // })
+  // step2_next.addEventListener("click", () => {
+  //   step3.classList.add("active")
+  //   x[0].style.display = "none";
+  //   x[1].style.display = "none";
+  //   x[2].style.display = "block";
+  // })
+  // step2_prev.addEventListener("click", () => {
+  //   step2.classList.remove("active")
+  //   x[0].style.display = "block";
+  //   x[1].style.display = "none";
+  //   x[2].style.display = "none";
+  // })
+  // step3_prev.addEventListener("click", () => {
+  //   step3.classList.remove("active")
+  //   x[0].style.display = "none";
+  //   x[1].style.display = "block";
+  //   x[2].style.display = "none";
+  // })
+</script>
+{% endblock extra_scripts %}
