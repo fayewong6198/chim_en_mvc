@@ -37,21 +37,23 @@
     <div class="tabs-profile">
         <div class="container">
             <div class="row">
-               {% include "left_tab_profile.html" %}
+                {% include "left_tab_profile.html" %}
                 <div class="col-lg-8 col-sm-7 col-7">
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_a">
 
                             <section class="mb-4">
-                                <div class=" fadeIn">
-
-                                    <h1>UserPayment</h1>
+                                <h3>UserPayment</h3>
+                                <div class=" fadeIn row">
                                     {% for payment in payments %}
-                                    <a href="/accounts/user-payments/{{payment.id}}">Payment #{{payment.id}}</a>
-                                    <p>Amount {{payment.amount}}</p>
-                                    <p>Status {{payment.status}}</p>
-                                    <p>Created At {{payment.created_at}} </p>
-                                    <hr/>
+                                    <div class="col-md-6 col-12">
+                                        <a href="/accounts/user-payments/{{payment.id}}">Payment #{{payment.id}}</a>
+                                        <p>Amount {{payment.amount}}</p>
+                                        <p>Status {{payment.status}}</p>
+                                        <p>Created At {{payment.created_at}} </p>
+                                        <hr />
+                                    </div>
+
                                     {% endfor %}
 
                                 </div>
