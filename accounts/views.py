@@ -158,6 +158,17 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
+def verify_change_email(request, user):
+
+    user = UserModel.objects.get(pk=user)
+    if user and request.GET.get('new_email'):
+        user.email = request.GET.get('new_email')
+        user.save()
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('This  link is invalid!')
+
+
 @ login_required
 def user_payments(request):
     if (request.method == 'GET'):
@@ -196,8 +207,8 @@ def change_email(request):
         print(current_site)
         subject = 'Change new email'
         html_message = render_to_string(
-            'accounts/acc_active_email.html', {
-                'user': user,
+            'accounts/verify_change_email.html', {
+                'user': user.id,
                 'domain': current_site.domain,
                 'new_email': request.POST['email']
             })
