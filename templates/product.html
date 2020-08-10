@@ -110,17 +110,14 @@
           </div> -->
           <div class="swiper-container gallery-top">
             <div class="swiper-wrapper">
-              <div class="swiper-slide"><img
-                  src="https://img4.thuthuatphanmem.vn/uploads/2020/02/12/nhung-hinh-anh-may-man-dep-nhat_100909608.jpg"
-                  alt=""></div>
-              <div class="swiper-slide"><img
-                  src="https://img.thuthuattinhoc.vn/uploads/2019/01/13/hinh-anh-chup-anh-cuoi-de-thuong-nhat-cua-cap-doi_104523962.jpg"
-                  alt=""></div>
-              <div class="swiper-slide"><img
-                  src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg"
-                  alt=""></div>
-              <div class="swiper-slide"><img src="https://cdn.tgdd.vn/Files/2019/11/04/1215526/img_0984_800x450.jpg"
-                  alt=""></div>
+            {% for image in object.images.all %}
+            <div class="swiper-slide">
+            <img src="{{image}}"
+                  alt="">
+              </div>
+            {% endfor %}
+              
+           
 
             </div>
             <!-- Add Arrows -->
@@ -129,17 +126,13 @@
           </div>
           <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
-              <div class="swiper-slide"><img
-                  src="https://img4.thuthuatphanmem.vn/uploads/2020/02/12/nhung-hinh-anh-may-man-dep-nhat_100909608.jpg"
-                  alt=""></div>
-              <div class="swiper-slide"><img
-                  src="https://img.thuthuattinhoc.vn/uploads/2019/01/13/hinh-anh-chup-anh-cuoi-de-thuong-nhat-cua-cap-doi_104523962.jpg"
-                  alt=""></div>
-              <div class="swiper-slide"><img
-                  src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg"
-                  alt=""></div>
-              <div class="swiper-slide"><img src="https://cdn.tgdd.vn/Files/2019/11/04/1215526/img_0984_800x450.jpg"
-                  alt=""></div>
+            {% for image in object.images.all %}
+            <div class="swiper-slide">
+            <img src="{{image}}"
+                  alt="">
+              </div>
+            {% endfor %}
+           
             </div>
           </div>
         </div>

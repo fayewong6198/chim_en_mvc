@@ -32,8 +32,10 @@
       _url += value;
       window.location.href = _url;
     }
+  }
 
-
+  function navigation_to (url) {
+    window.location.href = url;
   }
 </script>
 
@@ -105,7 +107,7 @@
               </select></div>
             <div class="col-6 col-lg-6">
               <div class="sort  sort-product-list">
-                <span>Sort by Name,Price product</span>
+                <span>Sort</span>
                 <select class="selectProductSort" id="lbsort"
                   onchange="page_navigation('sort=', this.options[this.selectedIndex].value)">
                   <option value="">Mặc định</option>
@@ -123,9 +125,11 @@
           </div>
           <div class="row">
             {% for product in products %}
+             <a href="{% url 'cart:product-detail' product.slug %}" >
             <div class="ct-product-card ct-primary-color col-lg-4 col-12" data-aos="fade-up">
               <div class="product-card">
-                <img src="{{product.images.first}}">
+
+                <img src="{{product.images.first}}"> 
                 {% if product.promotion > 0 %}
                 <div class="sale">
                   <div class="background-sale">
@@ -139,8 +143,10 @@
                 </div>
 
                 {% endif %}
+             
 
-                <div class="product-content">
+                <div class="product-content" >
+                <a href="{% url 'cart:product-detail' product.slug %}" >
                   <ul class="cart-icon">
                     <li><a href="{% url 'cart:product-detail' product.slug %} "><i data-toggle="tooltip"
                           data-placement="top" title="Add to cart" class="fa fa-cart-plus"></i></a></li>
@@ -161,10 +167,12 @@
                           class="fas fa-compress-alt"></i></a>
                     </li>
                   </ul>
+                  </a>
                 </div>
+                
               </div>
             </div>
-
+            </a>
             <!------------------ modal quick view --------------->
             <div class="modal fade bd-view-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
               id="product{{product.id}}" aria-hidden="true">

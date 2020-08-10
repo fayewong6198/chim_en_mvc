@@ -28,10 +28,11 @@ class ProductListView(generic.TemplateView):
             category = self.request.GET['category']
             if category:
                 try:
+                    print("ahih")
                     category = Category.objects.get(title=category)
                     products = products.filter(category=category)
                 except:
-                    pass
+                    products = products.filter(category=None)
 
         # Search
         search = ''
