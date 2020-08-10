@@ -161,9 +161,7 @@
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#rating" role="tab"> đánh giá</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#comments" role="tab">Bai đánh giá</a>
-            </li>
+
           </ul><!-- Tab panes -->
           <div class="tab-content p-4">
             <div class="tab-pane active" id="detail-info" role="tabpanel">
@@ -280,9 +278,8 @@
               {% empty %}
               <p>There is no review yet</p>
               {% endfor %}
-            </div>
-            {% for review in reviews %}
-            <div class="tab-pane" id="comments" role="tabpanel">
+
+              <!-- comment  -->
               <div class="card card-comment">
                 <div class="card-body">
                   <div class="row">
@@ -310,10 +307,28 @@
                           <a class="dropdown-item" href="#"></i>Delete</a>
                           <a class="dropdown-item" href="#">Something else </a>
                         </div>
-                        <a class=" ml-3" href=""> Reply</a>
-                        <a class="" href="">Like</a>
+                        <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                          aria-controls="collapseExample">
+                          Reply
+                        </a>
                       </div>
-                      </p>
+                    </div>
+                    <div class="card card-inner collapse collapse-reply" id="collapseExample">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-lg-2 col-3 col-sm-3 ">
+                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                          </div>
+                          <div class="col-lg-10 col-9 col-sm-9">
+                            <div class="mt-5">
+                              <textarea name="reply" id="" cols="30" rows="3" placeholder="Type something"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-success">Send</button>
+                            <button type="button" class="btn btn-danger mr-2" data-toggle="collapse"
+                              href="#collapseExample" role="button" aria-expanded="false">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   {% for reply in review.replies.all %}
@@ -336,63 +351,89 @@
                             <div class="dropdown-menu" aria-labelledby="drop-in-comment">
                               <a class="dropdown-item" href="#"></i>Delete</a>
                               <a class="dropdown-item" href="#">Something else </a>
-                            </div>
-                            <a class="  ml-3" href=""> Reply</a>
-                            <a class="" href="">Like</a>
+
+                              <!-- display repl comment -->
+                              <!-- <div class="card card-inner ml-4 ">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-lg-2 col-3 col-sm-3 ">
+                            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                            <p class="text-secondary text-center">11 Minutes</p>
                           </div>
-                          </p>
+                          <div class="col-lg-10 col-9 col-sm-9">
+                            <div><a class="name-comment" href=""><strong>Minh Thien</strong></a></div>
+
+                            <span>tieu de duoc reply</span>
+                            <p class="content-comment">Lorem Ipsum is simply dummy text of the pr make but also the leap
+                              into
+                              electronic typesetting,
+                              remaining
+                              essentially unchanged.
+                              versions of Lorem Ipsum.</p>
+                            <p>
+                            <div class="text-like">
+                              <i class="fas fa-ellipsis-h ml-3" d="drop-in-comment" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"></i>
+                              <div class="dropdown-menu" aria-labelledby="drop-in-comment">
+                                <a class="dropdown-item" href="#"></i>Delete</a>
+                                <a class="dropdown-item" href="#">Something else </a>
+                              </div>
+                              <a href=""> Reply</a>
+                            </div>
+                            </p>
+                          </div>
                         </div>
                       </div>
+                    </div> -->
+                            </div>
+                            {% endfor %}
+                          </div>
+                          {% for review in reviews %}
+
+                        </div>
+                      </div>{% endfor %}
+
                     </div>
+                    <!--Grid row-->
+
+                    <h1>San pham tuong tu</h1>
+                    <p>{{ object.full_description|safe }}</p>
+                    <hr />
+
                   </div>
-                  {% endfor %}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>{% endfor %}
-
-      </div>
-      <!--Grid row-->
-
-      <h1>San pham tuong tu</h1>
-      <p>{{ object.full_description|safe }}</p>
-      <hr />
-
-    </div>
-  </div>
-</div>
 
 
-</main>
+              </main>
 
-{% endblock content %}
+              {% endblock content %}
 
-{% block extra_scripts %}
+              {% block extra_scripts %}
 
-<!-- Initialize Swiper -->
-<script>
-  var galleryThumbs = new Swiper('.gallery-thumbs', {
-    spaceBetween: 10,
-    slidesPerView: 3,
-    loop: true,
-    freeMode: true,
-    loopedSlides: 5, //looped slides should be the same
-    watchSlidesVisibility: true,
-    watchSlidesProgress: true,
-    grabCursor: true,
-  });
-  var galleryTop = new Swiper('.gallery-top', {
-    grabCursor: true,
-    loop: true,
-    loopedSlides: 5, //looped slides should be the same
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    thumbs: {
-      swiper: galleryThumbs,
-    },
-  });
-</script>
-{% endblock extra_scripts %}
+              <!-- Initialize Swiper -->
+              <script>
+                var galleryThumbs = new Swiper('.gallery-thumbs', {
+                  spaceBetween: 10,
+                  slidesPerView: 3,
+                  loop: true,
+                  freeMode: true,
+                  loopedSlides: 5, //looped slides should be the same
+                  watchSlidesVisibility: true,
+                  watchSlidesProgress: true,
+                  grabCursor: true,
+                });
+                var galleryTop = new Swiper('.gallery-top', {
+                  grabCursor: true,
+                  loop: true,
+                  loopedSlides: 5, //looped slides should be the same
+                  navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                  },
+                  thumbs: {
+                    swiper: galleryThumbs,
+                  },
+                });
+              </script>
+              {% endblock extra_scripts %}

@@ -737,19 +737,22 @@ html {
 
 .product-card {
   overflow: hidden !important;
-  border: 3px solid #eee;
 }
 
 .product-card img {
   width: 100%;
-  height: 100%;
+  height: 240px;
   object-fit: cover;
   object-position: center;
+  border: 2px solid #eee;
   transition: all 0.5s ease-in-out;
 }
 
 .product-card:hover img {
-  transform: scale(1.2) !important;
+  transform: scale(1.1) !important;
+  z-index: 99999999;
+  position: relative;
+  border-bottom: 2px solid #5fbd74 !important;
 }
 
 .product-card .product-content {
@@ -770,7 +773,7 @@ html {
   justify-content: center;
   align-items: center;
   position: relative;
-  padding-left: unset;
+  padding-left: 20px;
   margin-bottom: 10px !important;
   transform: perspective(100px) rotateX(-50) rotateY(0) rotateZ(0);
   transition: all 0.6s cubic-bezier(0, 0, 0.58, 1) 0s;
@@ -2077,7 +2080,12 @@ footer {
   text-transform: uppercase;
   padding: 1rem;
 }
-
+.description-view-img img {
+  height: 385px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 .description-img {
   padding: unset !important;
   border: 2px solid #eee !important;
@@ -2182,6 +2190,15 @@ footer {
   flex-direction: row-reverse;
   justify-content: flex-end;
 }
+.collapse-reply textarea {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+.collapse-reply button {
+  float: right;
+}
+
 .card-comment .row {
   display: flex;
   align-items: center;
