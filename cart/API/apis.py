@@ -10,6 +10,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 
+
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+
 import json
 
 from django.http import HttpResponse
@@ -22,6 +26,10 @@ class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     permission_classes = [permissions.AllowAny]
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filterset_fields = ['status', 'note']
+
+    search_fields = ['status']
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -31,6 +39,10 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [permissions.AllowAny]
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filterset_fields = ['title']
+
+    search_fields = ['title']
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -40,6 +52,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.AllowAny]
+
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filterset_fields = ['title']
+
+    search_fields = ['title']
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):
@@ -58,6 +75,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [permissions.AllowAny]
+
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filterset_fields = ['']
+
+    search_fields = ['']
 
 
 class ProductImageView(APIView):
@@ -139,6 +161,11 @@ class CityViewSet(viewsets.ModelViewSet):
     serializer_class = CitySerializer
     permission_classes = [permissions.AllowAny]
 
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filterset_fields = ['name']
+
+    search_fields = ['name']
+
 
 class DistrictViewSet(viewsets.ModelViewSet):
     """
@@ -147,3 +174,7 @@ class DistrictViewSet(viewsets.ModelViewSet):
     queryset = District.objects.all()
     serializer_class = DistrictSerializer
     permission_classes = [permissions.AllowAny]
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filterset_fields = ['name']
+
+    search_fields = ['name']

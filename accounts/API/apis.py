@@ -8,6 +8,10 @@ from django.shortcuts import get_object_or_404
 from ecom.pagination import StandardResultsSetPagination, PaginationHandlerMixin, LargeResultsSetPagination
 
 
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -15,7 +19,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
-    pagination_class = StandardResultsSetPagination
 
 
 class RegisterAPI(generics.GenericAPIView):
