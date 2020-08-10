@@ -30,8 +30,8 @@
 
         {% endif %}
         <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+          <button class="btn btn-primary dropdown-toggle language" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Languages
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -87,7 +87,8 @@
         <a class="fa-stack has-badge" href="{% url 'favorites' %}"
           data-count="{{ request.session.products_in_favorite }}"><i class="fab fa-gratipay"></i></a>
         {% else %}
-        <a class="fa-stack has-badge"><i class="fab fa-gratipay"></i></a>
+        <a class="fa-stack has-badge"><i data-toggle="tooltip" data-placement="top" title="Wishlist"
+            class="fab fa-gratipay"></i></a>
         {% endif %}
 
         <div class="dropdown pl-3">
@@ -97,7 +98,7 @@
           </a>
           {% else %}
           <a class="fa-stack has-badge" href="{% url 'cart:summary' %}">
-            <i class="fa fa-shopping-basket"></i>
+            <i data-toggle="tooltip" data-placement="top" title="Badge" class="fa fa-shopping-basket"></i>
           </a>
           {% endif %}
         </div>

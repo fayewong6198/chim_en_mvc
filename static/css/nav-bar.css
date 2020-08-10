@@ -136,9 +136,10 @@
 .content {
   padding: 16px;
 }
+
 #img-nav {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 }
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */
@@ -441,6 +442,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+.language {
+  padding-bottom: 10px !important;
 }
 .top-nav .header-right {
   font-size: 15px;
