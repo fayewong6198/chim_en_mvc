@@ -75,7 +75,7 @@ def register(request):
         html_message = render_to_string(
             'accounts/acc_active_email.html', {
                 'user': user,
-                # 'domain': current_site.domain,
+                'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
@@ -188,21 +188,18 @@ def change_email(request):
         form = ChangeEmailForm()
         return render(request, 'accounts/change_email.html', {'form': form, 'url': 'change-email'})
 
-    form = RegisterForm(request.POST)
+    form = ChangeEmailForm(request.POST)
     if form.is_valid():
 
         user = request.user
-        user.is_active = False
-        user.save()
         current_site = get_current_site(request)
-
+        print(current_site)
         subject = 'Change new email'
         html_message = render_to_string(
             'accounts/acc_active_email.html', {
                 'user': user,
-                # 'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
+                'domain': current_site.domain,
+                'new_email': request.POST['email']
             })
         plain_message = strip_tags(html_message)
         from_email = settings.EMAIL_HOST_USER

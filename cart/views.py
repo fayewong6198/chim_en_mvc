@@ -197,17 +197,6 @@ class TymOrUnTym(generic.View):
             user=request.user).count()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-        # if favorite_item:
-        #     favorite_item.delete()
-        # else:
-        #     favorite = get_or_set_favorite_session(self.request)
-        #     product = self.get_object()
-
-        #     new_tym = Favorite()
-        #     new_tym.product = product
-        #     new_tym.order = favorite
-        #     new_tym.save()
-
 
 class PaymentView(generic.FormView):
     template_name = 'payment.html'
@@ -237,27 +226,24 @@ def payment_information(request):
 
     if request.method == "POST":
         request.session['user_info'] = request.POST
-        print(request.session['user_info'])
+
         return redirect("/cart/payment_products")
     return redirect('/cart/payment_information')
 
 
 def payment_products(request):
+
+    user_info = request.session.get('user_info')
     cart = get_or_set_order_session(request)
     district = District.objects.get(
-        id=request.session['user_info']['district'])
+        id=user_info['district'])
     ship = district.ship_fee
-    user_info = request.session['user_info']
     user_info['totalprice'] = cart.get_total_price + ship
-    user_info['address'] = request.session['user_info']['address'] + " , " + \
+    address = request.session['user_info']['address'] + " , " + \
         district.name+" , "+district.city.name
     user_info['ship'] = ship
-    user_info['district'] = district.name
-    user_info['city'] = district.city.name
 
-    request.session['user_info'] = user_info
-
-    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info})
+    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'address': address})
 
 
 def payment_process(request):
@@ -265,7 +251,10 @@ def payment_process(request):
         payment = None
         # Create Payment
         try:
+
             user = request.session['user_info']
+            district = District.objects.get(
+                id=user['district'])
 
             payment = Payment.objects.create()
             user_info = CustommerDetail.objects.create()
@@ -273,24 +262,36 @@ def payment_process(request):
             user_info.full_name = user['full_name']
             user_info.email = user['email']
             user_info.mobile = user['mobile']
-            user_info.dictrict = user['district']
-            user_info.city = user['city']
+            user_info.dictrict = district.name
+            user_info.city = district.city.name
             user_info.address = user['address']
 
             user_info.save()
+            print(1)
             # Create Product details
             cart = get_or_set_order_session(request)
             total_price = 0
+            print(cart)
+
             for item in cart.items.all():
                 total_price = total_price + item.get_total_item_price()
-                product = ProductDetail(payment=payment, product_id=item.product.id, product_name=item.product.title,
-                                        product_amount=item.quantity, product_price=item.product.price, product_promotion=item.product.promotion)
+                product = ProductDetail(payment=payment,
+                                        product_id=item.product.id,
+                                        product_name=item.product.title,
+                                        image=item.product.images.first,
+                                        product_amount=item.quantity,
+                                        product_price=item.product.price,
+                                        product_promotion=item.product.promotion)
                 product.save()
+            print(3)
+
             payment.amount = total_price+request.session['user_info']['ship']
+
             payment.ship = request.session['user_info']['ship']
             payment.note = request.POST.get('note')
             if (request.user.is_authenticated):
                 payment.user = request.user
+
             payment.save()
             cart.delete()
             request.session['products_in_cart'] = 0

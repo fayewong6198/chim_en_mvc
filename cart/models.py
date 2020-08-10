@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.shortcuts import reverse
-
+from datetime import datetime
 User = get_user_model()
 
 
@@ -85,7 +85,7 @@ class Product(models.Model):
     description = models.TextField()
     full_description = models.TextField(null=True, blank=True, default="")
     price = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=datetime.now())
     updated = models.DateTimeField(auto_now=True)
     promotion = models.IntegerField(default=0)
     # available = models.IntegerField(default=1)
@@ -149,7 +149,7 @@ class OrderItem(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True, related_name="orders")
-    start_date = models.DateTimeField(auto_now_add=True)
+    start_date = models.DateTimeField(default=datetime.now())
     ordered_date = models.DateTimeField(blank=True, null=True)
     ordered = models.BooleanField(default=False)
     order_address = models.ForeignKey(
@@ -182,7 +182,7 @@ class Payment(models.Model):
     payment_method = models.CharField(max_length=20, choices=(
         ('Paypal', 'Paypal'),
     ), null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=datetime.now())
     amount = models.IntegerField(default=0)
     ship = models.IntegerField(default=0)
     note = models.TextField(default='')
@@ -265,7 +265,7 @@ class Review(models.Model):
     content = models.TextField()
     rating = models.IntegerField(range(0, 6))
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=datetime.now())
 
 
 class Reply(models.Model):
@@ -274,4 +274,4 @@ class Reply(models.Model):
         Review, on_delete=models.CASCADE, related_name="replies")
     full_name = models.CharField(max_length=255)
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=datetime.now())

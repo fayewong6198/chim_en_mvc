@@ -23,9 +23,9 @@
 <body>
     <h1>Hey !!! Hi, {{ user.username }}</h1>
 
-    <h3>Click confirm to activate your account</h3>
+    <h3>Click confirm to change your email</h3>
     <button class="btn btn-outline-success">
-        <a href="http://{{ domain }}/accounts/activate/{{uid}}/{{token}}" class="">
+        <a href="http://{{ domain }}/accounts/change-email<str:user>?new_email={{ new_email}}" class="">
             Confirm
         </a>
     </button>
