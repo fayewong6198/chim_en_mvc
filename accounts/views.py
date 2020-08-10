@@ -102,16 +102,16 @@ def profile(request):
     if request.method == "GET":
         form = CustomUserChangeForm(instance=request.user)
 
-        return render(request, 'accounts/profile.html', {'form': form})
+        return render(request, 'accounts/profile.html', {'form': form, 'url': 'profile'})
     form = CustomUserChangeForm(data=request.POST, instance=request.user)
 
     if form.is_valid():
         user = form.save(commit=False)
         user.save()
-    return redirect('/accounts/profile')
+    return redirect('/accounts/profile', {'url': 'profile'})
 
 
-@login_required
+@ login_required
 def AddressView(request):
     try:
         address = Address.objects.get(user=request.user)
@@ -128,11 +128,11 @@ def AddressView(request):
     return redirect('/accounts/profile/address')
 
 
-@login_required
+@ login_required
 def changePassword(request):
     if request.method == "GET":
         form = CustomPasswordChangeForm(request.user)
-        return render(request, 'accounts/password_change.html', {'form': form})
+        return render(request, 'accounts/password_change.html', {'form': form,  'url': 'change-password'})
 
     form_edit_password = CustomPasswordChangeForm(
         request.user, data=request.POST)
@@ -140,7 +140,7 @@ def changePassword(request):
         form_edit_password.save()
         return redirect('/accounts/profile')
     else:
-        return render(request, 'accounts/password_change.html', {'form': form_edit_password})
+        return render(request, 'accounts/password_change.html', {'form': form_edit_password, 'url': 'change-password'})
 
 
 def activate(request, uidb64, token):
@@ -158,19 +158,20 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
-@login_required
+@ login_required
 def user_payments(request):
     if (request.method == 'GET'):
         payments = Payment.objects.filter(user=request.user)
 
         context = {
-            'payments': payments
+            'payments': payments,
+            'url': 'payment'
         }
 
         return render(request, 'accounts/user_payments.html', context)
 
 
-@login_required
+@ login_required
 def user_payment(request, id):
     if (request.method == 'GET'):
         payment = get_object_or_404(Payment, pk=id)
@@ -178,15 +179,14 @@ def user_payment(request, id):
         if (payment.user != request.user):
             return redirect('/')
 
-        return render(request, 'accounts/user_payment.html', {'payment': payment})
+        return render(request, 'accounts/user_payment.html', {'payment': payment, 'url': 'payment'})
 
 
-@login_required
+@ login_required
 def change_email(request):
-
     if request.method == "GET":
         form = ChangeEmailForm()
-        return render(request, 'accounts/change_email.html', {'form': form})
+        return render(request, 'accounts/change_email.html', {'form': form, 'url': 'change-email'})
 
     form = RegisterForm(request.POST)
     if form.is_valid():
@@ -219,4 +219,4 @@ def change_email(request):
 
         # messages.success(request, 'Register success')
 
-    return render(request, 'accounts/change_email.html', {'form': form})
+    return render(request, 'accounts/change_email.html', {'form': form, 'url': 'change-email'})

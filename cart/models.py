@@ -245,6 +245,7 @@ class ProductDetail(models.Model):
     payment = models.ForeignKey(
         Payment, related_name="product_details", on_delete=models.CASCADE, blank=True, null=True)
 
+    image = models.CharField(max_length=255, blank=True, null=True, default="")
     product_id = models.IntegerField()
     product_name = models.TextField()
     product_amount = models.IntegerField()
@@ -268,6 +269,7 @@ class Review(models.Model):
 
 
 class Reply(models.Model):
+
     review = models.ForeignKey(
         Review, on_delete=models.CASCADE, related_name="replies")
     full_name = models.CharField(max_length=255)

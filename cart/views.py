@@ -181,11 +181,13 @@ class TymOrUnTym(generic.View):
     def get(self, request, *args, **kwargs):
         product = Product.objects.get(pk=kwargs['product_id'])
         try:
+
             favorite = FavoriteProduct.objects.get(
                 product=product.id, user=request.user)
+            print("Delete")
             favorite.delete()
         except FavoriteProduct.DoesNotExist:
-
+            print("add new")
             new_favorite = FavoriteProduct()
             new_favorite.user = request.user
             new_favorite.product = product
@@ -194,6 +196,17 @@ class TymOrUnTym(generic.View):
         request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
             user=request.user).count()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        # if favorite_item:
+        #     favorite_item.delete()
+        # else:
+        #     favorite = get_or_set_favorite_session(self.request)
+        #     product = self.get_object()
+
+        #     new_tym = Favorite()
+        #     new_tym.product = product
+        #     new_tym.order = favorite
+        #     new_tym.save()
 
 
 class PaymentView(generic.FormView):
@@ -214,6 +227,7 @@ def payment_information(request):
         user_info = None
         if ('user_info' in request.session):
             user_info = request.session['user_info']
+
         districts = District.objects.all()
         cities = City.objects.all()
         return render(request, 'payment_information.html', {'form': form,
@@ -223,6 +237,7 @@ def payment_information(request):
 
     if request.method == "POST":
         request.session['user_info'] = request.POST
+        print(request.session['user_info'])
         return redirect("/cart/payment_products")
     return redirect('/cart/payment_information')
 
