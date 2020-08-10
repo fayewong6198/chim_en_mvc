@@ -742,7 +742,9 @@ html {
 
 .product-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: all 0.5s ease-in-out;
 }
 
@@ -769,6 +771,7 @@ html {
   align-items: center;
   position: relative;
   padding-left: unset;
+  margin-bottom: 10px !important;
   transform: perspective(100px) rotateX(-50) rotateY(0) rotateZ(0);
   transition: all 0.6s cubic-bezier(0, 0, 0.58, 1) 0s;
 }
@@ -841,25 +844,21 @@ html {
       rgba(0, 0, 0, 0) 40%,
       rgba(0, 0, 0, 0) 50%,
       rgba(0, 0, 0, 0) 60%,
-      rgba(0, 0, 0, 0) 77%,
-      #5fbd74 78%,
-      #5fbd74 79%,
-      #5fbd74 80%,
-      #5fbd74 81%,
-      #5fbd74 82%,
-      #5fbd74 83%,
-      #5fbd74 84%,
+      rgba(0, 0, 0, 0) 84%,
       #5fbd74 85%,
       #5fbd74 86%,
       #5fbd74 87%,
       #5fbd74 88%,
       #5fbd74 89%,
-      #5fbd74 80%,
-      #5fbd74 81%,
-      #5fbd74 82%,
-      #5fbd74 83%,
-      #5fbd74 84%,
-      #5fbd74 85%,
+      #5fbd74 90%,
+      #5fbd74 91%,
+      #5fbd74 92%,
+      #5fbd74 93%,
+      #5fbd74 94%,
+      #5fbd74 95%,
+      #5fbd74 96%,
+      #5fbd74 97%,
+      #5fbd74 98%,
       #5fbd74 99%,
       #5fbd74 100%
     );
@@ -891,18 +890,7 @@ html {
       rgba(0, 0, 0, 0) 40%,
       rgba(0, 0, 0, 0) 50%,
       rgba(0, 0, 0, 0) 60%,
-      rgba(0, 0, 0, 0) 73%,
-      #5fbd74 74%,
-      #5fbd74 75%,
-      #5fbd74 76%,
-      #5fbd74 77%,
-      #5fbd74 78%,
-      #5fbd74 79%,
-      #5fbd74 80%,
-      #5fbd74 81%,
-      #5fbd74 82%,
-      #5fbd74 83%,
-      #5fbd74 84%,
+      rgba(0, 0, 0, 0) 84%,
       #5fbd74 85%,
       #5fbd74 86%,
       #5fbd74 87%,
@@ -940,6 +928,7 @@ html {
   background-color: #4d3333;
   top: 0%;
   right: 0%;
+  left: 0%;
   width: 100%;
   opacity: 0;
   height: 100%;
@@ -2197,6 +2186,9 @@ footer {
   display: flex;
   align-items: center;
 }
+.card-comment .row img {
+  border: unset !important;
+}
 .card-comment span {
   font-weight: 700;
   font-size: 16px;
@@ -2456,7 +2448,7 @@ footer {
   border: 1px solid #eee;
   box-shadow: 2px 2px 2px 3px #eee;
   width: 100%;
-  height: 300px;
+  height: auto;
   margin-bottom: 1.2rem;
 }
 
@@ -2476,7 +2468,7 @@ footer {
   border-right: 2px solid #eee;
 }
 .profile-button ul li a {
-  width: 170px;
+  width: 100%;
   height: 50px;
   border: 1px solid #5fbd74;
   color: #333;

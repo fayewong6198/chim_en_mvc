@@ -3,7 +3,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from .models import User
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from .forms import RegisterForm, LoginForm, CustomUserChangeForm, CustomPasswordChangeForm, CustomPasswordResetForm, AddressChangeForm
+from .forms import RegisterForm, LoginForm, CustomUserChangeForm, CustomPasswordChangeForm, CustomPasswordResetForm, AddressChangeForm, ChangeEmailForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
@@ -81,10 +81,10 @@ def register(request):
             })
         plain_message = strip_tags(html_message)
         from_email = settings.EMAIL_HOST_USER
-        to = 'minhthienpham0611@gmail.com'
+        to = request.POST['email']
 
         try:
-            mail.send_mail(subject=subject, message='http://www.google.com', from_email=from_email, fail_silently=False,
+            mail.send_mail(subject=subject, message=plain_message, from_email=from_email, fail_silently=False,
                            auth_user=None,
                            auth_password=None,
                            recipient_list=[to], html_message=html_message)
@@ -179,3 +179,44 @@ def user_payment(request, id):
             return redirect('/')
 
         return render(request, 'accounts/user_payment.html', {'payment': payment})
+
+
+@login_required
+def change_email(request):
+
+    if request.method == "GET":
+        form = ChangeEmailForm()
+        return render(request, 'accounts/change_email.html', {'form': form})
+
+    form = RegisterForm(request.POST)
+    if form.is_valid():
+
+        user = request.user
+        user.is_active = False
+        user.save()
+        current_site = get_current_site(request)
+
+        subject = 'Change new email'
+        html_message = render_to_string(
+            'accounts/acc_active_email.html', {
+                'user': user,
+                # 'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+        plain_message = strip_tags(html_message)
+        from_email = settings.EMAIL_HOST_USER
+        to = request.POST['email']
+
+        try:
+            mail.send_mail(subject=subject, message=plain_message, from_email=from_email, fail_silently=False,
+                           auth_user=None,
+                           auth_password=None,
+                           recipient_list=[to], html_message=html_message)
+            return HttpResponse('Please confirm your email address to complete the change email')
+        except:
+            return render(request, 'accounts/change_email.html', {'form': form})
+
+        # messages.success(request, 'Register success')
+
+    return render(request, 'accounts/change_email.html', {'form': form})

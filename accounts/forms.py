@@ -58,3 +58,10 @@ class CustomPasswordResetForm(forms.Form):
     email = forms.EmailField(max_length=100, widget=forms.TextInput(attrs={
         'placeholder': "Your email"
     }))
+
+
+class ChangeEmailForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email',)

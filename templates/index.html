@@ -234,12 +234,12 @@
                 <li><a href="{% url 'cart:product-detail' product.slug %} "><i data-toggle="tooltip"
                       data-placement="top" title="Add to cart" class="fa fa-cart-plus"></i></a></li>
                 {% if product.id in liked %}
-                <li><a data-toggle="modal" data-target="#wishlist" href="{% url 'cart:tym' product.id %}">
+                <li><a href="{% url 'cart:tym' product.id %}">
                     <i data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="fa fa-heart"></i></a>
                 </li>
                 {%else%}
-                <li><a data-toggle="modal" data-target="#wishlist" href="{% url 'cart:tym' product.id %}"><i
-                      data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="fa fa-heart-o"></i></a>
+                <li><a href="{% url 'cart:tym' product.id %}"><i data-toggle="tooltip" data-placement="top"
+                      title="Add to wishlist" class="fa fa-heart-o"></i></a>
                 </li>
                 {% endif %}
                 <li><a data-toggle="modal" data-target="#product{{product.id}}" href="#"><i data-toggle="tooltip"
@@ -267,32 +267,24 @@
           id="product{{product.id}}" aria-hidden="true">
           <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-              <div class="row">
-                <div class="col-12 col-md-6 col-sm-12">
-                  <div id="view_carousel" class="carousel view-detail slide" data-ride="carousel">
-                    <ol class="carousel-indicators view-indicators">
-                      <li data-target="#view_carousel" data-slide-to="0" class="active"></li>
-                      <li data-target="#view_carousel" data-slide-to="1"></li>
-                      <li data-target="#view_carousel" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner" id='view_carousel'>
+              <div class="row product-in-dedail">
+                <div class="col-12 col-md-6 col-sm-12 description-img">
+                  <div class="swiper-container gallery-top">
+                    <div class="swiper-wrapper">
                       {% for image in product.images.all %}
-                      <div class="carousel-item active">
-                        <img src="{{image}}" alt="First slide">
-                      </div>
+                      <div class="swiper-slide"><img src="{{image}}" alt="{{product.title}}"></div>
                       {% endfor %}
-                      <button type="button" class="close1 pr-2 pt-1" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
                     </div>
-                    <a class="carousel-control-prev" href="#view_carousel" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#view_carousel" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
-                    </a>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next swiper-button-white" id="swiper-button-next"></div>
+                    <div class="swiper-button-prev swiper-button-white" id="swiper-button-prev"></div>
+                  </div>
+                  <div class="swiper-container gallery-thumbs">
+                    <div class="swiper-wrapper">
+                      {% for image in product.images.all %}
+                      <div class="swiper-slide"><img src="{{image}}" alt="{{product.title}}"></div>
+                      {% endfor %}
+                    </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-6 col-sm-12 right-detail-view">
@@ -342,7 +334,8 @@
 
                     </div>
                     <div class="compare">
-                      <i class="far fa-star pr-2"></i><span>Add to Wishlist</span>
+                      <a href="{% url 'cart:tym' product.id %}"><i class="far fa-star pr-2"></i><span>Add to
+                          favorite</span></a>
                       <i class="fas fa-compress-alt pr-2"></i><span>Compare</span>
                     </div>
                     <div class="line pb-3"></div>
@@ -393,9 +386,6 @@
   </div>
 </section>
 <!------------------ product list card --------------->
-
-
-
 <!-- modal add to wishlist -->
 <div class="modal fade add-wishlist" id="wishlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -672,6 +662,33 @@
 <script type="module">
   var swiper = new Swiper('#swiper-love', {
     loop: true,
+  });
+</script>
+<!-- Initialize Swiper -->
+<script>
+  var galleryThumbs = new Swiper('.gallery-thumbs', {
+    spaceBetween: 10,
+    slidesPerView: 3,
+    loop: true,
+    freeMode: true,
+    loopedSlides: 5, //looped slides should be the same
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    grabCursor: true,
+    debugger: false
+  });
+  var galleryTop = new Swiper('.gallery-top', {
+    grabCursor: true,
+    loop: true,
+    debugger: false,
+    loopedSlides: 5, //looped slides should be the same
+    navigation: {
+      nextEl: '#swiper-button-next',
+      prevEl: '#swiper-button-prev',
+    },
+    thumbs: {
+      swiper: galleryThumbs,
+    },
   });
 </script>
 

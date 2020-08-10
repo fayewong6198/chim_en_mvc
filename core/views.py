@@ -2,6 +2,8 @@ from django.core.mail import send_mail
 from django.shortcuts import reverse, render, redirect
 from django.contrib import messages
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from django.views import generic
 from .forms import ContactForm
@@ -14,7 +16,7 @@ class HomeView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        products = Product.objects.filter(active=True)
+        products = Product.objects.filter(active=True)[:4]
         context['products'] = products
         liked = []
         if self.request.user.is_authenticated:
@@ -62,4 +64,14 @@ class AboutView(generic.TemplateView):
     template_name = 'about.html'
 
 
+class TymView(generic.TemplateView):
+    template_name = 'tym.html'
+
+    # @login_required
+    def get_context_data(self, **kwargs):
+        context = super(TymView, self).get_context_data(**kwargs)
+        favorites = FavoriteProduct.objects.filter(user=self.request.user)
+        context['favorites'] = favorites
+        print(favorites[0].product.id)
+        return context
 # Create your views here.
