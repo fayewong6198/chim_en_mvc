@@ -42,7 +42,7 @@ class CitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DictricSerializer(serializers.ModelSerializer):
+class DistrictSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
         fields = '__all__'

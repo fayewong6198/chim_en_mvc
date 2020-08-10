@@ -1,5 +1,5 @@
-from ..models import Payment, Product, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage, BlogImage, Category
-from .serializers import PaymentSerializer, ProductSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer, BlogImageSerializer, CategorySerializer
+from ..models import Payment, Product, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage, BlogImage, Category, City, District
+from .serializers import PaymentSerializer, ProductSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer, BlogImageSerializer, CategorySerializer, CitySerializer, DistrictSerializer
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -129,3 +129,21 @@ class BlogImageViewSet(viewsets.ModelViewSet):
             return HttpResponse(json.dumps({'id': image.id, 'data': {"location": 'http://localhost:8000' + image.image.url}}), status=200)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CityViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class DistrictViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = District.objects.all()
+    serializer_class = DistrictSerializer
+    permission_classes = [permissions.AllowAny]
