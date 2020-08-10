@@ -1,4 +1,55 @@
 {% extends 'base.html' %} {% load widget_tweaks %}{% block content %}
+  <script>
+        async function get_city() {
+            var response = await fetch('/api/cities/')
+            var data = await response.json()
+            console.log(data)
+            return data.results
+        }
+        var cc = get_city()
+
+        window.onload = async function () {
+            var citySel = document.getElementById("citySel")
+                district = document.getElementById("district")
+              
+            var stateObject = await get_city()
+        console.log("cc")
+        console.log(stateObject)
+        for (var i = 0; i < stateObject.length; i++) {
+            console.log(i)
+            console.log($('#citySel'))
+           // citySel.options[citySel.options.length] = new Option(stateObject[i].name, stateObject[i].id);
+           $('#citySel').append(`<option value="${stateObject[i].id}" selected='{% if request.user.is_authenticated and request.user.city is not None and request.user.city == "${stateObject[i].id}" %}true{% else %}false{% endif %}' > ${stateObject[i].name} </option>`)
+        }
+        citySel.onchange = async function () {
+            district.length = 1; // remove all options bar first
+           
+            if (this.selectedIndex < 1) 
+                return;
+            
+
+
+            var response = await fetch (`/api/cities/${
+                this.value
+            }`)
+            var city = await response.json()
+            console.log(city)
+            // done
+            console.log(this.value)
+            for (var i = 0; i < city.districts.length; i++) {
+              console.log("cccccccccccc")
+               // district.options[district.options.length] = new Option(city.districts[i].name, city.districts[i].id);
+           $('#district').append(`<option value="${city.districts[i].id}" selected='{% if request.user.is_authenticated and request.user.district is not None and request.user.district == "${city.districts[i].id}" %}true{% else %}false{% endif %}' > ${city.districts[i].name} </option>`)
+
+            }
+        }
+        citySel.onchange(); // reset in case page is reloaded
+        
+        
+    }
+    </script>
+
+
 <section class="products-tab p-4 pt-5">
   <div class="tab-title mt-5">
     <div class="text-title-center">
@@ -93,30 +144,22 @@
             </div>
           </div>
           <div class="row pt-4">
+          <div class="col">
+              <label>City :</label>
+              <select id="citySel" class="form-control" name="city">
+                <option value="" selected="selected">Select City</option>
+              </select>
+            </div>
+            </div>
+          <div class="row pt-4">
             <div class="col">
               <label>District : </label>
-              <select class="form-control" name="district">
-                {% for district in districts %}
-                {% if district.id == request.user.district.id %}
-                <option value="{{district.id}}" selected>{{district.name}}</option>
-                {%else %}
-                <option value="{{district.id}}">{{district.name}}</option>
-                {%endif %}
-                {% endfor %}
+              <select id="district" class="form-control" name="district">
+                <option value="" selected="selected">Please select City first</option>
               </select>
             </div>
-            <div class="col">
-              <label>City :</label>
-              <select class="form-control" name="city">
-                {% for city in cities %}
-                {% if city.id == request.user.city.id %}
-                <option value="{{city.id}}" selected>{{city.name}}</option>
-                {%else %}
-                <option value="{{city.id}}">{{city.name}}</option>
-                {%endif %}
-                {% endfor %}
-              </select>
-            </div>
+            
+            
           </div>
           <div class="back-shop py-5">
             <a href=""><i class="fas fa-arrow-left"></i> Back to shop</a>
