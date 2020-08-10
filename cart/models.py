@@ -265,3 +265,11 @@ class Review(models.Model):
     rating = models.IntegerField(range(0, 6))
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Reply(models.Model):
+    review = models.ForeignKey(
+        Review, on_delete=models.CASCADE, related_name="replies")
+    full_name = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

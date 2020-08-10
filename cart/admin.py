@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SizeVariation, Product, Order, OrderItem, Payment, ColorVariation, ProductImage, Category, Address, City, District, CustommerDetail, ProductDetail, Review
+from .models import SizeVariation, Product, Order, OrderItem, Payment, ColorVariation, ProductImage, Category, Address, City, District, CustommerDetail, ProductDetail, Review, Reply
 
 
 class ProductImageInline(admin.TabularInline):
@@ -22,6 +22,18 @@ admin.site.register(City)
 admin.site.register(District)
 admin.site.register(CustommerDetail)
 admin.site.register(ProductDetail)
-admin.site.register(Review)
+
+
+class ReplyInline(admin.TabularInline):
+    extra = 1
+    model = Reply
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    inlines = (ReplyInline,)
+
+
+admin.site.register(Review, ReviewAdmin)
+
 
 # Register your models here.

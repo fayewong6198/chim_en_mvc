@@ -64,20 +64,9 @@
         <div class="col-12 col-md-6 col-sm-12 description-img">
           <div class="swiper-container gallery-top">
             <div class="swiper-wrapper">
-<<<<<<< HEAD
-            {% for image in object.images.all %}
-            <div class="swiper-slide">
-            <img src="{{image}}"
-                  alt="">
-              </div>
-            {% endfor %}
-              
-           
-=======
               {% for image in object.images.all %}
               <div class="swiper-slide"><img src="{{image}}" alt="{{object.title}}"></div>
               {% endfor %}
->>>>>>> 9c8ef25e8623d75601235d3958a6a364500cb1b6
 
             </div>
             <!-- Add Arrows -->
@@ -86,19 +75,9 @@
           </div>
           <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
-<<<<<<< HEAD
-            {% for image in object.images.all %}
-            <div class="swiper-slide">
-            <img src="{{image}}"
-                  alt="">
-              </div>
-            {% endfor %}
-           
-=======
               {% for image in object.images.all %}
               <div class="swiper-slide"><img src="{{image}}" alt="{{object.title}}"></div>
               {% endfor %}
->>>>>>> 9c8ef25e8623d75601235d3958a6a364500cb1b6
             </div>
           </div>
         </div>
@@ -337,6 +316,7 @@
                       </p>
                     </div>
                   </div>
+                  {% for reply in review.replies.all %}
                   <div class="card card-inner ml-4">
                     <div class="card-body">
                       <div class="row">
@@ -345,15 +325,10 @@
                           <p class="text-secondary text-center">11 Minutes</p>
                         </div>
                         <div class="col-lg-10 col-9 col-sm-9">
-                          <div><a class="name-comment" href=""><strong>Minh Thien</strong></a></div>
+                          <div><a class="name-comment" href=""><strong>{{reply.full_name}}</strong></a></div>
 
                           <span>tieu de duoc reply</span>
-                          <p class="content-comment">Lorem Ipsum is simply dummy text of the pr make but also the leap
-                            into
-                            electronic typesetting,
-                            remaining
-                            essentially unchanged.
-                            versions of Lorem Ipsum.</p>
+                          <p class="content-comment">{{reply.content}}</p>
                           <p>
                           <div class="text-like">
                             <i class="fas fa-ellipsis-h ml-3" d="drop-in-comment" data-toggle="dropdown"
@@ -370,6 +345,7 @@
                       </div>
                     </div>
                   </div>
+                  {% endfor %}
                 </div>
               </div>
             </div>
