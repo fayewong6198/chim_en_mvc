@@ -22,5 +22,7 @@ urlpatterns = [
 
     path('activate/<str:uidb64>/<str:token>',
          views.activate, name='activate'),
+    path('change-email/<int:user>',
+         views.verify_change_email, name='verify_change_email'),
 
 ]
