@@ -4,13 +4,32 @@
     <div class="step-to-payment mb-2">
         <div class="tab-content tab-step pt-4" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
-                {% if request.user.is_authenticated %}
-                {% for favorite in favorites %}
-                {{ favorite.product.title }}
-                {% endfor %}
-                {% else %}
-                <h3>Login is required</h3>
-                {% endif %}
+
+                <section class="mb-4">
+                    <h3 class="text-center">Your favorite</h3>
+                    {% if request.user.is_authenticated %}
+                    <div class=" fadeIn row">
+                        {% for favorite in favorites %}
+                        <div class="col-md-3 col-12">
+                            <a href="{% url 'cart:product-detail' favorite.product.slug %}"">
+                                <img src=" {{ favorite.product.images.first }}" alt="" width="100%">
+                            </a>
+
+
+                            <p> <i data-toggle="tooltip" data-placement="top" title="liked" class="fa fa-heart"></i>
+                            </p>
+                            <p>Title: {{ favorite.product.title }}</p>
+                            <p>Price: {{ favorite.product.price }}</p>
+                            <hr />
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <h3>Login is required</h3>
+                    {% endif %}
+
+                </section>
+
             </div>
 
         </div>

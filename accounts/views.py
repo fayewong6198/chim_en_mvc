@@ -44,6 +44,7 @@ def login(request):
         if next_url:
             return HttpResponseRedirect(next_url)
         else:
+            messages.success(request, 'login success')
             return redirect('/')
 
     return render(request, 'accounts/login.html', {'form': form, 'title': 'Login'})
@@ -51,7 +52,7 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-
+    messages.success(request, 'Logout success')
     return redirect('/accounts/login')
 
 
@@ -107,6 +108,8 @@ def profile(request):
 
     if form.is_valid():
         user = form.save(commit=False)
+        user.city = request.POST.get('city')
+        user.district = request.POST.get('district')
         user.save()
     return redirect('/accounts/profile', {'url': 'profile'})
 

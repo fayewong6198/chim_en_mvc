@@ -2,197 +2,101 @@
 {% load widget_tweaks %}
 
 {% block content %}
-    <main>
-        <!-- <div class="container">
-                                                                                                                                                                                                                        <section class="mb-4">
-                                                                                                                                                                                                                            <div class="row wow fadeIn">
-                                                                                                                                                                                                                                <div class='col-1 offset-1'>
-                                                                                                                                                                                                                                    <a href="/accounts/profile" class="btn btn-outline-success my-2">profile</a>
-                                                                                                                                                                                                                                    <a href="/accounts/profile/address" class="btn btn-outline-primary">Address</a>
-                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                <div class='col-6 offset-2'>
-                                                                                                                                                                                                                                    <h1>Profile</h1>
-                                                                                                                                                                                                                                    <form action="/accounts/profile/" method="POST">
-                                                                                                                                                                                                                                        {% csrf_token %} {% for field in form %}
-                                                                                                                                                                                                                                        <div class="form-group">
-                                                                                                                                                                                                                                            <small class="text-danger"> {{ field.errors}}</small>
-                                                                                                                                                                                                                                            {{ field.errors }}
-                                                                                                                                                                                                                                            <label for="" class="">{{ field.label_tag }}</label>
-                                                                                                                                                                                                                                            {{ field |add_class:'form-control' }} {% if field.help_text %}
-                                                                                                                                                                                                                                            <p class="help">{{ field.help_text|safe }}</p>
-                                                                                                                                                                                                                                            {% endif %}
-                                                                                                                                                                                                                
-                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                        {% endfor %}
-                                                                                                                                                                                                                                        <button type="submit" class="btn btn-outline-success"> Update profile</button>
-                                                                                                                                                                                                                
-                                                                                                                                                                                                                                        <p class="my-1">
-                                                                                                                                                                                                                                            Do you want to change your password?
-                                                                                                                                                                                                                                            <a href="{% url 'change-password' %}">change password</a>
-                                                                                                                                                                                                                                        </p>
-                                                                                                                                                                                                                                    </form>
-                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                        </section>
-                                                                                                                                                                                                                    </div> -->
-        <div class="tabs-profile">
-            <div class="container">
-                <div class="row">
-                    {% include "left_tab_profile.html" %}
-                    <div class="col-lg-8 col-sm-7 col-7 mb-2">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab_a">
+<main>
 
-                                <section class="mb-4">
-                                    <div class=" fadeIn">
+	<div class="tabs-profile">
+		<div class="container">
+			<div class="row">
+				{% include "left_tab_profile.html" %}
+				<div class="col-lg-8 col-sm-7 col-7 mb-2">
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_a">
 
-                                        <h1>Profile</h1>
-                                        <form action="/accounts/profile/" method="POST">
-                                            {% csrf_token %}
-                                            {% for field in form %}
+							<section class="mb-4">
+								<div class=" fadeIn">
 
-                                                <div class="form-group">
-                                                    <small class="text-danger">
-                                                        {{ field.errors }}</small>
-                                                    {{ field.errors }}
-                                                    <label for="" class="">{{ field.label_tag }}</label>
-                                                    {{ field |add_class:'form-control' }}
-                                                    {% if field.help_text %}
-                                                        <p class="help">{{ field.help_text|safe }}</p>
-                                                    {% endif %}
+									<h1>Profile</h1>
+									<form action="/accounts/profile/" method="POST">
+										{% csrf_token %}
+										{% for field in form %}
 
-                                                </div>
-                                            {% endfor %}
-                                            <button type="submit" class="btn btn-outline-success">
-                                                Update
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            profile</button>
+										<div class="form-group">
+											<small class="text-danger">
+												{{ field.errors }}</small>
+											{{ field.errors }}
+											<label for="" class="">{{ field.label_tag }} {{ field.auto_id  }}</label>
+											{% if field.auto_id == 'id_city' %}
+											<select id="citySel" class="form-control" name="city">
+												<option value="" selected="selected">Select City</option>
+											</select>
+											{% elif field.auto_id == 'id_district' %}
+											<select id="district" class="form-control" name="district">
+												<option value="" selected="selected">Please select City first</option>
+											</select>
+											{% else %}
+											{{ field |add_class:'form-control' }}
+											{% endif %}
+											{% if field.help_text %}
+											<p class="help">{{ field.help_text|safe }}</p>
+											{% endif %}
 
-                                            <p class="my-1">
-                                                Do you want to change your password?
-                                                <a href="{% url 'change-password' %}">change password</a>
-                                            </p>
-                                        </form>
+										</div>
+										{% endfor %}
+										<button type="submit" class="btn btn-outline-success">
+											Update profile
+										</button>
+									</form>
 
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="tab-pane" id="tab_b">
-                                <h3>2.</h3>
+								</div>
+							</section>
+						</div>
 
-                            </div>
-                            <div class="tab-pane" id="tab_c">
-                                <h3>3</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        async function get_city() {
-            var response = await fetch('/api/cities/')
-            var data = await response.json()
-            console.log(data)
-            return data.results
-        }
-        var cc = get_city()
-
-
-        // var stateObject = {
-
-        //     "Country 1": {
-        //         "C1": ["c11", "c12"],
-        //         "C2": ["c21", "c22"]
-        //     },
-        //     "Country 2": {
-        //         "D1": ["d11", "d12"],
-        //         "D2": ["d21", "d22"]
-        //     }
-        // }
-
-        window.onload = async function () {
-            var countySel = document.getElementById("countySel"),
-                stateSel = document.getElementById("stateSel"),
-                districtSel = document.getElementById("districtSel")
-            var stateObject = await get_city();
-        console.log("cc")
-        console.log(stateObject)
-        for (var i = 0; i < stateObject.length; i++) {
-            console.log(i)
-            countySel.options[countySel.options.length] = new Option(stateObject[i].name, stateObject[i].id);
-        }
-        countySel.onchange = async function () {
-            stateSel.length = 1; // remove all options bar first
-            districtSel.length = 1; // remove all options bar first
-            if (this.selectedIndex < 1) 
-                return;
-            
-
-
-            var response = await fetch (`/api/cities/${
-                this.value
-            }`)
-            var city = await response.json()
-            console.log(city)
-            // done
-            console.log(this.value)
-            for (var i = 0; i < city.districts.length; i++) {
-                stateSel.options[stateSel.options.length] = new Option(city.districts[i].name, city.districts[i].id);
-            }
-        }
-        countySel.onchange(); // reset in case page is reloaded
-        stateSel.onchange = function () {
-            districtSel.length = 1; // remove all options bar first
-            if (this.selectedIndex < 1) 
-                return;
-            
-
-
-            // done
-            var district = stateObject[countySel.value][this.value];
-            for (var i = 0; i < district.length; i++) {
-                districtSel.options[districtSel.options.length] = new Option(district[i], district[i]);
-            }
-        }
-    }
-    </script>
-</head>
-
-<body>
-    <form name="myform" id="myForm">
-        Select Country:
-        <select name="state" id="countySel" size="1">
-            <option value="" selected="selected">Select Country</option>
-        </select>
-        <br>
-            <br>
-                Select State:
-                <select name="countrya" id="stateSel" size="1">
-                    <option value="" selected="selected">Please select Country first</option>
-                </select>
-                <br>
-                    <br>
-                        Select District:
-                        <select name="district" id="districtSel" size="1">
-                            <option value="" selected="selected">Please select State first</option>
-                        </select>
-                        <br>
-                            <input type="submit"></form>
-                        </body>
-
-                    {% endblock content %}
-                    {% block extra_scripts %}
-                        <script>
-                            // tabs-profile-
-                            $(function () {
-                                var $a = $(".tabs-profile li");
-                                $a.click(function () {
-                                    $a.removeClass("active");
-                                    $(this).addClass("active");
-                                });
-                            });
-                        </script>
-                    {% endblock extra_scripts %}
+{% endblock content %}
+{% block extra_scripts %}
+<script>
+	// tabs-profile-
+	$(function () {
+		var $a = $(".tabs-profile li");
+		$a.click(function () {
+			$a.removeClass("active");
+			$(this).addClass("active");
+		});
+	});
+</script>
+<script>
+	async function get_city() {
+		var response = await fetch('/api/cities/')
+		var data = await response.json()
+		return data.results
+	}
+	var cc = get_city()
+	window.onload = async function () {
+		var citySel = document.getElementById("citySel")
+		district = document.getElementById("district")
+		var stateObject = await get_city()
+		for (var i = 0; i < stateObject.length; i++) {
+			$('#citySel').append(`<option value="${stateObject[i].id}" {% if request.user.is_authenticated and request.user.city is not None and request.user.city.id == "${stateObject[i].id}" %}selected{% else %}""{% endif %} > ${stateObject[i].name} </option>`)
+		}
+		citySel.onchange = async function () {
+			district.length = 1; // remove all options bar first
+			if (this.selectedIndex < 1)
+				return;
+			var response = await fetch(`/api/cities/${
+				this.value
+				}`)
+			var city = await response.json()
+			for (var i = 0; i < city.districts.length; i++) {
+				$('#district').append(`<option value="${city.districts[i].id}" {% if request.user.is_authenticated and request.user.district is not None and request.user.district == "${city.districts[i].id}" %}selected{% else %}""{% endif %} > ${city.districts[i].name} </option>`)
+			}
+		}
+		citySel.onchange(); // reset in case page is reloaded
+	}
+</script>
+{% endblock extra_scripts %}

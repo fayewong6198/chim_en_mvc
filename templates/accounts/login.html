@@ -58,17 +58,20 @@
 </head>
 
 <body>
-  <div>
-    {% if messages %} {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endfor %} {% endif %}
-  </div>
+
   {% load widget_tweaks %}
+  {% if messages %}
+  {% for message in messages %}
+  <div class="modal fade bd-example-modal-sm" style="border-radius: 10px" id='myModal1' tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm bg-success">
+      <div class="modal-body text-light text-center mt-5" style="padding-top: 30px; ">
+        <p><b><i class="fa fa-check text-success"></i>&nbsp;{{message}}</b></p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
   <div class="main">
     <div class="login-background">
       <section class="login-page">
@@ -110,7 +113,7 @@
 
         </div>
         <div class="login-back">
-          <a href=""><i class="fas fa-arrow-left"></i> Back home</a></div>
+          <a href="{% url 'home' %}"><i class="fas fa-arrow-left"></i> Back home</a></div>
       </section>
     </div>
   </div>
@@ -126,7 +129,14 @@
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
 
-
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#myModal1").modal("show");
+      setTimeout(function () {
+        $('#myModal123').modal("hide");
+      }, 10000);// <-- time in milliseconds, 1000 =  1 sec
+    });
+  </script>
 </body>
 
 </html>

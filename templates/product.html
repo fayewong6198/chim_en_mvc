@@ -131,9 +131,16 @@
 
               <!-- Others Actions -->
               <div class="p-2">
+                {% if liked %}
                 <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
-                  <i class="fa fa-heart-o"></i> Add to Favorite
+                  <a href="{% url 'cart:tym' object.id %}"> <i class="fa fa-heart"></i></a>
                 </button>
+                {% else %}
+                <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
+                  <a href="{% url 'cart:tym' object.id %}"> <i class="fa fa-heart-o"></i></a>
+                </button>
+                {% endif %}
+
                 <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Compare">
                   <i class="fa fa-columns"></i> Compare
                 </button>
@@ -270,17 +277,18 @@
                 </div>
                 <button type="submit" value="submit" class="btn btn-dark">Gui danh gia</button>
               </form>
-              {% for review in reviews %}
+              {% comment %} {% for review in reviews %}
               <p>Full Name: {{review.full_name}}</p>
               <p>Subject: {{review.subject}}</p>
               <p>Content: {{review.content}}</p>
               <p>Rating: {{review.rating}}</p>
               {% empty %}
               <p>There is no review yet</p>
-              {% endfor %}
+              {% endfor %} {% endcomment %}
 
               <!-- comment  -->
               <div class="card card-comment">
+                {% for review in reviews %}
                 <div class="card-body">
                   <div class="row">
                     <div class="col-lg-2 col-3 col-sm-3">
@@ -292,8 +300,34 @@
                         <a class="float-left name-comment" href=""><strong>{{review.full_name}}</strong></a>
                         <span class="float-right"><i class="text-danger fa fa-star"></i></span>
                         <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        {% comment %} <!-- {% ifequal review.rating 1 %}
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+
+                        {% elseifequal  review.rating 2 %}
                         <span class="float-right"><i class="text-danger fa fa-star"></i></span>
                         <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+
+                        {% elseifequal  review.rating 3 %}
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+
+                        {% elseifequal  review.rating 4 %}
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+
+                        {% else %}
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+                        <span class="float-right"><i class="text-danger fa fa-star"></i></span>
+
+                        {% endifequal %} --> {% endcomment %}
+
+
 
                       </p>
                       <div class="clearfix"></div>
@@ -402,6 +436,14 @@
 
                   </div>
                 </div>
+                <!-- <p>Full Name: {{review.full_name}}</p>
+                <p>Subject: {{review.subject}}</p>
+                <p>Content: {{review.content}}</p>
+                <p>Rating: {{review.rating}}</p> -->
+                {% empty %}
+                <p>There is no review yet</p>
+                {% endfor %}
+
               </div>
 
 

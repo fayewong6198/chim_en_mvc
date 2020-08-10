@@ -1,53 +1,6 @@
 {% extends 'base.html' %} {% load widget_tweaks %}{% block content %}
-  <script>
-        async function get_city() {
-            var response = await fetch('/api/cities/')
-            var data = await response.json()
-            console.log(data)
-            return data.results
-        }
-        var cc = get_city()
-
-        window.onload = async function () {
-            var citySel = document.getElementById("citySel")
-                district = document.getElementById("district")
-              
-            var stateObject = await get_city()
-        console.log("cc")
-        console.log(stateObject)
-        for (var i = 0; i < stateObject.length; i++) {
-            console.log(i)
-            console.log($('#citySel'))
-           // citySel.options[citySel.options.length] = new Option(stateObject[i].name, stateObject[i].id);
-           $('#citySel').append(`<option value="${stateObject[i].id}" selected='{% if request.user.is_authenticated and request.user.city is not None and request.user.city == "${stateObject[i].id}" %}true{% else %}false{% endif %}' > ${stateObject[i].name} </option>`)
-        }
-        citySel.onchange = async function () {
-            district.length = 1; // remove all options bar first
-           
-            if (this.selectedIndex < 1) 
-                return;
-            
 
 
-            var response = await fetch (`/api/cities/${
-                this.value
-            }`)
-            var city = await response.json()
-            console.log(city)
-            // done
-            console.log(this.value)
-            for (var i = 0; i < city.districts.length; i++) {
-              console.log("cccccccccccc")
-               // district.options[district.options.length] = new Option(city.districts[i].name, city.districts[i].id);
-           $('#district').append(`<option value="${city.districts[i].id}" selected='{% if request.user.is_authenticated and request.user.district is not None and request.user.district == "${city.districts[i].id}" %}true{% else %}false{% endif %}' > ${city.districts[i].name} </option>`)
-
-            }
-        }
-        citySel.onchange(); // reset in case page is reloaded
-        
-        
-    }
-    </script>
 
 
 <section class="products-tab p-4 pt-5">
@@ -144,13 +97,13 @@
             </div>
           </div>
           <div class="row pt-4">
-          <div class="col">
+            <div class="col">
               <label>City :</label>
               <select id="citySel" class="form-control" name="city">
                 <option value="" selected="selected">Select City</option>
               </select>
             </div>
-            </div>
+          </div>
           <div class="row pt-4">
             <div class="col">
               <label>District : </label>
@@ -158,8 +111,6 @@
                 <option value="" selected="selected">Please select City first</option>
               </select>
             </div>
-            
-            
           </div>
           <div class="back-shop py-5">
             <a href=""><i class="fas fa-arrow-left"></i> Back to shop</a>
@@ -176,48 +127,37 @@
 {% block extra_scripts %}
 
 <script>
+  async function get_city() {
+    var response = await fetch('/api/cities/')
+    var data = await response.json()
+    console.log(data.results)
+    return data.results
+  }
+  var cc = get_city()
+  window.onload = async function () {
+    var citySel = document.getElementById("citySel")
+    district = document.getElementById("district")
+    var stateObject = await get_city()
+    console.log(stateObject)
+    for (var i = 0; i < stateObject.length; i++) {
 
-  // var step1 = document.getElementById("step1");
-  // var step2 = document.getElementById("step2");
-  // var step3 = document.getElementById("step3");
-  // // var x = document.getElementById("info");
-  // //   var x = document.getElementById("check");
-  // //   var x = document.getElementById("pay");
-  // var x = document.getElementsByClassName("payment");
-  // var step1_next = document.getElementById("step1_next");
-  // var step2_prev = document.getElementById("step2_prev");
-  // var step2_next = document.getElementById("step2_next");
-  // var step3_prev = document.getElementById("step3_prev");
-  // window.onload = function () {
-  //   step1.classList.add("active")
-  //   x[0].style.display = "block";
-  //   x[1].style.display = "none";
-  //   x[2].style.display = "none";
-  // };
-  // step1_next.addEventListener("click", () => {
-  //   step2.classList.add("active")
-
-  //   x[0].style.display = "none";
-  //   x[1].style.display = "block";
-  //   x[2].style.display = "none";
-  // })
-  // step2_next.addEventListener("click", () => {
-  //   step3.classList.add("active")
-  //   x[0].style.display = "none";
-  //   x[1].style.display = "none";
-  //   x[2].style.display = "block";
-  // })
-  // step2_prev.addEventListener("click", () => {
-  //   step2.classList.remove("active")
-  //   x[0].style.display = "block";
-  //   x[1].style.display = "none";
-  //   x[2].style.display = "none";
-  // })
-  // step3_prev.addEventListener("click", () => {
-  //   step3.classList.remove("active")
-  //   x[0].style.display = "none";
-  //   x[1].style.display = "block";
-  //   x[2].style.display = "none";
-  // })
+      $('#citySel').append(`<option value="${stateObject[i].id}" {% if request.user.is_authenticated and request.user.city is not None and request.user.city.id == "${stateObject[i].id}"%}selected{% else %}""{% endif %} > ${stateObject[i].name} </option>`)
+    }
+    citySel.onchange = async function () {
+      district.length = 1; // remove all options bar first
+      if (this.selectedIndex < 1)
+        return;
+      var response = await fetch(`/api/cities/${
+        this.value
+        }`)
+      var city = await response.json()
+      for (var i = 0; i < city.districts.length; i++) {
+        $('#district').append(`<option value="${city.districts[i].id}" {% if request.user.is_authenticated and request.user.district is not None and request.user.district == "${city.districts[i].id}" %}selected{% else %}''{% endif %}' > ${city.districts[i].name} </option>`)
+      }
+    }
+    citySel.onchange(); // reset in case page is reloaded
+  }
 </script>
+
+
 {% endblock extra_scripts %}

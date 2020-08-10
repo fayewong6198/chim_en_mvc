@@ -72,6 +72,5 @@ class TymView(generic.TemplateView):
         context = super(TymView, self).get_context_data(**kwargs)
         favorites = FavoriteProduct.objects.filter(user=self.request.user)
         context['favorites'] = favorites
-        print(favorites[0].product.id)
         return context
 # Create your views here.

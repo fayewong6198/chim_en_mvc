@@ -123,11 +123,21 @@ class ProductDetailView(generic.FormView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         categories = Category.objects.all()
         reviews = Review.objects.filter(product=self.get_object())
+
+        try:
+            liked = FavoriteProduct.objects.get(
+                user=self.request.user, product=self.get_object())
+        except FavoriteProduct.DoesNotExist:
+            liked = None
+
         if ('review_limit' in self.request.GET):
             reviews = reviews[:int(self.request.GET['review_limit'])]
         context['object'] = self.get_object()
         context['categories'] = categories
         context['reviews'] = reviews
+
+        context['liked'] = liked
+
         return context
 
 
