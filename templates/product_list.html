@@ -127,7 +127,7 @@
             {% for product in products %}
             <div class="ct-product-card ct-primary-color col-md-4 col-12 pb-4" data-aos="fade-up">
               <div class="product-card">
-                <a href="">
+                <a href="{% url 'cart:product-detail' product.slug %}">
                   <img src="{{product.images.first}}"></a>
                 {% if product.promotion > 0 %}
                 <div class="sale">
