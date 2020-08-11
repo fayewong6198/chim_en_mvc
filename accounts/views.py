@@ -107,24 +107,15 @@ def profile(request):
     form = CustomUserChangeForm(data=request.POST, instance=request.user)
 
     if form.is_valid():
-        user = request.user
-        city = City.objects.get(id=request.POST.get('city'))
-        district = District.objects.get(id=request.POST.get('district'))
-        print("casdasdasd")
-        print(city)
-        print(district)
-        # user.city = city
-        # user.district = district
-        user.username = request.POST.get('username')
-        user.first_name = request.POST.get('first_name')
-        user.last_name = request.POST.get('last_name')
-        user.mobile = request.POST.get('mobile')
-        user.city = city
-        user.district = district
-        user.address = request.POST.get('address')
-        print("before save")
+        user = form.save(commit=False)
+        if request.POST.get('city'):
+            city = City.objects.get(id=request.POST.get('city'))
+            user.city = city
+        if request.POST.get('district'):
+            district = District.objects.get(id=request.POST.get('district'))
+            user.district = district
+
         user.save()
-        print("after save")
     return redirect('/accounts/profile', {'url': 'profile'})
 
 

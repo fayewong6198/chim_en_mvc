@@ -19,43 +19,31 @@
                                     <form action="/accounts/profile/" method="POST">
                                         {% csrf_token %}
 
+                                        {% for field in form %}
+
                                         <div class="form-group">
-                                            <label for="">User name:</label>
-                                            <input type="text" class="form-control" name="username"
-                                                value="{{form.username.value}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">First name:</label>
-                                            <input type="text" class="form-control" name="first_name"
-                                                value="{{form.first_name.value}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Last name:</label>
-                                            <input type="text" class="form-control" name="last_name"
-                                                value="{{form.last_name.value}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Mobile :</label>
-                                            <input type="text" class="form-control" name="mobile"
-                                                value="{{form.mobile.value}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">City:</label>
+                                            <small class="text-danger">
+                                                {{ field.errors }}</small>
+                                            {{ field.errors }}
+                                            <label for="" class="">{{ field.label_tag }}
+                                                {{ field.auto_id }}</label>
+                                            {% if field.auto_id == 'id_city' %}
                                             <select id="citySel" class="form-control" name="city">
                                                 <option value="" selected="selected">Select City</option>
                                             </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">District:</label>
+                                            {% elif field.auto_id == 'id_district' %}
                                             <select id="district" class="form-control" name="district">
                                                 <option value="" selected="selected">Please select City first</option>
                                             </select>
+                                            {% else %}
+                                            {{ field |add_class:'form-control' }}
+                                            {% endif %}
+                                            {% if field.help_text %}
+                                            <p class="help">{{ field.help_text|safe }}</p>
+                                            {% endif %}
+
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Address</label>:</label>
-                                            <input type="text" class="form-control" name="address"
-                                                value="{{form.address.value}}">
-                                        </div>
+                                        {% endfor %}
                                         <button type="submit" class="btn btn-outline-success">
                                             Update profile
                                         </button>

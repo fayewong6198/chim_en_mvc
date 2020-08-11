@@ -101,7 +101,7 @@
               <div class="login-welcome">
                 <h2>Hello, Friend </h2>
                 <p>You haved account !</p>
-                <button class="btn btn-primary"><a href="{% url 'register' %}">SIGN IN</a></button>
+                <a href="{% url 'login' %}"><button class="btn btn-outline-success text-light">SIGN IN</button> </a>
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@
 
         </div>
         <div class="login-back">
-          <a href=""><i class="fas fa-arrow-left"></i> Back home</a></div>
+          <a href="{% url 'home' %}"><i class="fas fa-arrow-left"></i> Back home</a></div>
       </section>
     </div>
   </main>
