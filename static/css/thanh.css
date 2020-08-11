@@ -2613,3 +2613,8 @@ footer {
   background-color: #5fbd74;
   border-color: #5fbd74;
 }
+
+#icon-badge-unlogin {
+  display: flex;
+  justify-content: flex-end !important;
+}

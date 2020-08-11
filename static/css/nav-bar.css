@@ -9,7 +9,10 @@
 .bold-text {
   font-weight: 500;
 }
-
+.input-append {
+  display: flex;
+  justify-content: flex-end;
+}
 .navbar-white {
   background-color: var(--background-color) !important;
   display: flex;
@@ -17,7 +20,7 @@
   height: 80px;
   transition: height 0.3s, opacity 0.3s linear;
 }
-.navbar-white .col-6 .row i {
+.navbar-white .col-4 .row i {
   font-size: 19px;
 }
 .navbar-white a {
@@ -56,7 +59,6 @@
 .fa-gratipay,
 .fa-shopping-basket {
   color: #333;
-  padding-top: 8px;
 }
 .fa-gratipay:hover,
 .fa-shopping-basket:hover {
@@ -134,7 +136,52 @@
 .content {
   padding: 16px;
 }
-
+#navbar {
+  display: flex;
+  align-items: center !important;
+  z-index: 999999999;
+}
+#icon-badge-unlogin {
+  display: flex;
+  justify-content: center;
+  bottom: 4px;
+  align-items: center;
+}
+.right-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#icon-badge {
+  bottom: 4px;
+}
+.navbar-white .right-nav {
+  display: flex;
+  flex-direction: row;
+  font-size: 21px !important;
+  justify-content: flex-end;
+  align-items: center !important;
+}
+.right-nav i {
+  font-size: 19px;
+}
+#collapseSearch input {
+  width: 100%;
+  height: 50px;
+  background-color: #5fbd74;
+  color: #fff;
+  outline: none;
+  text-align: center;
+  border: none;
+  position: relative;
+}
+#collapseSearch {
+  background-color: #5fbd74;
+  width: 100%;
+}
+.search-collapse {
+  display: none !important;
+}
 #img-nav {
   width: 30px;
   height: 30px;
@@ -150,7 +197,12 @@
   z-index: 1500;
   background-color: #d4cfcf !important;
 }
-
+.sticky-search {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  z-index: 9999999999999;
+}
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
 .sticky + .content {
   padding-top: 610px;
@@ -357,16 +409,11 @@
   margin-top: 5px;
   padding: 0;
 }
-
+.right-nav form {
+  display: flex;
+  justify-content: flex-end !important;
+}
 #custom-search-form .search-query {
-  padding-right: 3px;
-  padding-right: 4px \9;
-  padding-left: 3px;
-  padding-left: 4px \9;
-  margin-bottom: 0;
-  margin-top: 0px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.2) !important;
   border-color: rgba(255, 255, 255, 0.09);
@@ -382,18 +429,16 @@
 .search-query:focus + button {
   z-index: 3;
 }
-/* list-vagetables */
-.search-sec form {
-  padding: 1rem;
-  background-color: white;
-  position: relative;
-  z-index: 100;
-  top: -5.5rem;
-  box-shadow: 1px 1px 2px 1px #aaaaaa;
-  border: none;
-  width: 100%;
-  border-radius: 6px;
+@media (max-width: 1091px) {
+  .search-collapse {
+    display: block !important;
+  }
+  #custom-search-form .search-query,
+  #custom-search-form button {
+    display: none !important;
+  }
 }
+/* list-vagetables */
 
 #custom-search-form button {
   border: 0;
