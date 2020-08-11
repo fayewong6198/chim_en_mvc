@@ -108,8 +108,8 @@ def profile(request):
 
     if form.is_valid():
         user = form.save(commit=False)
-        user.city = request.POST.get('city')
-        user.district = request.POST.get('district')
+        user.city = request.POST.get('city').id
+        user.district = request.POST.get('district').id
         user.save()
     return redirect('/accounts/profile', {'url': 'profile'})
 

@@ -125,8 +125,9 @@ class ProductDetailView(generic.FormView):
         reviews = Review.objects.filter(product=self.get_object())
 
         try:
-            liked = FavoriteProduct.objects.get(
-                user=self.request.user, product=self.get_object())
+            if self.request.user.authenticated:
+                liked = FavoriteProduct.objects.get(
+                    user=self.request.user, product=self.get_object())
         except FavoriteProduct.DoesNotExist:
             liked = None
 
