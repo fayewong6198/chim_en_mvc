@@ -12,7 +12,7 @@ class PermissionSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    user_permissions = PermissionSerializer(read_only=True, many=True)
+    user_permissions = PermissionSerializer(many=True, read_only=True)
     # favorites = serializers.StringRelatedField(many=True)
     # orders = serializers.StringRelatedField(many=True)
 
@@ -21,22 +21,26 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'first_name',
                   'last_name', 'gender', 'date_of_birth', 'is_staff', 'user_permissions', 'created_at']
 
-    def update(self, instance, validated_data):
-        print(validated_data)
-        instance.username = validated_data.get('username')
-        instance.email = validated_data.get('email')
-        instance.first_name = validated_data.get('first_name')
-        instance.last_name = validated_data.get('last_name')
-        instance.gender = validated_data.get('gender')
-        if validated_data.get('date_of_birth') is not None:
-            instance.date_of_birth = validated_data.get('date_of_birth')
-        instance.is_staff = validated_data.get('is_staff')
+    # def update(self, instance, validated_data):
+    #     print("cc")
+    #     print(validated_data)
+    #     instance.username = validated_data.get('username')
+    #     instance.email = validated_data.get('email')
+    #     instance.first_name = validated_data.get('first_name')
+    #     instance.last_name = validated_data.get('last_name')
+    #     instance.gender = validated_data.get('gender')
+    #     if validated_data.get('date_of_birth') is not None:
+    #         instance.date_of_birth = validated_data.get('date_of_birth')
+    #     instance.is_staff = validated_data.get('is_staff')
 
-        if (validated_data.get('user_permistions')):
-            instance.user_permissions.set(
-                validated_data.get('user_permistions'))
-        instance.save()
-        return instance
+    #     if (validated_data.get('user_permissions')):
+    #         permissions = Permission.objects.filter(
+    #             id__in=validated_data.get('user_permissions').id)
+    #         print("ahihi")
+    #         print(permissions)
+    #         instance.user_permissions.set(permissions)
+    #     instance.save()
+    #     return instance
 
 # Register Serializer
 

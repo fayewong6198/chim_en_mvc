@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from knox.models import AuthToken
 from django.shortcuts import get_object_or_404
 from ecom.pagination import StandardResultsSetPagination, PaginationHandlerMixin, LargeResultsSetPagination
-
+from rest_framework.decorators import action
 from django.contrib.auth.models import Permission
 
 from django_filters.rest_framework import DjangoFilterBackend
@@ -21,6 +21,19 @@ class PermissionViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
 
+def user_permissions(request, pk):
+    if (request.method == 'POST'):
+        user = get_object_or_404(User, pk=pk)
+        permissions = Permission.objects.filter(
+            id__in=request.POST['user_permissions'])
+        print("ahihi")
+        print(permissions)
+        user.user_permissions.set(permissions)
+        user.save()
+
+    return Response({'user': user})
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -28,6 +41,18 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
+
+    @action(detail=True, methods=['POST'])
+    def set_permissions(self, request, pk=None):
+        user = self.get_object()
+        print(request.data)
+        permissions = Permission.objects.filter(
+            id__in=request.data['user_permissions'])
+        print("ahihi")
+        print(permissions)
+        user.user_permissions.set(permissions)
+        user.save()
+        return Response({'user': UserSerializer(user, context=self.get_serializer_context()).data})
 
 
 class RegisterAPI(generics.GenericAPIView):
