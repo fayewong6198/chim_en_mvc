@@ -73,23 +73,46 @@
     </script>
     <script>
         async function get_city() {
-            var response = await fetch('/api/cities ')
+            var response = await fetch('/api/cities/')
             var data = await response.json()
+            console.log(data)
             return data
         }
-        var cc = await get_city()
+        var cc = get_city()
         window.onload = async function () {
             var citySel = document.getElementById("citySel")
             district = document.getElementById("district")
             var stateObject = await get_city()
+
+            let user_city_id = -1;
+            let user_district_id = -1;
+            if ("{{ request.user.is_authenticated }}" && "{{ request.user.city }}") {
+                user_city_id = "{{ request.user.city.id }}"
+                console.log("user is authenticated", "{{ request.user.city.id }}");
+            }
+
+            if ("{{ request.user.is_authenticated }}" && "{{ request.user.district }}") {
+                user_district_id = "{{ request.user.district.id }}"
+                console.log("user is authenticated", "{{ request.user.district.id }}");
+            }
+
+            console.log(stateObject)
+            console.log("ahihi", "{{ request.user.is_authenticated }}")
             for (var i = 0; i < stateObject.length; i++) {
-                $('#citySel').append(`<option value="${
-                    stateObject[i].id
-                }" {% if request.user.is_authenticated and request.user.city is not None and request.user.city.id == "${
-                    stateObject[i].id
-                }" %}selected{% else %}""{% endif %} > ${
-                    stateObject[i].name
-                } </option>`)
+                if (user_city_id != stateObject[i].id) {
+                    $('#citySel').append(`<option value="${
+                        stateObject[i].id
+                    }"  > ${
+                        stateObject[i].name
+                    } </option>`)
+                } else {
+                    $('#citySel').append(`<option value="${
+                        stateObject[i].id
+                    }" selected > ${
+                        stateObject[i].name
+                    } </option>`)
+
+                }
             }
             citySel.onchange = async function () {
                 district.length = 1; // remove all options bar first
@@ -97,19 +120,26 @@
                     return;
                 
 
-
                 var response = await fetch (`/api/cities/${
                     this.value
                 }`)
                 var city = await response.json()
                 for (var i = 0; i < city.districts.length; i++) {
-                    $('#district').append(`<option value="${
-                        city.districts[i].id
-                    }" {% if request.user.is_authenticated and request.user.district is not None and request.user.district == "${
-                        city.districts[i].id
-                    }" %}selected{% else %}""{% endif %} > ${
-                        city.districts[i].name
-                    } </option>`)
+                    if (user_city_id != stateObject[i].id) {
+                        $('#district').append(`<option value="${
+                            city.districts[i].id
+                        }"  > ${
+                            city.districts[i].name
+                        } </option>`)
+                    } else {
+                        $('#district').append(`<option value="${
+                            city.districts[i].id
+                        }" selected > ${
+                            city.districts[i].name
+                        } </option>`)
+
+                    }
+
                 }
             }
             citySel.onchange(); // reset in case page is reloaded
