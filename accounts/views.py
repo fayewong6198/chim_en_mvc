@@ -19,7 +19,7 @@ from .tokens import account_activation_token
 from django.core import mail
 from django.conf import settings
 from django.utils.html import strip_tags
-from cart.models import Address, Payment
+from cart.models import Address, Payment, City, District
 
 from .models import User as UserModel
 from django.core.exceptions import ObjectDoesNotExist
@@ -107,10 +107,24 @@ def profile(request):
     form = CustomUserChangeForm(data=request.POST, instance=request.user)
 
     if form.is_valid():
-        user = form.save(commit=False)
-        user.city = request.POST.get('city').id
-        user.district = request.POST.get('district').id
+        user = request.user
+        city = City.objects.get(id=request.POST.get('city'))
+        district = District.objects.get(id=request.POST.get('district'))
+        print("casdasdasd")
+        print(city)
+        print(district)
+        # user.city = city
+        # user.district = district
+        user.username = request.POST.get('username')
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.mobile = request.POST.get('mobile')
+        user.city = city
+        user.district = district
+        user.address = request.POST.get('address')
+        print("before save")
         user.save()
+        print("after save")
     return redirect('/accounts/profile', {'url': 'profile'})
 
 
