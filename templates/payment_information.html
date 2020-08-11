@@ -130,7 +130,7 @@
   async function get_city() {
     var response = await fetch('/api/cities/')
     var data = await response.json()
-    console.log(data.results)
+    console.log(data)
     return data.results
   }
   var cc = get_city()
@@ -141,7 +141,7 @@
     console.log(stateObject)
     for (var i = 0; i < stateObject.length; i++) {
 
-      $('#citySel').append(`<option value="${stateObject[i].id}" {% if request.user.is_authenticated and request.user.city is not None and request.user.city.id == "${stateObject[i].id}"%}selected{% else %}""{% endif %} > ${stateObject[i].name} </option>`)
+      $('#citySel').append(`<option value="${stateObject[i].id}" {% if request.user.is_authenticated and request.user.city is not None and request.user.city.id == "1"%}selected{% else %}""{% endif %} > ${stateObject[i].name} </option>`)
     }
     citySel.onchange = async function () {
       district.length = 1; // remove all options bar first
