@@ -423,17 +423,9 @@
                             {% endfor %}
                           </div>
                           {% for review in reviews %}
-
                         </div>
                       </div>{% endfor %}
-
                     </div>
-                    <!--Grid row-->
-
-                    <h1>San pham tuong tu</h1>
-                    <p>{{ object.full_description|safe }}</p>
-                    <hr />
-
                   </div>
                 </div>
                 <!-- <p>Full Name: {{review.full_name}}</p>
@@ -445,37 +437,46 @@
                 {% endfor %}
 
               </div>
+            </div>
+            <h1>San pham tuong tu</h1>
+            <p>{{ object.full_description|safe }}</p>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+</main>
 
-              </main>
+{% endblock content %}
 
-              {% endblock content %}
+{% block extra_scripts %}
 
-              {% block extra_scripts %}
-
-              <!-- Initialize Swiper -->
-              <script>
-                var galleryThumbs = new Swiper('.gallery-thumbs', {
-                  spaceBetween: 10,
-                  slidesPerView: 3,
-                  loop: true,
-                  freeMode: true,
-                  loopedSlides: 5, //looped slides should be the same
-                  watchSlidesVisibility: true,
-                  watchSlidesProgress: true,
-                  grabCursor: true,
-                });
-                var galleryTop = new Swiper('.gallery-top', {
-                  grabCursor: true,
-                  loop: true,
-                  loopedSlides: 5, //looped slides should be the same
-                  navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                  },
-                  thumbs: {
-                    swiper: galleryThumbs,
-                  },
-                });
-              </script>
-              {% endblock extra_scripts %}
+<!-- Initialize Swiper -->
+<script>
+  var galleryThumbs = new Swiper('.gallery-thumbs', {
+    spaceBetween: 10,
+    slidesPerView: 3,
+    loop: true,
+    freeMode: true,
+    loopedSlides: 5, //looped slides should be the same
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
+    grabCursor: true,
+  });
+  var galleryTop = new Swiper('.gallery-top', {
+    grabCursor: true,
+    loop: true,
+    loopedSlides: 5, //looped slides should be the same
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    thumbs: {
+      swiper: galleryThumbs,
+    },
+  });
+</script>
+{% endblock extra_scripts %}

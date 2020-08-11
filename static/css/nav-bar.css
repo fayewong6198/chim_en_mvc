@@ -12,8 +12,6 @@
 
 .navbar-white {
   background-color: var(--background-color) !important;
-  /* background-color: #aaaaaa !important; */
-  color: var(--custom-color);
   display: flex;
   align-items: center;
   height: 80px;
@@ -102,7 +100,7 @@
   border-radius: 10px;
   padding: 5px;
   transition: width 0.2s linear;
-  border: 1px solid #ddd;
+  border: 1px solid #333 !important;
   background-color: whitesmoke;
 }
 
@@ -374,7 +372,7 @@
   border-color: rgba(255, 255, 255, 0.09);
   cursor: text;
   box-sizing: border-box;
-  border: 1px solid #ddd;
+  border: 1px solid #333;
   padding: 0px 1.55em;
   height: 2.507em;
   font-size: 0.77em;

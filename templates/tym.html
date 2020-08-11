@@ -1,10 +1,8 @@
 {% extends 'base.html' %} {% load widget_tweaks %}{% block content %}
 
 <div class="container">
-    <div class="step-to-payment mb-2">
-        <div class="tab-content tab-step pt-4" id="nav-tabContent">
+    <!-- <div class="tab-content tab-step pt-4" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
-
                 <section class="mb-4">
                     <h3 class="text-center">Your favorite</h3>
                     {% if request.user.is_authenticated %}
@@ -14,8 +12,6 @@
                             <a href="{% url 'cart:product-detail' favorite.product.slug %}"">
                                 <img src=" {{ favorite.product.images.first }}" alt="" width="100%">
                             </a>
-
-
                             <p> <i data-toggle="tooltip" data-placement="top" title="liked" class="fa fa-heart"></i>
                             </p>
                             <p>Title: {{ favorite.product.title }}</p>
@@ -27,12 +23,64 @@
                     {% else %}
                     <h3>Login is required</h3>
                     {% endif %}
-
                 </section>
-
             </div>
+        </div> -->
+    <!-- modal add to wishlist -->
+    <div class="wishlist-page pb-4 p-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <div class="container">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
+                </div>
+            </ol>
+        </nav>
+        <div class="icon-wishlist">
+            <i class="far fa-heart"></i>
 
         </div>
+        <h2 class="py-3">My Wishlist</h2>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-4 stock-title">
+                <span>#Product Name</span> </div>
+            <div class="col-5 stock-title">
+                <span>#Stock status</span>
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="bottom-line-wishlist"></div>
+        </div>
+        {% for favorite in favorites %}
+        {% if request.user.is_authenticated %}
+        <div class="row">
+            <div class="col-1 col-lg-1">
+                <i class="far fa-trash-alt"></i>
+            </div>
+            <div class="col-2 col-lg-2">
+                <a href="{% url 'cart:product-detail' favorite.product.slug %}"><img
+                        src=" {{ favorite.product.images.first }}" alt="">
+                </a></div>
+            <div class="col-4 col-lg-4">
+                <p class="title-wish"><a href=""> {{ favorite.product.title }}</a></p>
+                <p><span>$</span>{{ favorite.product.price }}</p>
+            </div>
+            <div class="col-2 col-lg-2">
+                <span>In stock</span>
+            </div>
+            <div class="col-3 col-lg-3">
+                <a href="{% url 'cart:product-detail' favorite.product.slug %}">Add to cart</a>
+            </div>
+            <div class="bottom-line-wishlist"></div>
+        </div>
+
     </div>
+    {% else %}
+    <h3>Login is required</h3>
+    {% endif %}
+    {% endfor %}
+
 </div>
 {% endblock content%}

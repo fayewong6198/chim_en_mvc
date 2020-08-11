@@ -718,7 +718,7 @@ html {
   transition: all 0.5s ease 0s;
 }
 
-.product-card:hover:after {
+.product-card:after {
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) 0,
@@ -759,6 +759,11 @@ html {
   bottom: 0;
   z-index: 1;
 }
+#icon-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .product-card .cart-icon li a,
 .box17 .icon li a {
@@ -766,7 +771,13 @@ html {
   font-size: 20px;
   color: #fff;
 }
-
+.icon-badge {
+  display: flex;
+  justify-content: flex-end !important;
+}
+.mobile-nav i {
+  margin-left: 7px;
+}
 .product-card .cart-icon {
   opacity: 0;
   display: flex;
@@ -779,17 +790,17 @@ html {
   transition: all 0.6s cubic-bezier(0, 0, 0.58, 1) 0s;
 }
 
-.product-card:hover {
+.product-card {
   border: 3px solid #5fbd74;
 }
 
-.product-card:hover .cart-icon {
+.product-card .cart-icon {
   opacity: 1;
   transform: perspective(500px) rotateX(0) rotateY(0) rotateZ(0);
   color: #fff;
 }
 
-.product-card .cart-icon li:hover {
+.product-card .cart-icon li {
   opacity: 0.9;
 }
 
@@ -1977,71 +1988,6 @@ footer {
 
 /* product description */
 
-/* .menu-cate {
-  height: auto;
-  width: 100%;
-  border: 1px solid #eee;
-  box-shadow: 10px 22px 12px 21px #eee;
-}
-.menu-cate ul {
-  padding: unset !important;
-}
-.menu-cate ul li {
-  padding: 1.4rem;
-  margin-bottom: 5px;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
-}
-.menu-cate ul li a {
-  color: #333;
-}
-.menu-cate ul li a:hover {
-  color: #5fbd74;
-} */
-
-/* Dropdown Button */
-
-/* .menu-cate .dropbtn {
-  background-color: #4caf50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
-
-.menu-cate .dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.menu-cate .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.menu-cate .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.menu-cate .dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.menu-cate .dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.menu-cate .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
-} */
-
 .description-info {
   width: 100%;
   height: 100%;
@@ -2099,7 +2045,6 @@ footer {
 .description-info-product {
   width: 100%;
   height: 100%;
-  border: 2px solid #eee;
   margin: unset !important;
 }
 .description-img img {
@@ -2109,7 +2054,6 @@ footer {
   object-position: center;
 }
 
-.description-info ul li:hover,
 .description-info ul li a:hover {
   background-color: #5fbd74;
   color: #fff;
@@ -2641,8 +2585,82 @@ footer {
   height: auto;
   padding: 1rem;
 }
-
 .sort-product-list span {
   font-size: 16px;
   font-weight: 600;
+}
+
+/* wishlist page*/
+.wishlist-page .row {
+  /* height: 150px; */
+  justify-content: center;
+  align-items: center !important;
+}
+.wishlist-page {
+  border: 2px solid #eee;
+  width: 100%;
+  height: auto;
+  margin-bottom: 3rem;
+  box-shadow: 22px 12px 15px -12px #aaaaaa;
+}
+.icon-wishlist i {
+  border-right: unset;
+  font-size: 45px;
+  display: flex;
+  justify-content: center;
+}
+.stock-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.wishlist-page h2 {
+  display: flex;
+  font-size: 35px;
+  justify-content: center;
+}
+.wishlist-page .col-2 img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  object-position: center;
+}
+.wishlist-page .title-wish a {
+  color: #5fbd74 !important;
+  padding-left: unset;
+}
+.wishlist-page .title-wish a:hover {
+  opacity: 0.8;
+}
+
+.bottom-line-wishlist {
+  border-top: 1px solid #999999 !important;
+  width: 100%;
+  margin: 1rem 0;
+}
+.wishlist-page .col-3 {
+  justify-content: center;
+  display: flex;
+}
+.wishlist-page .col-3 a {
+  background-color: #5fbd74;
+  padding: 0.6rem 1.4rem;
+  color: #fff;
+  border: unset;
+}
+.wishlist-page .col-3 a:hover {
+  opacity: 0.8;
+}
+.stock-title {
+  display: flex;
+  justify-content: center;
+}
+.form-group label {
+  margin-bottom: unset;
+}
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show > .btn-outline-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #5fbd74;
+  border-color: #5fbd74;
 }
