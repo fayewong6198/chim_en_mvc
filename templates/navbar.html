@@ -98,7 +98,8 @@
             <i class="fa fa-shopping-basket"></i>
           </a>
           {% else %}
-          <a class="fa-stack has-badge" href="{% url 'cart:summary' %}">
+          <a class="fa-stack has-badge" href="{% url 'cart:summary' %}" data-toggle="tooltip" data-placement="top"
+            title="Badge" id="icon-badge" data-count="{{ request.session.products_in_cart }}">
             <i class="fa fa-shopping-basket"></i>
           </a>
           {% endif %}
