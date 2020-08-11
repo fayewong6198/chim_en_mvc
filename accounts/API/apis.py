@@ -21,26 +21,6 @@ class PermissionViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
 
-def user_permissions(request, pk):
-    if (request.method == 'POST'):
-        user = get_object_or_404(User, pk=pk)
-        print("ccc")
-        print(request.POST['user_permissions'], "cc")
-        print("cc")
-        ids = []
-        for permission in request.POST['user_permissions']:
-            ids.append(permission.id)
-        print("ids")
-        print(ids)
-        permissions = Permission.objects.filter(id__in=ids)
-        print("ahihi")
-        print(permissions)
-        user.user_permissions.set(permissions)
-        user.save()
-
-    return Response({'user': user})
-
-
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
