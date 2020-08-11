@@ -2,17 +2,25 @@ from ..models import User
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
+from django.contrib.auth.models import Permission
+
+
+class PermissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Permission
+        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):
     addresses = serializers.StringRelatedField()
+    user_permissions = PermissionSerializer(read_only=True, many=True)
     # favorites = serializers.StringRelatedField(many=True)
     # orders = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name',
-                  'last_name', 'gender', 'date_of_birth', 'addresses', 'is_staff']
+                  'last_name', 'gender', 'date_of_birth', 'addresses', 'is_staff', 'user_permissions']
 
 # Register Serializer
 

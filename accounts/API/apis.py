@@ -1,5 +1,5 @@
 from ..models import User
-from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
+from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, PermissionSerializer
 from rest_framework import viewsets, generics
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -7,9 +7,16 @@ from knox.models import AuthToken
 from django.shortcuts import get_object_or_404
 from ecom.pagination import StandardResultsSetPagination, PaginationHandlerMixin, LargeResultsSetPagination
 
+from django.contrib.auth.models import Permission
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+
+
+class PermissionViewSet(viewsets.ModelViewSet):
+    queryset = Permission.objects.all()
+    serializer_class = PermissionSerializer
+    permission_classes = [permissions.AllowAny]
 
 
 class UserViewSet(viewsets.ModelViewSet):

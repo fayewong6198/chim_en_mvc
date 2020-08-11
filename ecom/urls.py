@@ -11,6 +11,7 @@ from cart.API import apis as cart_apis
 router = routers.DefaultRouter()
 
 router.register(r'users', account_apis.UserViewSet)
+router.register(r'permissions', account_apis.PermissionViewSet)
 router.register(r'products', cart_apis.ProductViewSet)
 router.register(r'payments', cart_apis.PaymentViewSet)
 router.register(r'order-items', cart_apis.OrderItemViewSet)

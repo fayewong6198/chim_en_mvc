@@ -40,7 +40,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-    filterset_fields = ['title']
+    filterset_fields = ['title', 'active']
 
     search_fields = ['title']
 
