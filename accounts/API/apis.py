@@ -24,8 +24,15 @@ class PermissionViewSet(viewsets.ModelViewSet):
 def user_permissions(request, pk):
     if (request.method == 'POST'):
         user = get_object_or_404(User, pk=pk)
-        permissions = Permission.objects.filter(
-            id__in=request.POST['user_permissions'])
+        print("ccc")
+        print(request.POST['user_permissions'], "cc")
+        print("cc")
+        ids = []
+        for permission in request.POST['user_permissions']:
+            ids.append(permission.id)
+        print("ids")
+        print(ids)
+        permissions = Permission.objects.filter(id__in=ids)
         print("ahihi")
         print(permissions)
         user.user_permissions.set(permissions)
@@ -45,9 +52,11 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['POST'])
     def set_permissions(self, request, pk=None):
         user = self.get_object()
-        print(request.data)
-        permissions = Permission.objects.filter(
-            id__in=request.data['user_permissions'])
+        ids = []
+        for permission in request.data['user_permissions']:
+            ids.append(permission['id'])
+
+        permissions = Permission.objects.filter(id__in=ids)
         print("ahihi")
         print(permissions)
         user.user_permissions.set(permissions)
