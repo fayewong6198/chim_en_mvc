@@ -11,6 +11,8 @@ from django.contrib.auth.models import Permission
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from django.http import HttpResponse
+import json
 
 
 class PermissionViewSet(viewsets.ModelViewSet):

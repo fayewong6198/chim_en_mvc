@@ -18,6 +18,17 @@ import json
 
 from django.http import HttpResponse
 
+from accounts.models import User
+
+
+def dash_board(request):
+    if (request.method == 'GET'):
+        users = User.objects.count()
+        products = Product.objects.count()
+        payments = Payment.objects.count()
+
+        return HttpResponse(json.dumps({'users': users, 'payments': payments, 'products': products}), status=200)
+
 
 class PaymentViewSet(viewsets.ModelViewSet):
     """
@@ -139,12 +150,7 @@ class BlogImageViewSet(viewsets.ModelViewSet):
     def create(self, request):
         print(request.data['image'])
         image = request.data['image']
-        # product_id = request.data['product']
-        # print(("product"))
-        # print(product_id)
         try:
-            # product = Product.objects.get(pk=product_id)
-            # print(3)
             image = BlogImage.objects.create(image=image)
             print(3)
             print(image.image.url)

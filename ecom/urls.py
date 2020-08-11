@@ -41,6 +41,7 @@ urlpatterns = [
     path('api/auth/register', account_apis.RegisterAPI.as_view()),
     path('api/auth/login', account_apis.LoginAPI.as_view()),
     path('api/auth/user', account_apis.UserAPI.as_view(), name='user'),
+    path('api/dashboard', cart_apis.dash_board, name='dashboard')
     # path('api/auth/', include('knox.urls'))
 ]
 
