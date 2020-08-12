@@ -436,10 +436,9 @@ html {
 }
 
 .animated-fadeIn {
-  animation: fadeIn ease 2s repeat;
-  -webkit-animation: fadeIn ease 2s repeat;
+  animation: fadeIn ease 2s;
+  -webkit-animation: fadeIn ease 2s;
   transition-delay: 1.3s;
-  animation-iteration-count: 1 repeat;
 }
 
 @keyframes fadeIn {
