@@ -32,7 +32,8 @@
         {% if request.user.is_authenticated %}
         <div class="row">
             <div class="col-1 col-lg-1">
-                <a href="{% url 'cart:tym' favorite.product.id %}"><i class="far fa-trash-alt text-success"></i></a>
+                <a href="{% url 'cart:tym' favorite.product.id %}"><i data-toggle="tooltip" data-placement="top"
+                        title="Delete" class="far fa-trash-alt text-success"></i></a>
             </div>
             <div class="col-2 col-lg-2">
                 <a href="{% url 'cart:product-detail' favorite.product.slug %}"><img

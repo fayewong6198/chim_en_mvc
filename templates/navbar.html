@@ -71,7 +71,7 @@
 
       <!-- Right side -->
       <div class="col-4 col-lg-4 right-nav">
-        <i class="fas fa-search-plus search-collapse" data-toggle="collapse" data-target="#collapseSearch"
+        <i class="fas fa-search-plus search-collapse pr-3" data-toggle="collapse" data-target="#collapseSearch"
           aria-expanded="false" aria-controls="collapseSearch"></i>
         <form id="custom-search-form" class="form-search form-horizontal" action="{% url 'cart:product-list' %}">
           <div class=" input-append span12">
@@ -90,7 +90,7 @@
           title="Wishlist"><i class="fab fa-gratipay  icon-badge"></i></a>
         {% endif %}
 
-        <div class="dropdown pl-3">
+        <div class="dropdown">
           {% if request.session.products_in_cart %}
           <a class="fa-stack has-badge" data-toggle="tooltip" data-placement="top" title="Badge" id="icon-badge"
             data-count="{{ request.session.products_in_cart }}" href="/cart">
@@ -148,6 +148,8 @@
       <!-- Icon list -->
       <div class="col-4">
         <div class="row justify-content-end align-items-center">
+          <i class="fas fa-search-plus search-collapse pr-3" data-toggle="collapse" data-target="#collapseSearch"
+            aria-expanded="false" aria-controls="collapseSearch"></i>
           {% if request.session.products_in_favorite %}
 
           <a class="fa-stack has-badge mr-2" id="icon-basket" data-count="{{ request.session.products_in_favorite }}"

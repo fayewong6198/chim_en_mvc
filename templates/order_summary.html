@@ -30,11 +30,11 @@
             <td>{{ order_item.product.get_price }} vnđ</td>
             {%endif %}
             <td>
-              <a style="color: #aaa;" href="{% url 'cart:descrease-quantity' order_item.id %}"><i
-                  class="fa fa-minus mr-2"></i></a>
+              <a style="color: #aaa;" href="{% url 'cart:descrease-quantity' order_item.id %}"><i data-toggle="tooltip"
+                  data-placement="top" title="Minus" class="fa fa-minus mr-2"></i></a>
               {{ order_item.quantity }}
-              <a style="color: #aaa;" href="{% url 'cart:increase-quantity' order_item.id %}"><i
-                  class="fa fa-plus ml-2"></i></a>
+              <a style="color: #aaa;" href="{% url 'cart:increase-quantity' order_item.id %}"><i data-toggle="tooltip"
+                  data-placement="top" title="Plus" class="fa fa-plus ml-2"></i></a>
             </td>
             <td>
               {% if order_item.item.discount_price %} ${{
@@ -43,7 +43,8 @@
               {% else %} {{ order_item.get_total_item_price }} vnđ{% endif %}
             </td>
             <td> <a style="color: red;" href="{% url 'cart:remove_from_cart' order_item.id %}">
-                <i class="fa fa-close "></i>
+                <i data-toggle="tooltip" data-placement="top" title="Delete"
+                  class="far fa-trash-alt text-secondary"></i>
               </a></td>
           </tr>
           {% empty %}
@@ -79,15 +80,16 @@
     <div class="row">
       <div class="col-md-4">
 
-        <a href="{% url 'cart:payment_information' %}" class="bold-text btn btn-outline-success">Buy</a>
+        <a href="{% url 'cart:payment_information' %}" class="bold-text btn btn-success"
+          style="padding: .5rem 3.4rem;">Buy</a>
       </div>
 
       <div class="col-md-8">
         <div class="row justify-content-end">
           <div class="col-md-12">
             <div class="row">
-              <div class="col-md-12 text-right border-bottom mb-5">
-                <h3 class="text-black h4 text-uppercase">Cart Totals: {{object.get_total_price}} vnđ</h3>
+              <div class="col-md-12 text-right  mb-5">
+                <h3 class="text-black h4 text-uppercase total-cart">Cart Totals: {{object.get_total_price}} vnđ</h3>
               </div>
             </div>
           </div>
