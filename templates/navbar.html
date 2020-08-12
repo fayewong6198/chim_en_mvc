@@ -53,20 +53,54 @@
 </form>
 
 <nav id="navbar" class="navbar-white pl-3 pr-3">
-  <!-- Desktop -->
+  <!-- desktop -->
   <div class="container d-none d-md-block">
     <div class="row justify-content-around">
       <!-- Left-side -->
-      <div class="col-8 col-lg-8">
+      <div class="col-8 col-lg-8 nav-text" style="padding-left: unset !important;">
         <a class="navbar-brand" href="{% url 'home' %}">Organic</a>
-
+        <!-- <div class="dropdown"> -->
+        <div class="nav-link bold-text d-inline dropdown-product-desk" id="navbarDropdown">
+          <a class=" dropdown-toggle " href="{% url 'cart:product-list' %}">Product</a>
+          <!-- dropdown  -->
+          <div class="dropdown-menu w-100 dropdown-category p-3 wow bounceInLeft" data-wow-duration=".2s"
+            aria-labelledby="navbarDropdown">
+            <div class="row">
+              <div class="col-3">
+                <p class="dropdown-item">Category 1</p>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+              </div>
+              <div class="col-3">
+                <p class="dropdown-item">Category 2</p>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+              </div>
+              <div class="col-3">
+                <p class="dropdown-item">Category 3</p>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+              </div>
+              <div class="col-3">
+                <p class="dropdown-item">Category 4</p>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+                <a class="dropdown-item" href="#">Category 1</a>
+              </div>
+            </div>
+          </div>
+        </div>
         <a class="nav-link bold-text active d-inline" href="{% url 'home' %}">Home <span
             class="sr-only">(current)</span></a>
-        <!-- <div class="dropdown"> -->
-        <a class="nav-link bold-text d-inline" href="{% url 'cart:product-list' %}">Product</a>
         <a class="nav-link bold-text d-inline" href="{% url 'about' %}">About</a>
         <a class="nav-link bold-text d-inline" href="{% url 'contact' %}">Contact</a>
-
       </div>
 
       <!-- Right side -->
@@ -104,7 +138,7 @@
           </a>
           {% else %}
           <a class="fa-stack has-badge" href="{% url 'cart:summary' %}" data-toggle="tooltip" data-placement="top"
-            title="Badge" id="icon-badge"">
+            title="Badge" id="icon-badge">
             <i class=" fa fa-shopping-basket"></i>
           </a>
           {% endif %}
@@ -136,9 +170,17 @@
           <div class="nav-item pt-4">
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'about' %}">about</a>
-            <a href="{% url 'cart:product-list'%}">Products</a>
             <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'cart:product-list'%}" id="navbarDropdownMobile" class="dropdown-toggle" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+            <div class="dropdown-menu px-0 dropdown-user dropdown-product" aria-labelledby="navbarDropdownMobile">
 
+              <a class="dropdown-item p-3" href="#">Action ngkdnskhndhdmh;ldhml;dhl;</a>
+              <a class="dropdown-item p-3" href="#">Another action</a>
+              <a class="dropdown-item p-3" href="#">Action</a>
+              <a class="dropdown-item p-3" href="#">Action</a>
+
+            </div>
           </div>
         </div>
         <i class="fas fa-sliders-h" onclick="openNav()"></i>
@@ -158,8 +200,8 @@
             aria-expanded="false" aria-controls="collapseSearch"></i>
           {% if request.user.is_authenticated %}
           {% if request.session.products_in_favorite %}
-          <a class="fa-stack has-badge" id="icon-badge" data-toggle="tooltip" data-placement="top" title="Wishlist"
-            href="{% url 'favorites' %}" data-count="{{ request.session.products_in_favorite }}">
+          <a class="fa-stack has-badge" href="{% url 'favorites' %}"
+            data-count="{{ request.session.products_in_favorite }}">
             <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
           {% endif %}
           {% else %}
