@@ -47,6 +47,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def change_password(self, request, pk=None):
         user = self.get_object()
         password = request.data['password']
+        print(password)
         user.set_password(password)
         user.save()
         print(user.password)

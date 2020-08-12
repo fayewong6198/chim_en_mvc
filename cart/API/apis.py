@@ -62,7 +62,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
+    permission_classes = [permissions.DjangoObjectPermissions]
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filterset_fields = ['title']

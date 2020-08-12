@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load widget_tweaks %}
-
+{% load humanize %}
 {% block content %}
 <main>
 
@@ -17,7 +17,7 @@
                                     {% for payment in payments %}
                                     <div class="col-md-6 col-12">
                                         <a href="/accounts/user-payments/{{payment.id}}">Payment #{{payment.id}}</a>
-                                        <p>Amount {{payment.amount}}</p>
+                                        <p>Amount {{payment.amount|intcomma}}</p>
                                         <p>Status {{payment.status}}</p>
                                         <p>Created At {{payment.created_at}} </p>
                                         <hr />
