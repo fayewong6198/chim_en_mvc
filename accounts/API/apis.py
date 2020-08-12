@@ -40,7 +40,9 @@ class UserViewSet(viewsets.ModelViewSet):
         print("ahihi")
         print(permissions)
         user.user_permissions.set(permissions)
+        print(user.user_permissions)
         user.save()
+        print(user.user_permissions)
         return Response({'user': UserSerializer(user, context=self.get_serializer_context()).data})
 
     @action(detail=True, methods=['POST'])
