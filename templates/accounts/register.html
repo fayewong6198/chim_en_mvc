@@ -74,7 +74,7 @@
       <section class="login-page">
         <div class="container">
           <div class="row">
-            <div class="col-12 col-md-7 text-center">
+            <div class="col-12 col-md-7 register-responsive text-center">
               <h2 class="mb-4">Create Account</h2>
               <form action="{% url 'register' %}" method="POST">
                 {% csrf_token %} {% for field in form %}

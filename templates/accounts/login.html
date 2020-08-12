@@ -70,9 +70,8 @@
       </div>
     </div>
   </div> -->
-  <div class="alert alert-success" role="alert">
-    <div class="alert-msg">
-      {{message}}</div>
+  <div class="alert alert-success animated fadeInDown" role="alert">
+    {{message}}
   </div>
   {% endfor %}
   {% endif %}
@@ -89,7 +88,7 @@
                 <a href="{% url 'register' %}"> <button class="btn btn-outline-success text-light">Register</button></a>
               </div>
             </div>
-            <div class="col-12 col-md-7 text-center">
+            <div class="col-12 col-md-7 login-responsive text-center">
               <h2 class="py-4">Sign in</h2>
               <form action="/accounts/login/?next={{next}}" method="POST">
                 {% csrf_token %} {% for field in form %}
