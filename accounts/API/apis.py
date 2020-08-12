@@ -43,6 +43,15 @@ class UserViewSet(viewsets.ModelViewSet):
         user.save()
         return Response({'user': UserSerializer(user, context=self.get_serializer_context()).data})
 
+    @action(detail=True, methods=['POST'])
+    def change_password(self, request, pk=None):
+        user = self.get_object()
+        password = request.data['password']
+        user.set_password(password)
+        user.save()
+        print(user.password)
+        return Response({'user': UserSerializer(user, context=self.get_serializer_context()).data})
+
 
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
