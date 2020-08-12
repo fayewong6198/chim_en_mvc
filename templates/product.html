@@ -1,7 +1,4 @@
 {% extends "base.html" %} {% load widget_tweaks %} {% block content %}
-
-
-
 <div class="container dark-grey-text">
   <!--Grid row-->
   <nav aria-label="breadcrumb">
@@ -488,6 +485,17 @@
     thumbs: {
       swiper: galleryThumbs,
     },
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $(document).click(function (event) {
+      var click = $(event.target);
+      var _open = $(".navbar-collapse").hasClass("show");
+      if (_open === true && !click.hasClass("navbar-toggler")) {
+        $(".navbar-toggler").click();
+      }
+    });
   });
 </script>
 {% endblock extra_scripts %}

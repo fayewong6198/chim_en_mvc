@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+
 <div>
   <!-- Swiper -->
   <div class="swiper-container" id="swiper-container">
@@ -52,7 +53,7 @@
             <!-- Static Header -->
             <div class="header-text hidden-xs">
               <div class="row">
-                <div class="col-md-6 col-12 col-sm-12 text-center second-slide-left pb-3 wow bounceInUp"
+                <div class="col-md-6 col-12 col-sm-12 text-center second-slide-left pb-3 wow fadeInUp"
                   data-wow-duration="1.4s">
                   <img src="https://organik.thememove.com/wp-content/uploads/2012/06/hn-slider2-5.png" alt=" ">
                   <h3 class="pt-3 wow bounceInRight" data-wow-duration="1.4s">Reach for a healthier you with </h3>
@@ -139,7 +140,7 @@
   </div>
 </div>
 <!-- section categories -->
-<section class="section-categories text-center pt-5 pl-4 wow bounceInUp">
+<section class="section-categories text-center pt-5 pl-4 wow fadeInUp">
   <h1>Shop by categories</h1>
   <div class="row pt-4" style="width:100%">
     <div class="col-md-4 col-lg-2 col-12 col-sm-4 mb-3  wow bounceInUp" data-wow-delay=".1s">
@@ -218,7 +219,7 @@
     <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
       <div class="row mt-4">
         {% for product in products %}
-        <div class="col-lg-3 col-12 col-sm-6 mb-3 wow bounceInUp" data-wow-duration="1.4s">
+        <div class="col-lg-3 col-12 col-sm-6 mb-3 wow fadeInUp" data-wow-duration="1.4s">
           <div class="product-card">
             <a href="{% url 'cart:product-detail' product.slug %}">
               <img src="{{product.images.first}}"></a>
@@ -487,7 +488,7 @@
     </div>
   </div>
 </div>
-<section class="banner-home banner-home-under p-4 wow bounceInUp" data-wow-duration="1.4s">
+<section class="banner-home banner-home-under p-4 wow fadeInUp" data-wow-duration="1.4s">
   <div class="row">
     <div class="col-lg-8 col-12 col-xs-12 col-sm-12 mb-3">
       <img src="https://organik.thememove.com/wp-content/uploads/2020/05/hn-banner-04.png" alt="">
@@ -501,7 +502,7 @@
 
 <!-- reason love us -->
 <section class="reason-love p-4">
-  <div class="row pt-5 animated-late fadeIn wow bounceInUp" data-wow-duration="1.4s">
+  <div class="row pt-5 animated-late fadeIn wow fadeInUp">
     <div class="col-lg-3 col-12 col-sm-12">
       <h1>Why do people love us?</h1>
       <p class="py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. maiores ex assumenda
@@ -519,7 +520,7 @@
 
               <div class="carousel-item active">
                 <div class="row">
-                  <div class="col-md-4 col-sm-12 col-12 wow bounceInUp" data-wow-delay=".1s">
+                  <div class="col-md-4 col-sm-12 col-12 wow fadeInUp" data-wow-delay=".2s">
                     <div class="inner px-4" style="background-color: rgb(237, 245, 239);">
                       <div class="quote-inner pt-4"><img
                           src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
@@ -542,7 +543,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12 col-12 none-card wow bounceInUp" data-wow-delay=".2s">
+                  <div class="col-md-4 col-sm-12 col-12 none-card wow fadeInUp" data-wow-delay=".4s">
                     <div class="inner px-4" style="background-color: #faf8f6">
                       <div class="quote-inner pt-4"><img
                           src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
@@ -565,7 +566,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12 col-12 none-card wow bounceInUp" data-wow-delay=".3s">
+                  <div class="col-md-4 col-sm-12 col-12 none-card wow fadeInUp" data-wow-delay=".6s">
                     <div class="inner px-4" style="background-color: #eaeff7">
                       <div class="quote-inner pt-4"><img
                           src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
@@ -598,7 +599,7 @@
 
               <div class="carousel-item active">
                 <div class="row">
-                  <div class="col-md-4 col-sm-12 col-12 none-card wow bounceInUp" data-wow-delay=".1s">
+                  <div class="col-md-4 col-sm-12 col-12 none-card wow fadeInUp" data-wow-delay=".2s">
                     <div class="inner px-4" style="background-color: #faf8f6">
                       <div class="quote-inner pt-4"><img
                           src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
@@ -621,7 +622,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12 col-12 wow bounceInUp" data-wow-delay=".2s">
+                  <div class="col-md-4 col-sm-12 col-12 wow fadeInUp" data-wow-delay=".4s">
                     <div class="inner px-4" style="background-color: #eaeff7">
                       <div class="quote-inner pt-4"><img
                           src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
@@ -644,7 +645,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4 col-sm-12 col-12 none-card wow bounceInUp" data-wow-delay=".3s">
+                  <div class="col-md-4 col-sm-12 col-12 none-card wow fadeInUp" data-wow-delay=".6s">
                     <div class="inner px-4" style="background-color: rgb(237, 245, 239);">
                       <div class="quote-inner pt-4"><img
                           src="https://organik-4437.kxcdn.com/wp-content/themes/tm-organik/assets/images/testi_quote_3.png"
