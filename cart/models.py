@@ -76,6 +76,11 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['slug', ])
+        ]
     sku = models.CharField(max_length=255, null=True, blank=True, default="")
     title = models.CharField(max_length=255)
     slug = models.SlugField()
@@ -88,6 +93,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(default=datetime.now())
     updated = models.DateTimeField(auto_now=True)
     promotion = models.IntegerField(default=0)
+
     # available = models.IntegerField(default=1)
     # available_colors = models.ManyToManyField(ColorVariation)
     # available_sizes = models.ManyToManyField(SizeVariation)
