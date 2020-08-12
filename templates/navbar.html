@@ -81,13 +81,19 @@
             <input type="text" class="search-query" placeholder="Tim kiem" value="{{search}}" name="search">
             <button type="submit" class="btn"><i class="fas fa-search-plus"></i></button>
         </form>
+        {% if request.user.is_authenticated %}
         {% if request.session.products_in_favorite %}
         <a class="fa-stack has-badge" id="icon-badge" data-toggle="tooltip" data-placement="top" title="Wishlist"
           href="{% url 'favorites' %}" data-count="{{ request.session.products_in_favorite }}">
           <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
         {% else %}
-        <a class="fa-stack has-badge" id="icon-badge-unlogin" data-toggle="tooltip" data-placement="top"
-          title="Wishlist"><i class="fab fa-gratipay  icon-badge"></i></a>
+        <a class="fa-stack has-badge" id="icon-badge" data-toggle="tooltip" data-placement="top" title="Wishlist"
+          href="{% url 'favorites' %}">
+          <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
+        {% endif %}
+        {% else %}
+        <a class=" fa-stack has-badge" id="icon-badge-unlogin" data-toggle="tooltip" data-placement="top"
+          title="Login required"><i class="fab fa-gratipay  icon-badge"></i></a>
         {% endif %}
 
         <div class="dropdown">
@@ -150,12 +156,15 @@
         <div class="row justify-content-end align-items-center">
           <i class="fas fa-search-plus search-collapse pr-3" data-toggle="collapse" data-target="#collapseSearch"
             aria-expanded="false" aria-controls="collapseSearch"></i>
+          {% if request.user.is_authenticated %}
           {% if request.session.products_in_favorite %}
-
-          <a class="fa-stack has-badge mr-2" id="icon-basket" data-count="{{ request.session.products_in_favorite }}"
-            href="{% url 'favorites' %}"><i class="fab fa-gratipay"></i></a>
+          <a class="fa-stack has-badge" id="icon-badge" data-toggle="tooltip" data-placement="top" title="Wishlist"
+            href="{% url 'favorites' %}" data-count="{{ request.session.products_in_favorite }}">
+            <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
+          {% endif %}
           {% else %}
-          <a class="fa-stack has-badge"><i class="fab fa-gratipay"></i></a>
+          <a class=" fa-stack has-badge" id="icon-badge-unlogin" data-toggle="tooltip" data-placement="top"
+            title="Login required"><i class="fab fa-gratipay  icon-badge"></i></a>
           {% endif %}
           {% if request.session.products_in_cart %}
           <a class="fa-stack has-badge" id="icon-basket" data-count="{{ request.session.products_in_cart }}"

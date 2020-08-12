@@ -57,6 +57,8 @@ class ContactView(generic.View):
                   auth_password=None,
                   html_message=None
                   )
+        messages.success(request, " update successfully !")
+
         return redirect('/contact')
 
 

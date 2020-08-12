@@ -57,10 +57,19 @@
   </style>
 </head>
 
-{% include "navbar.html" %}
 
 <body>
-
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert  alert-{{ message.tags }} animated fadeInDown" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{message}}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% include "navbar.html" %}
 
   <script src="https://kit.fontawesome.com/bff3b0c353.js" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
@@ -78,6 +87,14 @@
   {% include "footer.html" %}
   {% include "scripts.html" %}
   {% block extra_scripts %} {% endblock extra_scripts %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      setTimeout(function () {
+        $('.alert').hide();
+      }, 1500);// <-- time in milliseconds, 1000 =  1 sec
+    });
+  </script>
 
 </body>
 

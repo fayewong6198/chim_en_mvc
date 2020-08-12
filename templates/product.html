@@ -4,6 +4,15 @@
 
 <div class="container dark-grey-text">
   <!--Grid row-->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <div class="container">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item " aria-current="page"><a href="{% url 'cart:product-list' %}">Shop</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Product detail - {{object.title}}</li>
+      </div>
+    </ol>
+  </nav>
   <div class="row">
     <div class="col-12 col-lg-3 mb-5">
       <div id="menu_area" class="menu-area">
@@ -27,6 +36,7 @@
           </div>
         </div>
       </div>
+
       <div class="img-sidebar py-3">
         <div class="hover-sidebar column">
           <div>
@@ -90,7 +100,7 @@
               <span class="badge purple mr-1">{{ object.get_category_display }}</span>
             </a>
 
-            <h2 class="pt-3">{{object.title}}</h2>
+            <h2 class="pt-3">bject{{o.title}}</h2>
 
             <p class="lead">
               {% if object.promotion > 0 %}
@@ -300,7 +310,8 @@
                         <a class="float-left name-comment" href=""><strong>{{review.full_name}}</strong></a>
                         <span class="float-right"><i class="text-danger fa fa-star"></i></span>
                         <span class="float-right"><i class="text-danger fa fa-star"></i></span>
-                        {% comment %} <!-- {% ifequal review.rating 1 %}
+                        {% comment %}
+                        <!-- {% ifequal review.rating 1 %}
                         <span class="float-right"><i class="text-danger fa fa-star"></i></span>
 
                         {% elseifequal  review.rating 2 %}

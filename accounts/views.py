@@ -32,21 +32,23 @@ def login(request):
             next = request.GET['next']
         form = LoginForm()
         return render(request, 'accounts/login.html', {'form': form, 'next': next})
-
     form = LoginForm(request.POST)
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        auth_login(request, user)
-        next_url = request.GET.get('next')
+    if form.is_valid():
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            next_url = request.GET.get('next')
 
-        if next_url:
-            return HttpResponseRedirect(next_url)
+            if next_url:
+                return HttpResponseRedirect(next_url)
+            else:
+                messages.success(request, "Login success!")
+                return redirect('/')
         else:
-            messages.success(request, 'login success')
-            return redirect('/')
-
+            messages.warning(request, "wrong info")
+            return render(request, 'accounts/login.html', {'form': form, 'title': 'Login'})
     return render(request, 'accounts/login.html', {'form': form, 'title': 'Login'})
 
 
@@ -116,6 +118,8 @@ def profile(request):
             user.district = district
 
         user.save()
+        messages.success(request, " update successfully !")
+
     return redirect('/accounts/profile', {'url': 'profile'})
 
 
@@ -133,6 +137,8 @@ def AddressView(request):
         address = form.save(commit=False)
         address.user = request.user
         address.save()
+        messages.success(request, " update successfully !")
+
     return redirect('/accounts/profile/address')
 
 
@@ -146,8 +152,10 @@ def changePassword(request):
         request.user, data=request.POST)
     if form_edit_password.is_valid():
         form_edit_password.save()
+        messages.success(request, " update successfully !")
         return redirect('/accounts/profile')
     else:
+        messages.warning(request, "password wrong format !")
         return render(request, 'accounts/password_change.html', {'form': form_edit_password, 'url': 'change-password'})
 
 
@@ -197,7 +205,6 @@ def user_payment(request, id):
 
         if (payment.user != request.user):
             return redirect('/')
-
         return render(request, 'accounts/user_payment.html', {'payment': payment, 'url': 'payment'})
 
 

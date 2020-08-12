@@ -11,6 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail, District, City, Category, Review
 from django.utils.decorators import method_decorator
 from .choices import limit_choices as l, price_choices, sort_choice
+from django.contrib import messages
 
 
 class ProductListView(generic.TemplateView):
@@ -196,14 +197,15 @@ class TymOrUnTym(generic.View):
 
             favorite = FavoriteProduct.objects.get(
                 product=product.id, user=request.user)
-            print("Delete")
+            messages.success(request, "Unlinked")
             favorite.delete()
         except FavoriteProduct.DoesNotExist:
-            print("add new")
+
             new_favorite = FavoriteProduct()
             new_favorite.user = request.user
             new_favorite.product = product
             new_favorite.save()
+            messages.success(request, "Linked")
 
         request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
             user=request.user).count()
@@ -307,7 +309,7 @@ def payment_process(request):
             payment.save()
             cart.delete()
             request.session['products_in_cart'] = 0
-
+            messages.success(request, "payment successfully")
             return render(request, 'payment_process.html', {'success': True})
         except:
             # Delete payment
