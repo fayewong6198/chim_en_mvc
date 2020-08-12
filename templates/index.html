@@ -234,6 +234,8 @@
               <ul class="cart-icon">
                 <li><a href="{% url 'cart:product-detail' product.slug %} "><i data-toggle="tooltip"
                       data-placement="bottom" title="Add to cart" class="fa fa-cart-plus "></i></a></li>
+
+                {% if request.user.is_authenticated%}
                 {% if product.id in liked %}
                 <li><a href="{% url 'cart:tym' product.id %}">
                     <i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
@@ -244,6 +246,12 @@
                       title="Add to wishlist" class="fa fa-heart-o"></i></a>
                 </li>
                 {% endif %}
+                {% else %}
+                <li><a><i data-toggle="tooltip" data-placement="bottom" title=" Login to Add to wishlist"
+                      class="fa fa-heart-o"></i></a>
+                </li>
+                {% endif %}
+
                 <li><a data-toggle="modal" data-target="#product{{product.id}}" href="#"><i data-toggle="tooltip"
                       data-placement="bottom" title="Quick view" class="fas fa-search"></i></a></li>
                 <li><a href="#"><i data-toggle="tooltip" data-placement="bottom" title="Compare"

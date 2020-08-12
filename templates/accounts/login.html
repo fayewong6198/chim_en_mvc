@@ -62,13 +62,17 @@
   {% load widget_tweaks %}
   {% if messages %}
   {% for message in messages %}
-  <div class="modal fade bd-example-modal-sm" style="border-radius: 10px" id='myModal1' tabindex="-1" role="dialog"
+  <!-- <div class="modal fade bd-example-modal-sm" style="border-radius: 10px" id='myModal1' tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm bg-success">
       <div class="modal-body text-light text-center mt-5" style="padding-top: 30px; ">
         <p><b><i class="fa fa-check text-success"></i>&nbsp;{{message}}</b></p>
       </div>
     </div>
+  </div> -->
+  <div class="alert alert-success" role="alert">
+    <div class="alert-msg">
+      {{message}}</div>
   </div>
   {% endfor %}
   {% endif %}
@@ -134,7 +138,7 @@
       $("#myModal1").modal("show");
       setTimeout(function () {
         $('#myModal123').modal("hide");
-      }, 10000);// <-- time in milliseconds, 1000 =  1 sec
+      }, 3000);// <-- time in milliseconds, 1000 =  1 sec
     });
   </script>
 </body>
