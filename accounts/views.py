@@ -91,12 +91,11 @@ def register(request):
                            auth_user=None,
                            auth_password=None,
                            recipient_list=[to], html_message=html_message)
-            return HttpResponse('Please confirm your email address to complete the registration')
+            messages.success(
+                request, 'Please confirm your email address to complete the registration')
+            return redirect('register')
         except:
             return redirect('register')
-
-        # messages.success(request, 'Register success')
-
     return render(request, 'accounts/register.html', {'form': form})
 
 
@@ -169,7 +168,8 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         auth_login(request, user)
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        messages.success(request, " Now you can login your account")
+        return redirect('/accounts/login')
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -180,7 +180,8 @@ def verify_change_email(request, user):
     if user and request.GET.get('new_email'):
         user.email = request.GET.get('new_email')
         user.save()
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        messages.success(request, " change email successfully !")
+        return redirect('/')
     else:
         return HttpResponse('This  link is invalid!')
 
@@ -194,7 +195,6 @@ def user_payments(request):
             'payments': payments,
             'url': 'payment'
         }
-
         return render(request, 'accounts/user_payments.html', context)
 
 
@@ -236,7 +236,9 @@ def change_email(request):
                            auth_user=None,
                            auth_password=None,
                            recipient_list=[to], html_message=html_message)
-            return HttpResponse('Please confirm your email address to complete the change email')
+            messages.success(
+                request, "Please confirm your email address to complete the change email")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except:
             return render(request, 'accounts/change_email.html', {'form': form})
 
