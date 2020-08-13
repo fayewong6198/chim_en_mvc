@@ -191,28 +191,6 @@ class RemoveFromCartView(generic.View):
         return redirect("cart:summary")
 
 
-# class TymOrUnTym(generic.View):
-#     @ method_decorator(login_required)
-#     def get(self, request, *args, **kwargs):
-#         product = Product.objects.get(pk=kwargs['product_id'])
-#         try:
-
-#             favorite = FavoriteProduct.objects.get(
-#                 product=product.id, user=request.user)
-#             messages.success(request, "Unlinked")
-#             favorite.delete()
-#         except FavoriteProduct.DoesNotExist:
-
-#             new_favorite = FavoriteProduct()
-#             new_favorite.user = request.user
-#             new_favorite.product = product
-#             new_favorite.save()
-#             messages.success(request, "Linked")
-
-#         request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
-#             user=request.user).count()
-#         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
 @api_view(['GET', ])
 def TymOrUnTym(request, product_id):
 
@@ -231,7 +209,6 @@ def TymOrUnTym(request, product_id):
                 new_favorite.user = request.user
                 new_favorite.product = product
                 new_favorite.save()
-                messages.success(request, "Linked")
 
             count = FavoriteProduct.objects.filter(
                 user=request.user).count()

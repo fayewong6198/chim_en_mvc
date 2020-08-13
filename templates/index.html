@@ -244,12 +244,12 @@
 
                 {% if request.user.is_authenticated%}
                 {% if product.id in liked %}
-                <li><a href="{% url 'cart:tym' product.id %}">
+                <li><a id="{{product.id}}" onclick="tym(this.id)">
                     <i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
                       class="fa fa-heart"></i></a>
                 </li>
                 {%else%}
-                <li><a href="{% url 'cart:tym' product.id %}"><i data-toggle="tooltip" data-placement="bottom"
+                <li><a id="{{product.id}}" onclick="tym(this.id)"><i data-toggle="tooltip" data-placement="bottom"
                       title="Add to wishlist" class="fa fa-heart-o"></i></a>
                 </li>
                 {% endif %}

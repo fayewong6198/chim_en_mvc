@@ -60,6 +60,11 @@
       <div class="col-8 col-lg-8 nav-text">
         <a class="navbar-brand" href="{% url 'home' %}">Organic</a>
         <!-- <div class="dropdown"> -->
+
+        <a class="nav-link bold-text active d-inline" href="{% url 'home' %}">Home <span
+            class="sr-only">(current)</span></a>
+        <a class="nav-link bold-text d-inline" href="{% url 'about' %}">About</a>
+        <a class="nav-link bold-text d-inline" href="{% url 'contact' %}">Contact</a>
         <div class="nav-link bold-text d-inline dropdown-product-desk" id="navbarDropdown">
           <a class=" dropdown-toggle " href="{% url 'cart:product-list' %}">Product</a>
           <!-- dropdown  -->
@@ -97,10 +102,6 @@
             </div>
           </div>
         </div>
-        <a class="nav-link bold-text active d-inline" href="{% url 'home' %}">Home <span
-            class="sr-only">(current)</span></a>
-        <a class="nav-link bold-text d-inline" href="{% url 'about' %}">About</a>
-        <a class="nav-link bold-text d-inline" href="{% url 'contact' %}">Contact</a>
       </div>
 
       <!-- Right side -->

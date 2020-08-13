@@ -140,11 +140,11 @@
               <div class="p-2">
                 {% if liked %}
                 <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
-                  <a href="{% url 'cart:tym' object.id %}"> <i class="fa fa-heart"></i></a>
+                  <a id="{{product.id}}" onclick="tym(this.id)"> <i class="fa fa-heart"></i></a>
                 </button>
                 {% else %}
                 <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
-                  <a href="{% url 'cart:tym' object.id %}"> <i class="fa fa-heart-o"></i></a>
+                  <a id="{{product.id}}" onclick="tym(this.id)"> <i class="fa fa-heart-o"></i></a>
                 </button>
                 {% endif %}
 

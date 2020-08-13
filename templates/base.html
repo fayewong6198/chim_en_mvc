@@ -100,6 +100,30 @@
       }, 2000);// <-- time in milliseconds, 1000 =  1 sec
     });
   </script>
+  <script>
+    const tym = (id) => {
+      fetch(`/cart/tym_or_unTym/${id}`, {
+        headers: {
+          'Authorization': ` token ${localStorage.getItem('token')}`
+        },
+        method: 'GET',
+
+      }).then(response => response.text()).then(data => {
+        document.getElementById(id).innerHTML = ''
+        if (JSON.parse(data).liked == true)
+          document.getElementById(id).innerHTML = `<i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
+                              class="fa fa-heart"></i>`;
+        else
+          document.getElementById(id).innerHTML = `<i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
+                              class="fa fa-heart-o"></i>`
+
+        document.getElementById('icon-badge').setAttribute("data-count", `${JSON.parse(data).count}`)
+      });
+
+
+    }
+
+  </script>
 </body>
 
 </html>
