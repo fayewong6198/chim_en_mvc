@@ -57,13 +57,13 @@
   <div class="container d-none d-md-block">
     <div class="row justify-content-around">
       <!-- Left-side -->
-      <div class="col-8 col-lg-8 nav-text" style="padding-left: unset !important;">
+      <div class="col-8 col-lg-8 nav-text">
         <a class="navbar-brand" href="{% url 'home' %}">Organic</a>
         <!-- <div class="dropdown"> -->
         <div class="nav-link bold-text d-inline dropdown-product-desk" id="navbarDropdown">
           <a class=" dropdown-toggle " href="{% url 'cart:product-list' %}">Product</a>
           <!-- dropdown  -->
-          <div class="dropdown-menu w-100 dropdown-category p-3 wow bounceInLeft" data-wow-duration=".2s"
+          <div class="dropdown-menu w-100 dropdown-category p-3 wow fadeInLeft" data-wow-duration=".2s"
             aria-labelledby="navbarDropdown">
             <div class="row">
               <div class="col-3">
@@ -126,7 +126,7 @@
           <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
         {% endif %}
         {% else %}
-        <a class=" fa-stack has-badge" id="icon-badge-unlogin" data-toggle="tooltip" data-placement="top"
+        <a class=" fa-stack has-badge" id="icon-badge" data-toggle="tooltip" data-placement="top"
           title="Login required"><i class="fab fa-gratipay  icon-badge"></i></a>
         {% endif %}
 
@@ -171,15 +171,17 @@
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'about' %}">about</a>
             <a href="{% url 'contact' %}">Contact</a>
-            <a href="{% url 'cart:product-list'%}" id="navbarDropdownMobile" class="dropdown-toggle" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-            <div class="dropdown-menu px-0 dropdown-user dropdown-product" aria-labelledby="navbarDropdownMobile">
+            <div class="inline-mobile-menu">
+              <a href="{% url 'cart:product-list'%}">Products</a>
+              <i class="fas fa-chevron-down" id="navbarDropdownMobile" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"></i>
+              <div class="dropdown-menu px-0 dropdown-user dropdown-product" aria-labelledby="navbarDropdownMobile">
 
-              <a class="dropdown-item p-3" href="#">Action ngkdnskhndhdmh;ldhml;dhl;</a>
-              <a class="dropdown-item p-3" href="#">Another action</a>
-              <a class="dropdown-item p-3" href="#">Action</a>
-              <a class="dropdown-item p-3" href="#">Action</a>
-
+                <a class="dropdown-item p-3" href="#">Action ngkdns;dhl;</a>
+                <a class="dropdown-item p-3" href="#">Another action</a>
+                <a class="dropdown-item p-3" href="#">Action</a>
+                <a class="dropdown-item p-3" href="#">Action</a>
+              </div>
             </div>
           </div>
         </div>
@@ -271,4 +273,5 @@
   document.addEventListener("click", handleMousePos);
 
 </script>
+
 {%endblock extra_scripts %}
