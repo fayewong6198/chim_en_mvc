@@ -12,6 +12,8 @@ from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetai
 from django.utils.decorators import method_decorator
 from .choices import limit_choices as l, price_choices, sort_choice
 from django.contrib import messages
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 class ProductListView(generic.TemplateView):
@@ -189,27 +191,52 @@ class RemoveFromCartView(generic.View):
         return redirect("cart:summary")
 
 
-class TymOrUnTym(generic.View):
-    @ method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        product = Product.objects.get(pk=kwargs['product_id'])
-        try:
+# class TymOrUnTym(generic.View):
+#     @ method_decorator(login_required)
+#     def get(self, request, *args, **kwargs):
+#         product = Product.objects.get(pk=kwargs['product_id'])
+#         try:
 
-            favorite = FavoriteProduct.objects.get(
-                product=product.id, user=request.user)
-            messages.success(request, "Unlinked")
-            favorite.delete()
-        except FavoriteProduct.DoesNotExist:
+#             favorite = FavoriteProduct.objects.get(
+#                 product=product.id, user=request.user)
+#             messages.success(request, "Unlinked")
+#             favorite.delete()
+#         except FavoriteProduct.DoesNotExist:
 
-            new_favorite = FavoriteProduct()
-            new_favorite.user = request.user
-            new_favorite.product = product
-            new_favorite.save()
-            messages.success(request, "Linked")
+#             new_favorite = FavoriteProduct()
+#             new_favorite.user = request.user
+#             new_favorite.product = product
+#             new_favorite.save()
+#             messages.success(request, "Linked")
 
-        request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
-            user=request.user).count()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+#         request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
+#             user=request.user).count()
+#         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@api_view(['GET', ])
+def TymOrUnTym(request, product_id):
+
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            liked = True
+            product = Product.objects.get(pk=product_id)
+            try:
+                favorite = FavoriteProduct.objects.get(
+                    product=product.id, user=request.user)
+                favorite.delete()
+                liked = False
+            except FavoriteProduct.DoesNotExist:
+
+                new_favorite = FavoriteProduct()
+                new_favorite.user = request.user
+                new_favorite.product = product
+                new_favorite.save()
+                messages.success(request, "Linked")
+
+            count = FavoriteProduct.objects.filter(
+                user=request.user).count()
+            return Response({'liked': liked, 'count': count})
+    return Response({'messages': "login_required"})
 
 
 class PaymentView(generic.FormView):

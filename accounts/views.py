@@ -39,6 +39,7 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
+
             next_url = request.GET.get('next')
 
             if next_url:

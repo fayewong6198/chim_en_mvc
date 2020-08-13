@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+
+{% block content %}
 
 
 <script>
@@ -37,7 +40,10 @@
   function navigation_to(url) {
     window.location.href = url;
   }
+
+
 </script>
+
 
 
 <div class="bg-light">
@@ -150,16 +156,9 @@
                       <li><a href="{% url 'cart:product-detail' product.slug %} "><i data-toggle="tooltip"
                             data-placement="bottom" title="Add to cart" class="fa fa-cart-plus"></i></a></li>
                       {% if request.user.is_authenticated%}
-                      {% if product.id in liked %}
-                      <li><a href="{% url 'cart:tym' product.id %}">
-                          <i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
-                            class="fa fa-heart"></i></a>
+                      <li><a id="{{product.id}}" onclick="tym(this.id)"><i data-toggle=" tooltip"
+                            data-placement="bottom" title="Add to wishlist" class="fa fa-heart-o"></i></a>
                       </li>
-                      {%else%}
-                      <li><a href="{% url 'cart:tym' product.id %}"><i data-toggle="tooltip" data-placement="bottom"
-                            title="Add to wishlist" class="fa fa-heart-o"></i></a>
-                      </li>
-                      {% endif %}
                       {% else %}
                       <li><a><i data-toggle="tooltip" data-placement="bottom" title=" Login to Add to wishlist"
                             class="fa fa-heart-o"></i></a>
@@ -341,6 +340,28 @@
 
       </nav>
     </div>
-    {% endblock content %}
   </div>
 </div>
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+  const tym = (id) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', `http://localhost:8000/cart/tym_or_unTym/${id}`, true);
+    xhr.setRequestHeader("Authorization", "token " + ;
+    xhr.onload = () => {
+      let x = JSON.parse(this.responseText)
+      console.log(x)
+    }
+    document.getElementById(id).innerHTML = `<i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
+                            class="fa fa-heart"></i>`
+    xhr.send()
+
+  }
+
+
+
+
+</script>
+{% endblock extra_scripts %}
