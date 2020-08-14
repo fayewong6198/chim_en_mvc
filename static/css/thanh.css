@@ -2530,7 +2530,7 @@ footer {
 
 .login-welcome button {
   background-color: unset;
-  padding: 0.6rem 5.1rem;
+  padding: 0.6rem 3.1rem;
   border: 1px solid #5fbd74;
   font-size: 18px;
   border-radius: 30px;
@@ -2757,4 +2757,15 @@ footer {
   text-align: center;
   margin: auto;
   position: absolute;
+  top: 0;
+  padding-bottom: 10px;
+}
+
+.width-full {
+  width: 100%;
+  display: flex;
+  justify-content: center !important;
+  align-items: center;
+  flex-direction: row !important;
+  top: 0;
 }

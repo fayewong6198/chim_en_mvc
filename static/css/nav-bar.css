@@ -69,6 +69,9 @@
   .fa-shopping-basket {
     padding-top: unset;
   }
+  .none-mobile-login {
+    display: block !important;
+  }
 }
 /* Links inside the dropdown */
 .dropdown-content a {
