@@ -116,8 +116,10 @@
         else
           document.getElementById(id).innerHTML = `<i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
                               class="fa fa-heart-o"></i>`
-
-        document.getElementById('icon-badge').setAttribute("data-count", `${JSON.parse(data).count}`)
+        if (JSON.parse(data).count > 0)
+          document.getElementById('icon-badge').setAttribute("data-count", `${JSON.parse(data).count}`)
+        else
+          document.getElementById('icon-badge').removeAttribute("data-count");
       });
 
 

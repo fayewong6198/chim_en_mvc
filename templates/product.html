@@ -137,15 +137,19 @@
               </div>
 
               <!-- Others Actions -->
-              <div class="p-2">
-                {% if liked %}
-                <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
-                  <a id="{{product.id}}" onclick="tym(this.id)"> <i class="fa fa-heart"></i></a>
-                </button>
+              <div class="p-2 text-dar">
+
+                {% if request.user.is_authenticated%}
+                {% if product.id in liked %}
+                <a id="{{object.id}}" onclick="tym(this.id)">
+                  <i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist" class="fa fa-heart"></i></a>
+                {%else%}
+                <a id="{{object.id}}" onclick="tym(this.id)"><i data-toggle="tooltip" data-placement="bottom"
+                    title="Add to wishlist" class="fa fa-heart-o"></i></a>
+                {% endif %}
                 {% else %}
-                <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Add to Favorite">
-                  <a id="{{product.id}}" onclick="tym(this.id)"> <i class="fa fa-heart-o"></i></a>
-                </button>
+                <a><i data-toggle="tooltip" data-placement="bottom" title=" Login to Add to wishlist"
+                    class="fa fa-heart-o"></i></a>
                 {% endif %}
 
                 <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Compare">
