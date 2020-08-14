@@ -44,7 +44,7 @@
     </div>
   </div>
 </div>
-<form action="{% url 'cart:product-list' %}" class="collapse navbar-collapse" id="collapseSearch">
+<form action="{% url 'cart:product-list' %}" class="collapse navbar-collapse wow tada" id="collapseSearch">
   <div class="container">
     {% if limit is not None %}
     <input type="hidden" name="limit" value="{{limit}}">
@@ -122,20 +122,20 @@
           href="{% url 'favorites' %}" data-count="{{ request.session.products_in_favorite }}">
           <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
         {% else %}
-        <a class="fa-stack has-badge" id="icon-badge" data-toggle="tooltip" data-placement="top" title="Wishlist"
+        <a class="fa-stack has-badge " id="icon-badge" data-toggle="tooltip" data-placement="top" title="Wishlist"
           href="{% url 'favorites' %}">
-          <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
+          <i class="fab fa-gratipay pt-1" href="{% url 'favorites' %}"></i></a>
         {% endif %}
         {% else %}
         <a href="{% url 'favorites' %}" class=" fa-stack has-badge" id="icon-badge" data-toggle="tooltip"
-          data-placement="top" title="Login required"><i class="fab fa-gratipay  icon-badge"></i></a>
+          data-placement="top" title="Login required"><i class="fab fa-gratipay pt-1 icon-badge"></i></a>
         {% endif %}
 
         <div class="dropdown">
           {% if request.session.products_in_cart %}
           <a class="fa-stack has-badge" data-toggle="tooltip" data-placement="top" title="Badge" id="icon-badge"
             data-count="{{ request.session.products_in_cart }}" href="/cart">
-            <i class="fa fa-shopping-basket"></i>
+            <i class="fa fa-shopping-basket pt-1"></i>
           </a>
           {% else %}
           <a class="fa-stack has-badge" href="{% url 'cart:summary' %}" data-toggle="tooltip" data-placement="top"
@@ -153,10 +153,10 @@
   <!-- Mobile -->
   <div class="container d-md-none mobile-nav">
     <div class="row">
-      <!-- Menu button -->
+
       <div class="col-4">
         <div id="mySidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
           <div class="dropdown ">
             <a class="nav-link bold-text dropdown-toggle" id="dropdownMenuUser" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false"><img
@@ -184,15 +184,78 @@
                 <a class="dropdown-item p-3" href="#">Action</a>
               </div>
             </div>
+          </div> -->
+          <div class="page-wrapper">
+            <nav id="sidebar" class="sidebar-wrapper">
+              <div class="sidebar-content">
+                <div class="sidebar-header">
+                  <!-- <div class="user-pic">
+                    <img class="img-responsive img-rounded"
+                      src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                      alt="User picture">
+                  </div> -->
+                  <div class="user-info">
+
+                    <span class="user-name">
+
+                      <!-- <a class="nav-link bold-text" data-toggle="collapse" href="#collapseUser" role="button"
+                        aria-expanded="false" aria-controls="collapseUser"><span>username<i
+                            class="fas fa-chevron-down"></i></span>
+                      </a>
+
+                      <div class="collapse" id="collapseUser">
+                        <a href="{% url 'profile' %}"><i class="fas fa-user-circle"></i>Profile</a>
+                        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                      </div> -->
+                      <div id="collapseUser " class="text-img-mobile">
+                        <a href="{% url 'profile' %}"><i class="fas fa-user-circle pr-2"></i> Register</a>
+                        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt pl-4 pr-2"></i> Login</a>
+                      </div>
+                    </span>
+
+
+                  </div>
+                </div>
+                <div class="sidebar-menu">
+                  <ul>
+                    <li class="sidebar-menu-product">
+                      <span><i class="fas fa-home"></i><a href=""> Home</a></span>
+
+                    </li>
+                    <li class="sidebar-menu-product">
+                      <span> <i class="fas fa-address-card"></i><a href=""> About</a></span>
+
+                    </li>
+                    <li class="sidebar-menu-product">
+                      <span><i class="fas fa-address-book"></i><a href=""> Contact</a></span>
+
+                    </li>
+                    <li class="sidebar-menu-product2">
+                      <span><i class="fas fa-list-alt"></i> <a href=""> Product</a></span>
+                      <i class="fas fa-chevron-down" data-toggle="collapse" href="#collapseProductMobile" role="button"
+                        aria-expanded="false" aria-controls="collapseProductMobile"></i>
+                      <!-- <span class="badge badge-pill badge-warning">New</span> -->
+                    </li>
+                    <div class="collapse" id="collapseProductMobile">
+                      <a href="#">Action ngkdns;dhl;</a>
+                      <a href="#">Another action</a>
+                      <a href="#">Action</a>
+                      <a href="#">Action</a>
+                    </div>
+                  </ul>
+                </div>
+                <!-- sidebar-menu  -->
+              </div>
+            </nav>
           </div>
         </div>
-        <i class="fas fa-sliders-h pt-2" onclick="openNav()"></i>
+        <i class="fas fa-sliders-h mt-2" onclick="openNav()"></i>
       </div>
 
       <!-- Brand -->
       <div class="col-4">
         <div class="row justify-content-center">
-          <div class="nav-brand pt-2">Organic</div>
+          <div class="nav-brand pt-1">Organic</div>
         </div>
       </div>
 
