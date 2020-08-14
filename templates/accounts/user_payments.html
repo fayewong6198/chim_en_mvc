@@ -7,17 +7,17 @@
         <div class="container">
             <div class="row">
                 {% include "left_tab_profile.html" %}
-                <div class="col-lg-8 col-sm-7 col-7">
+                <div class="col-lg-8 col-sm-7 col-7 ">
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_a">
 
-                            <section class="mb-4">
+                            <section class="mb-4 ">
                                 <h3>UserPayment</h3>
-                                <div class=" fadeIn row">
+                                <div class=" fadeIn row mt-4">
                                     {% for payment in payments %}
-                                    <div class="col-md-6 col-12">
-                                        <a href="/accounts/user-payments/{{payment.id}}">Payment #{{payment.id}}</a>
-                                        <p>Amount {{payment.amount|intcomma}}</p>
+                                    <div class="col-12">
+                                        <a href="/accounts/user-payments/{{payment.id}}">Payment ID :{{payment.id}}</a>
+                                        <p>Total Price : {{payment.amount|intcomma}}</p>
                                         <p>Status {{payment.status}}</p>
                                         <p>Created At {{payment.created_at}} </p>
                                         <hr />

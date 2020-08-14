@@ -7,23 +7,30 @@
         <div class="container">
             <div class="row">
                 {% include "left_tab_profile.html" %}
-                <div class="col-lg-8 col-sm-7 col-7">
+                <div class="col-lg-8 col-sm-7 col-7 ">
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_a">
 
-                            <section class="mb-4">
+                            <section class="mb-4 mt-4">
                                 <div class=" fadeIn">
-
-                                    <h1>User Payment #{{payment.id}}</h1>
+                                    <h5 class="text-center">Payment ID : {{payment.id}}</h5>
                                     {% for product in payment.product_details.all %}
-                                    <p>Product Name: {{product.product_name}}</p>
-                                    <p>Product Price: {{product.product_price}} VNĐ</p>
-                                    <p>Product Amount: {{product.product_amount}}</p>
-                                    <p>Product Promotion: {{product.product_promotion}}</p>
-                                    <p>Total Product Price: {{product.get_total_price}} VNĐ</p>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12 p-5">
+                                            <img src="{{product.image}}" alt="{{product.product_name}}">
+                                        </div>
+                                        <div class="col-md-6 col-12 ">
+                                            <p>Product Name: {{product.product_name}}</p>
+                                            <p>Product Price: {{product.product_price}} VNĐ</p>
+                                            <p>Product Amount: {{product.product_amount}}</p>
+                                            <p>Product Promotion: {{product.product_promotion}}</p>
+                                            <p>Total Product Price: {{product.get_total_price}} VNĐ</p>
+                                        </div>
+                                    </div>
                                     <hr />
                                     {% endfor %}
-                                    <p>Total Price {{payment.amount}} VNĐ </p>
+                                    <p> <strong>Ship: {{payment.ship}} VNĐ</strong> </p>
+                                    <p><strong>Total Price {{payment.amount}} VNĐ</strong> </p>
                                 </div>
                             </section>
                         </div>
