@@ -97,6 +97,8 @@
     $(document).ready(function () {
       setTimeout(function () {
         $('.alert').hide();
+        $('#message').hide();
+
       }, 2000);// <-- time in milliseconds, 1000 =  1 sec
     });
   </script>
@@ -111,7 +113,7 @@
       }).then(response => response.text()).then(data => {
         document.getElementById(id).innerHTML = ''
         if (JSON.parse(data).liked == true) {
-          document.getElementById(id).innerHTML = `<i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
+          document.getElementById(id).innerHTML = `<i 
                               class="fa fa-heart"></i>`;
           document.getElementById('message').innerHTML = ` <div class="alert  alert-success animated fadeInDown" role="alert">
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -121,15 +123,20 @@
                             </div>`
         }
         else {
-          document.getElementById(id).innerHTML = `<i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
+          document.getElementById(id).innerHTML = `<i
                               class="fa fa-heart-o"></i>`
+          document.getElementById('message').innerHTML = ` <div class="alert  alert-success animated fadeInDown" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            unLiked
+                            </div>`
         }
         if (JSON.parse(data).count > 0)
           document.getElementById('icon-badge').setAttribute("data-count", `${JSON.parse(data).count}`)
         else
           document.getElementById('icon-badge').removeAttribute("data-count");
       });
-
 
     }
 

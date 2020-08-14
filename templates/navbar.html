@@ -156,49 +156,24 @@
 
       <div class="col-4">
         <div id="mySidenav" class="sidenav">
-          <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-          <div class="dropdown ">
-            <a class="nav-link bold-text dropdown-toggle" id="dropdownMenuUser" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false"><img
-                src="https://secure.gravatar.com/avatar/8908e2bcc789ecb09d664850e575c012?s=96&d=mm&r=g" alt="">
-            </a>
 
-            <div class="dropdown-menu px-0 dropdown-user" aria-labelledby="dropdownMenuUser">
-              <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-              <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-            </div>
-          </div>
-          <div class="nav-item pt-4">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'about' %}">about</a>
-            <a href="{% url 'contact' %}">Contact</a>
-            <div class="inline-mobile-menu">
-              <a href="{% url 'cart:product-list'%}">Products</a>
-              <i class="fas fa-chevron-down" id="navbarDropdownMobile" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false"></i>
-              <div class="dropdown-menu px-0 dropdown-user dropdown-product" aria-labelledby="navbarDropdownMobile">
-
-                <a class="dropdown-item p-3" href="#">Action ngkdns;dhl;</a>
-                <a class="dropdown-item p-3" href="#">Another action</a>
-                <a class="dropdown-item p-3" href="#">Action</a>
-                <a class="dropdown-item p-3" href="#">Action</a>
-              </div>
-            </div>
-          </div> -->
           <div class="page-wrapper">
             <nav id="sidebar" class="sidebar-wrapper">
               <div class="sidebar-content">
                 <div class="sidebar-header">
-                  <!-- <div class="user-pic">
+                  {% if request.user.is_authenticated %}
+                  <div class="user-pic">
                     <img class="img-responsive img-rounded"
                       src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
                       alt="User picture">
-                  </div> -->
+                  </div>
+                  {% endif %}
                   <div class="user-info">
 
                     <span class="user-name">
 
-                      <!-- <a class="nav-link bold-text" data-toggle="collapse" href="#collapseUser" role="button"
+                      {% if request.user.is_authenticated %}
+                      <a class="nav-link bold-text" data-toggle="collapse" href="#collapseUser" role="button"
                         aria-expanded="false" aria-controls="collapseUser"><span>username<i
                             class="fas fa-chevron-down"></i></span>
                       </a>
@@ -206,11 +181,14 @@
                       <div class="collapse" id="collapseUser">
                         <a href="{% url 'profile' %}"><i class="fas fa-user-circle"></i>Profile</a>
                         <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a>
-                      </div> -->
-                      <div id="collapseUser " class="text-img-mobile">
-                        <a href="{% url 'profile' %}"><i class="fas fa-user-circle pr-2"></i> Register</a>
-                        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt pl-4 pr-2"></i> Login</a>
                       </div>
+                      {% else %}
+
+                      <div id="collapseUser " class="text-img-mobile">
+                        <a href="{% url 'register' %}"><i class="fas fa-user-circle pr-2"></i> Register</a>
+                        <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt pl-4 pr-2"></i> Login</a>
+                      </div>
+                      {% endif %}
                     </span>
 
 
@@ -219,19 +197,19 @@
                 <div class="sidebar-menu">
                   <ul>
                     <li class="sidebar-menu-product">
-                      <span><i class="fas fa-home"></i><a href=""> Home</a></span>
+                      <span><i class="fas fa-home"></i><a href="{% url 'home' %}"> Home</a></span>
 
                     </li>
                     <li class="sidebar-menu-product">
-                      <span> <i class="fas fa-address-card"></i><a href=""> About</a></span>
+                      <span> <i class="fas fa-address-card"></i><a href="{% url 'about' %}"> About</a></span>
 
                     </li>
                     <li class="sidebar-menu-product">
-                      <span><i class="fas fa-address-book"></i><a href=""> Contact</a></span>
+                      <span><i class="fas fa-address-book"></i><a href="{% url 'contact' %}"> Contact</a></span>
 
                     </li>
                     <li class="sidebar-menu-product2">
-                      <span><i class="fas fa-list-alt"></i> <a href=""> Product</a></span>
+                      <span><i class="fas fa-list-alt"></i> <a href="{% url 'cart:product-list' %}"> Product</a></span>
                       <i class="fas fa-chevron-down" data-toggle="collapse" href="#collapseProductMobile" role="button"
                         aria-expanded="false" aria-controls="collapseProductMobile"></i>
                       <!-- <span class="badge badge-pill badge-warning">New</span> -->
