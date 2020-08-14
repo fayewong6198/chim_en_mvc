@@ -79,13 +79,13 @@
               <form action="{% url 'register' %}" method="POST">
                 {% csrf_token %} {% for field in form %}
                 <div class="form-group">
-                  {{ field.errors }}
+                  <span class="text-danger">{{ field.errors }}</span>
                   <div class="label-inline">
                     <label for="" class="">{{ field.label_tag }}</label>
                     {{ field |add_class:'form-control input-login' }}
                   </div>
                   {% if field.help_text %}
-                  <p class="help">{{ field.help_text|safe }}</p>
+                  <!-- <p class="help">{{ field.help_text|safe }}</p> -->
                   {% endif %}
                 </div>
                 {% endfor %}

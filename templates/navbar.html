@@ -174,7 +174,7 @@
 
                       {% if request.user.is_authenticated %}
                       <a class="nav-link bold-text" data-toggle="collapse" href="#collapseUser" role="button"
-                        aria-expanded="false" aria-controls="collapseUser"><span>username<i
+                        aria-expanded="false" aria-controls="collapseUser"><span>{{ request.user.username }} <i
                             class="fas fa-chevron-down"></i></span>
                       </a>
 
@@ -186,18 +186,17 @@
 
                       <div id="collapseUser " class="text-img-mobile">
                         <a href="{% url 'register' %}"><i class="fas fa-user-circle pr-2"></i> Register</a>
-                        <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt pl-4 pr-2"></i> Login</a>
+                        <a href="{% url 'login' %}" class="ml-4"><i class="fas fa-sign-out-alt ml-4 pr-2"></i> Login</a>
                       </div>
                       {% endif %}
                     </span>
-
-
                   </div>
                 </div>
                 <div class="sidebar-menu">
                   <ul>
                     <li class="sidebar-menu-product">
-                      <span><i class="fas fa-home"></i><a href="{% url 'home' %}"> Home</a></span>
+                      <span><i class="fas fa-home"></i><a href="{% url 'home' %}"> Home</a>
+                      </span>
 
                     </li>
                     <li class="sidebar-menu-product">
@@ -311,9 +310,7 @@
       document.getElementById("mySidenav").style.width = "0";
     }
   }
-
   document.addEventListener("click", handleMousePos);
-
 </script>
 
 {%endblock extra_scripts %}
