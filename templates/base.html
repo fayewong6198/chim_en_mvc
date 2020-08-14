@@ -63,7 +63,7 @@
   {% if messages %}
   {% for message in messages %}
   <div class="width-full">
-    <div class="alert  alert-{{ message.tags }} animated fadeInDown" role="alert" style="width: 300px">
+    <div class="alert alert-{{ message.tags }} animated fadeInDown" role="alert" style="width: 300px">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="width: 300px">
       </button>
       {{message}}
@@ -100,7 +100,7 @@
         $('.alert').hide();
         $('#message').hide();
 
-      }, 8000);// <-- time in milliseconds, 1000 =  1 sec
+      }, 3500);// <-- time in milliseconds, 1000 =  1 sec
     });
   </script>
   <script>
