@@ -72,7 +72,11 @@ class TymView(generic.TemplateView):
     # @login_required
     def get_context_data(self, **kwargs):
         context = super(TymView, self).get_context_data(**kwargs)
-        favorites = FavoriteProduct.objects.filter(user=self.request.user)
-        context['favorites'] = favorites
+        if self.request.user.is_authenticated:
+            favorites = FavoriteProduct.objects.filter(user=self.request.user)
+            context['favorites'] = favorites
+        else:
+            context['favorites'] = None
+
         return context
 # Create your views here.

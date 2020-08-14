@@ -127,8 +127,8 @@
           <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
         {% endif %}
         {% else %}
-        <a class=" fa-stack has-badge" id="icon-badge" data-toggle="tooltip" data-placement="top"
-          title="Login required"><i class="fab fa-gratipay  icon-badge"></i></a>
+        <a href="{% url 'favorites' %}" class=" fa-stack has-badge" id="icon-badge" data-toggle="tooltip"
+          data-placement="top" title="Login required"><i class="fab fa-gratipay  icon-badge"></i></a>
         {% endif %}
 
         <div class="dropdown">
