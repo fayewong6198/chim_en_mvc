@@ -8,6 +8,7 @@ from core import views
 # API
 from accounts.API import apis as account_apis
 from cart.API import apis as cart_apis
+from django.conf.urls import url, include
 router = routers.DefaultRouter()
 
 router.register(r'users', account_apis.UserViewSet)
@@ -21,6 +22,8 @@ router.register(r'blog_images', cart_apis.BlogImageViewSet)
 router.register(r'categories', cart_apis.CategoryViewSet)
 router.register(r'cities', cart_apis.CityViewSet)
 router.register(r'districts', cart_apis.DistrictViewSet)
+router.register(r'nhapkho', cart_apis.NhapKhoViewSet)
+router.register(r'nhapkho-items', cart_apis.NhapKhoItemViewSet)
 
 
 urlpatterns = [
@@ -43,6 +46,7 @@ urlpatterns = [
     path('api/auth/user', account_apis.UserAPI.as_view(), name='user'),
     path('api/dashboard', cart_apis.dash_board, name='dashboard'),
 
+    url(r'^paypal/', include('paypal.standard.ipn.urls')),
     # path('api/auth/', include('knox.urls'))
 ]
 

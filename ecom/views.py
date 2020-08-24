@@ -11,6 +11,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail
 from django.utils.decorators import method_decorator
 from .choices import limit_choices as l, price_choices, sort_choice
+from django.shortcuts import reverse
+from paypal.standard.forms import PayPalPaymentsForm
 
 
 class ProductListView(generic.TemplateView):
@@ -231,7 +233,22 @@ def payment_information(request):
 
 def payment_products(request):
     cart = get_or_set_order_session(request)
-    return render(request, 'payment_products.html', {'object': cart})
+
+    paypal_dict = {
+        "business": "minhthienpham0611@gmal.com",
+        "amount": "1",
+        "item_name": "name of the item",
+        "invoice": "unique-invoice-id",
+        "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+        # "return": request.build_absolute_uri(reverse('your-return-view')),
+        # "cancel_return": request.build_absolute_uri(reverse('your-cancel-view')),
+        # Custom command to correlate to some function later (optional)
+        "custom": "premium_plan",
+    }
+
+    # Create the instance.
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    return render(request, 'paypalpayment.html', {'object': cart, "form": form})
 
 
 def payment_process(request):

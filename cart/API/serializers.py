@@ -1,4 +1,4 @@
-from ..models import ProductImage, Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, Category, BlogImage, City, District, CustommerDetail, ProductDetail
+from ..models import NhapKho, NhapKhoDetail, ProductImage, Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, Category, BlogImage, City, District, CustommerDetail, ProductDetail
 from rest_framework import serializers
 
 
@@ -114,3 +114,20 @@ class BlogImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogImage
         fields = ('id', 'image', 'product')
+
+
+class NhapKhoDetailSerializer(serializers.ModelSerializer):
+    product = ProductInlineSerializer(read_only=True)
+
+    class Meta:
+        model = NhapKhoDetail
+        fields = '__all__'
+
+
+class NhapKhoSerializer(serializers.ModelSerializer):
+
+    items = NhapKhoDetailSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = NhapKho
+        fields = '__all__'

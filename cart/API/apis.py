@@ -1,6 +1,6 @@
-from ..models import Payment, Product, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage, BlogImage, Category, City, District
-from .serializers import PaymentSerializer, ProductSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer, BlogImageSerializer, CategorySerializer, CitySerializer, DistrictSerializer
-from rest_framework import viewsets
+from ..models import Payment, NhapKho, NhapKhoDetail, Product, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage, BlogImage, Category, City, District
+from .serializers import PaymentSerializer, NhapKhoSerializer, NhapKhoDetailSerializer, ProductSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer, BlogImageSerializer, CategorySerializer, CitySerializer, DistrictSerializer
+from rest_framework import viewsets, generics
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from ecom.helpers import modify_input_for_multiple_files, modify_input_for_single_image
@@ -77,7 +77,7 @@ class OrderItemViewSet(viewsets.ModelViewSet):
     """
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
-    permission_classes = [permissions.DjangoModelPermissions]
+    # permission_classes = [permissions.DjangoModelPermissions]
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -86,12 +86,12 @@ class OrderViewSet(viewsets.ModelViewSet):
     """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [permissions.DjangoModelPermissions]
+    # permission_classes = [permissions.DjangoModelPermissions]
 
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-    filterset_fields = ['']
+    # filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    # filterset_fields = ['']
 
-    search_fields = ['']
+    # search_fields = ['']
 
 
 class ProductImageView(APIView):
@@ -182,5 +182,25 @@ class DistrictViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filterset_fields = ['name']
-
     search_fields = ['name']
+
+
+# def NhapKhoViewSet(request):
+
+
+#     return HttpResponse(json.dumps({'users': "hdddh"}), status=200)
+
+class NhapKhoViewSet(viewsets.ModelViewSet):
+
+    queryset = NhapKho.objects.all()
+    serializer_class = NhapKhoSerializer
+    # permission_classes = [permissions.AllowAny]
+
+
+class NhapKhoItemViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = NhapKhoDetail.objects.all()
+    serializer_class = NhapKhoDetailSerializer
+    # permission_classes = [permissions.DjangoModelPermissions]

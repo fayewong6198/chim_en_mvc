@@ -93,10 +93,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(default=datetime.now())
     updated = models.DateTimeField(auto_now=True)
     promotion = models.IntegerField(default=0)
-
-    # available = models.IntegerField(default=1)
-    # available_colors = models.ManyToManyField(ColorVariation)
-    # available_sizes = models.ManyToManyField(SizeVariation)
+    available = models.IntegerField(default=1)
     active = models.BooleanField(default=False)
 
     def __str__(self):
@@ -111,6 +108,26 @@ class Product(models.Model):
     def get_promotion_price(self):
         if self.promotion != 0:
             return self.price-self.promotion/100*self.price
+
+
+class NhapKho(models.Model):
+    created_at = models.DateTimeField(default=datetime.now())
+    provider = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.reference_number
+
+    @property
+    def reference_number(self):
+        return f"{self.pk}"
+
+
+class NhapKhoDetail(models.Model):
+    nhapkho = models.ForeignKey(
+        NhapKho, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='products')
+    quantity = models.IntegerField(default=1)
 
 
 class BlogImage(models.Model):

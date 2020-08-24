@@ -14,6 +14,8 @@ from .choices import limit_choices as l, price_choices, sort_choice
 from django.contrib import messages
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.shortcuts import reverse
+from paypal.standard.forms import PayPalPaymentsForm
 
 
 class ProductListView(generic.TemplateView):
@@ -260,8 +262,21 @@ def payment_products(request):
     address = request.session['user_info']['address'] + " , " + \
         district.name+" , "+district.city.name
     user_info['ship'] = ship
+    paypal_dict = {
+        "business": "sb-47qfe63027592@business.example.com",
+        "amount": user_info['totalprice']/23000,
+        "item_name": "name of the item",
+        "invoice": "unique-invoice-id",
+        "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+        # "return": request.build_absolute_uri(reverse('your-return-view')),
+        # "cancel_return": request.build_absolute_uri(reverse('your-cancel-view')),
+        # Custom command to correlate to some function later (optional)
+        "custom": "premium_plan",
+    }
 
-    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'address': address})
+    # Create the instance.
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'form': form, 'address': address})
 
 
 def payment_process(request):

@@ -59,10 +59,13 @@ INSTALLED_APPS = [
     'knox',
     'rest_framework',
     'corsheaders',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'paypal.standard.ipn',
 
 ]
+PAYPAL_RECEIVER_EMAIL = 'minhthienpham0611@mail.com'
 
+PAYPAL_TEST = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
