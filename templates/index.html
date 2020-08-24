@@ -245,7 +245,7 @@
                 {% if request.user.is_authenticated%}
                 {% if product.id in liked %}
                 <li><a id="{{product.id}}" onclick="tym(this.id)">
-                    <i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
+                    <i data-toggle="tooltip" data-placement="bottom" title="Delete wishlist"
                       class="fa fa-heart"></i></a>
                 </li>
                 {%else%}

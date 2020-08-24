@@ -92,7 +92,11 @@
 
                 <!-- <input type="submit" value="Login" class="btn btn-default" /> -->
                 <div class="login-welcome py-4">
-                  <button class="btn btn-primary">Create</button>
+                  <button class="btn btn-primary mb-3">Create</button>
+                  <div class="none-mobile-login" style="display: none">
+                    <span>You haved account?</span>
+                    <a href="{% url 'login' %}"> Login</a>
+                  </div>
                 </div>
               </form>
             </div>
