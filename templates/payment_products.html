@@ -56,6 +56,23 @@
       </div>
       <h1>Paypal</h1>
       {{ form.render }}
+
+      <form id="payment-form">
+        <input type="text" id="email" placeholder="Email address" />
+        <div id="card-element">
+          <!--Stripe.js injects the Card Element-->
+        </div>
+        <button id="submit">
+          <div class="spinner hidden" id="spinner"></div>
+          <span id="button-text">Pay</span>
+        </button>
+        <p id="card-error" role="alert"></p>
+        <p class="result-message hidden">
+          Payment succeeded, see the result in your
+          <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+        </p>
+      </form>
+
       <div class="back-shop my-2 justify-content-center">
         <a id="step2_prev" href="{% url 'cart:payment_information' %}"><i class="fas fa-arrow-left"></i> Back</a>
       </div>

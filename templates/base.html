@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/static/js/mainjs.js?now " U" %}" />
 
   <link rel="stylesheet" href="/static/css/thanh.css?{% now "U" %}" />
+  <link rel="stylesheet" href="/static/css/stripe.css?{% now "U" %}" />
 
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.min.css"> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.min.js"></script> -->
@@ -26,6 +27,7 @@
 
   <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
   <style type="text/css">
     /* html,
     body,
@@ -91,6 +93,9 @@
   {% include "footer.html" %}
   {% include "scripts.html" %}
   {% block extra_scripts %}
+  <script src="/static/js/stripe.js">
+
+  </script>
   <script>
     new WOW().init();
   </script> {% endblock extra_scripts %}

@@ -16,6 +16,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import reverse
 from paypal.standard.forms import PayPalPaymentsForm
+from django.views.decorators.csrf import csrf_exempt
+import stripe
+import json
+from django.http import JsonResponse
 
 
 class ProductListView(generic.TemplateView):
@@ -251,6 +255,7 @@ def payment_information(request):
     return redirect('/cart/payment_information')
 
 
+@csrf_exempt
 def payment_products(request):
 
     user_info = request.session.get('user_info')
@@ -266,16 +271,30 @@ def payment_products(request):
         "business": "sb-47qfe63027592@business.example.com",
         "amount": user_info['totalprice']/23000,
         "item_name": "name of the item",
-        "invoice": "unique-invoice-id",
+        "invoice": "467467487348474",
         "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
         # "return": request.build_absolute_uri(reverse('your-return-view')),
         # "cancel_return": request.build_absolute_uri(reverse('your-cancel-view')),
         # Custom command to correlate to some function later (optional)
         "custom": "premium_plan",
     }
-
     # Create the instance.
     form = PayPalPaymentsForm(initial=paypal_dict)
+
+    # _________________stripe payment ______________________
+    stripe.api_key = 'sk_test_51HJtaHBn6v3g7KPu9jYJX4x9Q2jX92kJVUlFYTAb3M2dCCxjJS515k29FFVeOW9SwrM7Jq1UJP7KAFw6dUQGq3f500R8q7o8qx'
+
+    if request.method == "POST":
+        intent = stripe.PaymentIntent.create(
+            amount=int(user_info['totalprice']),
+            currency='vnd',
+        )
+        try:
+            return JsonResponse({'publishableKey':
+                                 'pk_test_51HJtaHBn6v3g7KPuU6KqFf8ZqwkUyczB7wJaiGfgDZzkEdGPLXeLEHiVEQut4HqIytOTdmrZlWp2FspBtz9FdWR5005S2ISLgs', 'clientSecret': intent.client_secret})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=403)
+
     return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'form': form, 'address': address})
 
 
