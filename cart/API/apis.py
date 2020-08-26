@@ -1,5 +1,5 @@
-from ..models import Payment, NhapKho, NhapKhoDetail, Product, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage, BlogImage, Category, City, District
-from .serializers import PaymentSerializer, NhapKhoSerializer, NhapKhoDetailSerializer, ProductSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer, BlogImageSerializer, CategorySerializer, CitySerializer, DistrictSerializer
+from ..models import Payment, WareHouse, WareHouseDetail, Product, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, ProductImage, BlogImage, Category, City, District
+from .serializers import PaymentSerializer, WareHouseSerializer, WareHouseDetailSerializer, ProductSerializer, OrderItemSerializer, OrderSerializer, ProductImageSerializer, FavoriteProductSerializer, BlogImageSerializer, CategorySerializer, CitySerializer, DistrictSerializer
 from rest_framework import viewsets, generics
 from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -185,22 +185,13 @@ class DistrictViewSet(viewsets.ModelViewSet):
     search_fields = ['name']
 
 
+class WareHouseViewSet(viewsets.ModelViewSet):
+    queryset = WareHouse.objects.all()
+    serializer_class = WareHouseSerializer
+    permission_classes = [permissions.AllowAny]
+
+
 # def NhapKhoViewSet(request):
 
 
 #     return HttpResponse(json.dumps({'users': "hdddh"}), status=200)
-
-class NhapKhoViewSet(viewsets.ModelViewSet):
-
-    queryset = NhapKho.objects.all()
-    serializer_class = NhapKhoSerializer
-    # permission_classes = [permissions.AllowAny]
-
-
-class NhapKhoItemViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = NhapKhoDetail.objects.all()
-    serializer_class = NhapKhoDetailSerializer
-    # permission_classes = [permissions.DjangoModelPermissions]

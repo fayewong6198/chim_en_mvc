@@ -110,7 +110,7 @@ class Product(models.Model):
             return self.price-self.promotion/100*self.price
 
 
-class NhapKho(models.Model):
+class WareHouse(models.Model):
     created_at = models.DateTimeField(default=datetime.now())
     provider = models.CharField(max_length=255)
 
@@ -122,9 +122,9 @@ class NhapKho(models.Model):
         return f"{self.pk}"
 
 
-class NhapKhoDetail(models.Model):
-    nhapkho = models.ForeignKey(
-        NhapKho, on_delete=models.CASCADE, related_name='items')
+class WareHouseDetail(models.Model):
+    wareHouse = models.ForeignKey(
+        WareHouse, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='products')
     quantity = models.IntegerField(default=1)
@@ -268,6 +268,8 @@ class ProductDetail(models.Model):
     payment = models.ForeignKey(
         Payment, related_name="product_details", on_delete=models.CASCADE, blank=True, null=True)
 
+    warehouse = models.ForeignKey(
+        WareHouse, related_name="product_details", on_delete=models.CASCADE, blank=True, null=True)
     image = models.CharField(max_length=255, blank=True, null=True, default="")
     product_id = models.IntegerField()
     product_name = models.TextField()

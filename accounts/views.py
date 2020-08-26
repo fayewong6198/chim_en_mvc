@@ -148,8 +148,9 @@ def AddressView(request):
 @ login_required
 def changePassword(request):
     if request.method == "GET":
+        categories = Category.objects.all()
         form = CustomPasswordChangeForm(request.user)
-        return render(request, 'accounts/password_change.html', {'form': form,  'url': 'change-password'})
+        return render(request, 'accounts/password_change.html', {'form': form,  'url': 'change-password', 'categories': categories})
 
     form_edit_password = CustomPasswordChangeForm(
         request.user, data=request.POST)
@@ -158,8 +159,10 @@ def changePassword(request):
         messages.success(request, " update successfully !")
         return redirect('/accounts/profile')
     else:
+        categories = Category.objects.all()
+
         messages.warning(request, "password wrong format !")
-        return render(request, 'accounts/password_change.html', {'form': form_edit_password, 'url': 'change-password'})
+        return render(request, 'accounts/password_change.html', {'form': form_edit_password, 'url': 'change-password', 'categories': categories})
 
 
 def activate(request, uidb64, token):
@@ -193,11 +196,13 @@ def verify_change_email(request, user):
 @ login_required
 def user_payments(request):
     if (request.method == 'GET'):
+        catecories = Category.objects.all()
         payments = Payment.objects.filter(user=request.user)
 
         context = {
             'payments': payments,
-            'url': 'payment'
+            'url': 'payment',
+            'categories': catecories
         }
         return render(request, 'accounts/user_payments.html', context)
 
@@ -205,18 +210,22 @@ def user_payments(request):
 @ login_required
 def user_payment(request, id):
     if (request.method == 'GET'):
+        catecories = Category.objects.all()
+
         payment = get_object_or_404(Payment, pk=id)
 
         if (payment.user != request.user):
             return redirect('/')
-        return render(request, 'accounts/user_payment.html', {'payment': payment, 'url': 'payment'})
+        return render(request, 'accounts/user_payment.html', {'payment': payment, 'url': 'payment', 'categories': catecories})
 
 
 @ login_required
 def change_email(request):
     if request.method == "GET":
         form = ChangeEmailForm()
-        return render(request, 'accounts/change_email.html', {'form': form, 'url': 'change-email'})
+        categories = Category.objects.all()
+        return render(request, 'accounts/change_email.html', {'form': form, 'url': 'change-email', 'categories': categories})
+    categories = Category.objects.all()
 
     form = ChangeEmailForm(request.POST)
     if form.is_valid():
@@ -244,8 +253,8 @@ def change_email(request):
                 request, "Please confirm your email address to complete the change email")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except:
-            return render(request, 'accounts/change_email.html', {'form': form})
+            return render(request, 'accounts/change_email.html', {'form': form, 'categories': categories})
 
         # messages.success(request, 'Register success')
 
-    return render(request, 'accounts/change_email.html', {'form': form, 'url': 'change-email'})
+    return render(request, 'accounts/change_email.html', {'form': form, 'url': 'change-email', 'categories': categories})

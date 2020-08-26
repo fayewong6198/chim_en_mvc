@@ -22,8 +22,7 @@ router.register(r'blog_images', cart_apis.BlogImageViewSet)
 router.register(r'categories', cart_apis.CategoryViewSet)
 router.register(r'cities', cart_apis.CityViewSet)
 router.register(r'districts', cart_apis.DistrictViewSet)
-router.register(r'nhapkho', cart_apis.NhapKhoViewSet)
-router.register(r'nhapkho-items', cart_apis.NhapKhoItemViewSet)
+router.register(r'warehouses', cart_apis.WareHouseViewSet)
 
 
 urlpatterns = [

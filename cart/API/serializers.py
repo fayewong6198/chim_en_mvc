@@ -1,4 +1,4 @@
-from ..models import NhapKho, NhapKhoDetail, ProductImage, Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, Category, BlogImage, City, District, CustommerDetail, ProductDetail
+from ..models import WareHouse, WareHouseDetail, ProductImage, Payment, Product, Address, ColorVariation, SizeVariation, OrderItem, Order, Payment,  Favorite, FavoriteProduct, Category, BlogImage, City, District, CustommerDetail, ProductDetail
 from rest_framework import serializers
 
 
@@ -116,18 +116,34 @@ class BlogImageSerializer(serializers.ModelSerializer):
         fields = ('id', 'image', 'product')
 
 
-class NhapKhoDetailSerializer(serializers.ModelSerializer):
-    product = ProductInlineSerializer(read_only=True)
-
+class WareHouseDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = NhapKhoDetail
+        model = WareHouseDetail
         fields = '__all__'
 
 
-class NhapKhoSerializer(serializers.ModelSerializer):
-
-    items = NhapKhoDetailSerializer(read_only=True, many=True)
+class WareHouseSerializer(serializers.ModelSerializer):
+    product_details = ProductDetailsSerializer(many=True)
 
     class Meta:
-        model = NhapKho
+        model = WareHouse
         fields = '__all__'
+
+    def create(self, validated_data):
+        try:
+            warehouse = WareHouse.objects.create(
+                provider=validated_data['provider'])
+
+            for product in validated_data['product_details']:
+                product_detail = ProductDetail()
+                product_detail.product_id = product['product_id']
+                product_detail.product_name = product['product_name']
+                product_detail.product_amount = product['product_amount']
+                product_detail.product_price = product['product_price']
+                product_detail.product_promotion = product['product_promotion']
+                product_detail.warehouse = warehouse
+                product_detail.save()
+            return warehouse
+        except:
+            warehouse.delete()
+            return None
