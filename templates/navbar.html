@@ -76,8 +76,8 @@
             <div class="col-3">
                 <p class="dropdown-item">{{category.title}}</p>
                 {% for product in category.products.all %}
-                  <a class="dropdown-item" href="#">{{product.title}}</a>
-                {% endfor %}
+                  <a class="dropdown-item" href="{% url 'cart:product-detail' product.slug %}">{{product.title}}</a>
+              {% endfor %}
               </div>    
             {% endfor %}
               
