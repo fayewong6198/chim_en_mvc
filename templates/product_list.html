@@ -153,7 +153,7 @@
                 <div class="product-content">
                   <a href="{% url 'cart:product-detail' product.slug %}">
                     <ul class="cart-icon">
-                      <li><a href="{% url 'cart:product-detail' product.slug %} "><i data-toggle="tooltip"
+                      <li><a  onclick="addToCart({{product.id}}, 1)"><i data-toggle="tooltip"
                             data-placement="bottom" title="Add to cart" class="fa fa-cart-plus"></i></a></li>
 
                       {% if request.user.is_authenticated%}
