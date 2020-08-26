@@ -7,6 +7,8 @@ from .forms import RegisterForm, LoginForm, CustomUserChangeForm, CustomPassword
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # Create your views here.
 
@@ -196,11 +198,23 @@ def verify_change_email(request, user):
 @ login_required
 def user_payments(request):
     if (request.method == 'GET'):
+        limit = 5
+
+        if 'limit' in request.GET:
+            limit = request.GET['limit']
+
         catecories = Category.objects.all()
-        payments = Payment.objects.filter(user=request.user)
+        payments = Payment.objects.filter(
+            user=request.user).order_by('-created_at')
+
+        paginator = Paginator(payments, limit)
+        page = 1
+        if ('page' in request.GET):
+            page = request.GET['page']
+        paged_listings = paginator.get_page(page)
 
         context = {
-            'payments': payments,
+            'payments': paged_listings,
             'url': 'payment',
             'categories': catecories
         }
@@ -219,7 +233,7 @@ def user_payment(request, id):
         return render(request, 'accounts/user_payment.html', {'payment': payment, 'url': 'payment', 'categories': catecories})
 
 
-@ login_required
+@login_required
 def change_email(request):
     if request.method == "GET":
         form = ChangeEmailForm()

@@ -6,6 +6,7 @@ from .forms import AddToCartForm, PaymentForm, CustommerInformationForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
 from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail, District, City, Category, Review
@@ -129,9 +130,22 @@ class ProductDetailView(generic.FormView):
         return super(ProductDetailView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
+        limit = 5
+
+        if 'limit' in self.request.GET:
+            limit = self.request.GET['limit']
+
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         categories = Category.objects.all()
-        reviews = Review.objects.filter(product=self.get_object())
+
+        reviews = Review.objects.filter(
+            product=self.get_object()).order_by('-created_at')
+        # paginator
+        paginator = Paginator(reviews, limit)
+        page = 1
+        if ('page' in self.request.GET):
+            page = self.request.GET['page']
+        paged_listings = paginator.get_page(page)
 
         try:
             liked = None
@@ -145,7 +159,7 @@ class ProductDetailView(generic.FormView):
             reviews = reviews[:int(self.request.GET['review_limit'])]
         context['object'] = self.get_object()
         context['categories'] = categories
-        context['reviews'] = reviews
+        context['reviews'] = paged_listings
 
         context['liked'] = liked
 
@@ -179,8 +193,11 @@ class CheckOutView(generic.TemplateView):
 class IncreaseQuantityView(generic.View):
     def get(sefl, request, *args, **kwargs):
         order_item = get_object_or_404(OrderItem, id=kwargs['pk'])
+
         order_item.quantity += 1
+
         order_item.save()
+
         return redirect("cart:summary")
 
 
@@ -200,6 +217,54 @@ class RemoveFromCartView(generic.View):
         order_item = get_object_or_404(OrderItem, id=kwargs['pk'])
         order_item.delete()
         return redirect("cart:summary")
+
+
+def addToCart(request, id):
+    quantity = request.POST['quantity']
+    product = get_object_or_404(Product, pk=id)
+    if (request.method == 'POST'):
+
+        order = get_or_set_order_session(request)
+        print(id)
+
+        # Get all products in cart
+        productsInCart = OrderItem.objects.filter(order=order)
+
+        found = False
+        for productInCart in productsInCart:
+            if product.id == productInCart.product.id:
+                print(True)
+                productInCart.quantity = productInCart.quantity + int(quantity)
+                productInCart.save()
+                found = True
+
+        if found == False:
+            p = OrderItem.objects.create(
+                order=order, product=product, quantity=quantity)
+            p.save()
+
+        productsInCart = OrderItem.objects.filter(
+            order=order).select_related('product')
+
+        count = 0
+        total = 0
+
+        for p in productsInCart:
+            # count = count + p.quantity
+            count = count + 1
+            total = total + p.product.price * p.quantity
+
+        # request.session['productsInCart'] = serialize('json', productsInCart)
+        request.session['products_in_cart'] = count
+
+        context = {
+            'cart': {
+                # 'productsInCart': serialize('json', productsInCart),
+                'products_in_cart': count
+            }
+        }
+
+        return JsonResponse(context)
 
 
 @api_view(['GET', ])
@@ -290,6 +355,7 @@ def payment_products(request):
     stripe.api_key = 'sk_test_51HJtaHBn6v3g7KPu9jYJX4x9Q2jX92kJVUlFYTAb3M2dCCxjJS515k29FFVeOW9SwrM7Jq1UJP7KAFw6dUQGq3f500R8q7o8qx'
 
     if request.method == "POST":
+
         intent = stripe.PaymentIntent.create(
             amount=int(user_info['totalprice']),
             currency='vnd',
@@ -335,6 +401,12 @@ def payment_process(request):
             print(cart)
 
             for item in cart.items.all():
+                product = get_object_or_404(Product, id=item.product.id)
+                if product.available < item.quantity:
+                    messages.error(request, "Out of stock")
+                    return render(request, 'payment_process.html', {'success': False, 'categories': categories, 'msg': 'Out of Stock'})
+
+            for item in cart.items.all():
                 total_price = total_price + item.get_total_item_price()
                 image = item.product.images.all().first()
                 product = ProductDetail(payment=payment,
@@ -345,6 +417,9 @@ def payment_process(request):
                                         product_price=item.product.price,
                                         product_promotion=item.product.promotion)
                 product.save()
+                store_product = get_object_or_404(Product, id=item.product.id)
+                store_product.available = store_product.available - 1
+                store_product.save()
             print(3)
 
             payment.amount = total_price+request.session['user_info']['ship']

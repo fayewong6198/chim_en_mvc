@@ -49,7 +49,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.DjangoModelPermissions]
+    permission_classes = [permissions.AllowAny]
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filterset_fields = ['title', 'active']
 

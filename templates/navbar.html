@@ -115,7 +115,7 @@
 
         <div class="dropdown">
           {% if request.session.products_in_cart %}
-          <a class="fa-stack has-badge" data-toggle="tooltip" data-placement="top" title="Badge" id="icon-badge"
+          <a class="fa-stack has-badge products_in_cart" data-toggle="tooltip" data-placement="top" title="Badge" id="icon-badge"
             data-count="{{ request.session.products_in_cart }}" href="/cart">
             <i class="fa fa-shopping-basket pt-1"></i>
           </a>
@@ -234,7 +234,7 @@
             title="Login required"><i class="fab fa-gratipay  icon-badge"></i></a>
           {% endif %}
           {% if request.session.products_in_cart %}
-          <a class="fa-stack has-badge" id="icon-basket" data-count="{{ request.session.products_in_cart }}"
+          <a class="fa-stack has-badge products_in_cart" id="icon-basket" data-count="{{ request.session.products_in_cart }}"
             href="/cart">
             <i class="fa fa-shopping-basket"></i>
           </a>

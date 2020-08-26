@@ -39,6 +39,7 @@
         </div>
         {% else %}
         <h2 class="text-center py-5"> Payment Failed </h2>
+        <p class='text-danger'>{{msg}}</p>
         <div class="back-shop my-2 justify-content-center">
           <a id="step2_prev" href="{% url 'cart:payment_information' %}"><i class="fas fa-arrow-left"></i>Xem don
             hang</a>

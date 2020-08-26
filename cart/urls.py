@@ -23,6 +23,8 @@ urlpatterns = [
     path('check_out/', views.CheckOutView.as_view(), name='check_out'),
     path('tym_or_unTym/<product_id>',
          views.TymOrUnTym, name='tym'),
+    path('addToCart/<int:id>/', views.addToCart, name='addToCart'),
+
 
     path('review', views.review, name='review')
 ]

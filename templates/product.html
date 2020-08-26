@@ -594,7 +594,45 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <p>Full Name: {{review.full_name}}</p>
+                </div>
+                <div class="navigation-page">
+      <nav aria-label="...">
+        {% if reviews.has_other_pages %}
+
+        <ul class="pagination">
+          {% if reviews.has_previous %}
+          <li class="page-item">
+            <a onclick="page_navigation('page=', {{reviews.previous_page_number}})" class="page-link">&laquo</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a class="page-link disable">&laquo</a>
+          </li>
+          {% endif %}
+
+          {% for i in reviews.paginator.page_range %}
+
+          {% if reviews.number == i %}
+          <li class="page-item active">
+            <a onclick="page_navigation('page=', {{i}})" class="page-link">{{i}}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a onclick="page_navigation('page=',{{i}})" class="page-link">{{i}}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          {% if reviews.has_next %}
+          <li class="page-item">
+            <a onclick="page_navigation('page=', {{reviews.next_page_number}})" class="page-link">&raquo</a>
+          </li>
+          {% endif %}
+        </ul>
+        {% endif %}
+
+      </nav>
+    </div>
+                <!-- <p>Full Name: {{review.full_name}}</p>
                 <p>Subject: {{review.subject}}</p>
                 <p>Content: {{review.content}}</p>
                 <p>Rating: {{review.rating}}</p> -->

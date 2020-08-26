@@ -147,6 +147,73 @@
     }
 
   </script>
+
+
+  <script>
+  function page_navigation(key, value) {
+    console.log("page_navigation");
+    console.log('cc');
+    _url = window.location.href;
+    console.log(0);
+    split_url = _url.split('?')[1];
+    if (split_url != null) {
+      n = split_url.indexOf(key)
+      if (n === -1) {
+        console.log("Not found");
+        _url = _url + '&' + key + value;
+        window.location.href = _url;
+      }
+      else {
+        console.log(2);
+        i = n;
+        str = '';
+        while (i < split_url.length && split_url.charAt(i) !== '&') {
+          str += split_url.charAt(i);
+          i++;
+        }
+
+        window.location.href = window.location.href.replace(str, key + value);
+      }
+    }
+    else {
+      _url = _url + '?' + key;
+      _url += value;
+      window.location.href = _url;
+    }
+  }
+
+  function navigation_to(url) {
+    window.location.href = url;
+  }
+
+
+
+  function addToCart(id, quantity) {
+    var data = {
+      csrfmiddlewaretoken: "{{ csrf_token }}",
+      quantity: quantity,
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "/cart/addToCart/" + id + "/",
+      dataType: "json",
+      success: function (msg) {
+        if (msg) {
+          console.log(msg)
+          let count = msg.cart.products_in_cart
+          $(".products_in_cart").attr("data-count", count)
+          console.log( $('.products_in_cart'))
+        } else {
+          alert("Cannot add to list !");
+        }
+      },
+      data: data,
+    });
+  }
+
+
+</script>
 </body>
 
 </html>
