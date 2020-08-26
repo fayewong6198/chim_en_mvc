@@ -135,6 +135,8 @@ class WareHouseSerializer(serializers.ModelSerializer):
                 provider=validated_data['provider'])
 
             for product in validated_data['product_details']:
+                store_product = Product.objects.get(id=product['product_id'])
+
                 product_detail = ProductDetail()
                 product_detail.product_id = product['product_id']
                 product_detail.product_name = product['product_name']
@@ -142,8 +144,13 @@ class WareHouseSerializer(serializers.ModelSerializer):
                 product_detail.product_price = product['product_price']
                 product_detail.product_promotion = product['product_promotion']
                 product_detail.warehouse = warehouse
+                product_detail.image = store_product.images.all().first()
                 product_detail.save()
+
+                store_product.available = store_product.available + product_detail.product_amount
+                store_product.save()
+
             return warehouse
         except:
             warehouse.delete()
-            return None
+            raise serializers.ValidationError("Cannot create")

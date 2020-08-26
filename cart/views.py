@@ -179,8 +179,11 @@ class CheckOutView(generic.TemplateView):
 class IncreaseQuantityView(generic.View):
     def get(sefl, request, *args, **kwargs):
         order_item = get_object_or_404(OrderItem, id=kwargs['pk'])
+
         order_item.quantity += 1
+
         order_item.save()
+
         return redirect("cart:summary")
 
 
@@ -290,6 +293,7 @@ def payment_products(request):
     stripe.api_key = 'sk_test_51HJtaHBn6v3g7KPu9jYJX4x9Q2jX92kJVUlFYTAb3M2dCCxjJS515k29FFVeOW9SwrM7Jq1UJP7KAFw6dUQGq3f500R8q7o8qx'
 
     if request.method == "POST":
+
         intent = stripe.PaymentIntent.create(
             amount=int(user_info['totalprice']),
             currency='vnd',
@@ -335,6 +339,12 @@ def payment_process(request):
             print(cart)
 
             for item in cart.items.all():
+                product = get_object_or_404(Product, id=item.product.id)
+                if product.available < item.quantity:
+                    messages.error(request, "Out of stock")
+                    return render(request, 'payment_process.html', {'success': False, 'categories': categories, 'msg': 'Out of Stock'})
+
+            for item in cart.items.all():
                 total_price = total_price + item.get_total_item_price()
                 image = item.product.images.all().first()
                 product = ProductDetail(payment=payment,
@@ -345,6 +355,9 @@ def payment_process(request):
                                         product_price=item.product.price,
                                         product_promotion=item.product.promotion)
                 product.save()
+                store_product = get_object_or_404(Product, id=item.product.id)
+                store_product.available = store_product.available - 1
+                store_product.save()
             print(3)
 
             payment.amount = total_price+request.session['user_info']['ship']
