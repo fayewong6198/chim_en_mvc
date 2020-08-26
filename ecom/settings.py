@@ -32,11 +32,6 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-
-<< << << < HEAD
-== == == =
-
->>>>>> > e8dc97647f66c425ae55dc7be3d7a2459d8dee7a
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = socket.gethostbyname('smtp.gmail.com')
 EMAIL_USE_TLS = True

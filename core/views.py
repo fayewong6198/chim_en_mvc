@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 
 from django.views import generic
 from .forms import ContactForm
-from cart.models import Product, FavoriteProduct
+from cart.models import Product, FavoriteProduct, Category
 from .models import Contact
 
 
@@ -16,7 +16,9 @@ class HomeView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
+        categories = Category.objects.all()
         products = Product.objects.filter(active=True)[:4]
+        context['categories'] = categories
         context['products'] = products
         liked = []
         if self.request.user.is_authenticated:
@@ -61,9 +63,21 @@ class ContactView(generic.View):
 
         return redirect('/contact')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context["categories"] = categories
+        return context
+
 
 class AboutView(generic.TemplateView):
     template_name = 'about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context["categories"] = categories
+        return context
 
 
 class TymView(generic.TemplateView):

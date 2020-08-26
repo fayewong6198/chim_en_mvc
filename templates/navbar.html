@@ -21,7 +21,7 @@
         <div class="login">
           <a href="{% url 'login' %}"><i class="fa fa-user-lock"></i>
             Login
-          </a></div>
+          </a></div>\
         <div class="register">
           <a href="{% url 'register' %}"><i class="fa fa-user-o "></i>
             Register
@@ -70,35 +70,17 @@
           <!-- dropdown  -->
           <div class="dropdown-menu w-100 dropdown-category p-3 wow fadeInLeft" data-wow-duration=".2s"
             aria-labelledby="navbarDropdown">
+            
             <div class="row">
-              <div class="col-3">
-                <p class="dropdown-item">Category 1</p>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-              </div>
-              <div class="col-3">
-                <p class="dropdown-item">Category 2</p>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-              </div>
-              <div class="col-3">
-                <p class="dropdown-item">Category 3</p>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-              </div>
-              <div class="col-3">
-                <p class="dropdown-item">Category 4</p>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-                <a class="dropdown-item" href="#">Category 1</a>
-              </div>
+            {% for category in categories %}
+            <div class="col-3">
+                <p class="dropdown-item">{{category.title}}</p>
+                {% for product in category.products.all %}
+                  <a class="dropdown-item" href="#">{{product.title}}</a>
+                {% endfor %}
+              </div>    
+            {% endfor %}
+              
             </div>
           </div>
         </div>

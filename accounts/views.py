@@ -22,6 +22,7 @@ from django.utils.html import strip_tags
 from cart.models import Address, Payment, City, District
 
 from .models import User as UserModel
+from cart.models import Category
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -103,9 +104,11 @@ def register(request):
 @login_required
 def profile(request):
     if request.method == "GET":
+        categories = Category.objects.all()
+
         form = CustomUserChangeForm(instance=request.user)
 
-        return render(request, 'accounts/profile.html', {'form': form, 'url': 'profile'})
+        return render(request, 'accounts/profile.html', {'form': form, 'url': 'profile', 'categories': categories})
     form = CustomUserChangeForm(data=request.POST, instance=request.user)
 
     if form.is_valid():

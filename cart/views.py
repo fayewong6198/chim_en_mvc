@@ -157,7 +157,10 @@ class CartView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CartView, self).get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context['categories'] = categories
         context["object"] = get_or_set_order_session(self.request)
+
         return context
 
 
@@ -166,6 +169,8 @@ class CheckOutView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CheckOutView, self).get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context['categories'] = categories
         context["object"] = get_or_set_order_session(self.request)
 
         return context
@@ -228,6 +233,8 @@ class PaymentView(generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = super(PaymentView, self).get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context['categories'] = categories
         context["object"] = get_or_set_order_session(self.request)
         return context
 
@@ -243,10 +250,8 @@ def payment_information(request):
 
         districts = District.objects.all()
         cities = City.objects.all()
-        return render(request, 'payment_information.html', {'form': form,
-                                                            'user_info': user_info,
-                                                            'districts': districts,
-                                                            'cities': cities})
+        categories = Category.objects.all()
+        return render(request, 'payment_information.html', {'form': form, 'user_info': user_info, 'districts': districts, 'cities': cities, 'categories': categories})
 
     if request.method == "POST":
         request.session['user_info'] = request.POST
@@ -295,10 +300,14 @@ def payment_products(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=403)
 
-    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'form': form, 'address': address})
+    categories = Category.objects.all()
+
+    return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'form': form, 'address': address, 'categories': categories})
 
 
 def payment_process(request):
+    categories = Category.objects.all()
+
     if (request.method == 'POST'):
         payment = None
         # Create Payment
@@ -348,7 +357,7 @@ def payment_process(request):
             cart.delete()
             request.session['products_in_cart'] = 0
             messages.success(request, "payment successfully")
-            return render(request, 'payment_process.html', {'success': True})
+            return render(request, 'payment_process.html', {'success': True, 'categories': categories})
         except:
             # Delete payment
 
