@@ -336,10 +336,11 @@ def payment_process(request):
 
             for item in cart.items.all():
                 total_price = total_price + item.get_total_item_price()
+                image = item.product.images.all().first()
                 product = ProductDetail(payment=payment,
                                         product_id=item.product.id,
                                         product_name=item.product.title,
-                                        image=item.product.images.first,
+                                        image=image,
                                         product_amount=item.quantity,
                                         product_price=item.product.price,
                                         product_promotion=item.product.promotion)

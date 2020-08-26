@@ -34,8 +34,15 @@ class HomeView(generic.TemplateView):
 
 
 class ContactView(generic.View):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context["categories"] = categories
+        return context
+
     def get(self, request, *args, **kwargs):
-        return render(request, 'contact.html')
+        categories = Category.objects.all()
+        return render(request, 'contact.html', {'categories': categories})
 
     def post(self, request, *args, **kwargs):
 
@@ -62,12 +69,6 @@ class ContactView(generic.View):
         messages.success(request, " update successfully !")
 
         return redirect('/contact')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()
-        context["categories"] = categories
-        return context
 
 
 class AboutView(generic.TemplateView):

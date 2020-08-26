@@ -17,8 +17,8 @@
                                     {% for product in payment.product_details.all %}
                                     <div class="row">
                                         <div class="col-md-6 col-12 p-5">
-                                            {{product.image}}
-                                            <!-- <img src="{{product.image}}" alt="{{product.product_name}}"> -->
+                                            
+                                            <img src="{{product.image}}" alt="{{product.product_name}}">
                                         </div>
                                         <div class="col-md-6 col-12 ">
                                             <p>Product Name: {{product.product_name}}</p>
