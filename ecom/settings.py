@@ -33,6 +33,10 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
+<< << << < HEAD
+== == == =
+
+>>>>>> > e8dc97647f66c425ae55dc7be3d7a2459d8dee7a
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = socket.gethostbyname('smtp.gmail.com')
 EMAIL_USE_TLS = True
@@ -61,6 +65,19 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
 
 ]
+# STRIPE_LIVE_PUBLIC_KEY = os.environ.get(
+#     "STRIPE_LIVE_PUBLIC_KEY", "<your publishable key>")
+# STRIPE_LIVE_SECRET_KEY = os.environ.get(
+#     "STRIPE_LIVE_SECRET_KEY", "<your secret key>")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get(
+    "STRIPE_TEST_PUBLIC_KEY", "pk_test_51HJtaHBn6v3g7KPuU6KqFf8ZqwkUyczB7wJaiGfgDZzkEdGPLXeLEHiVEQut4HqIytOTdmrZlWp2FspBtz9FdWR5005S2ISLgs")
+STRIPE_TEST_SECRET_KEY = os.environ.get(
+    "STRIPE_TEST_SECRET_KEY", "sk_test_51HJtaHBn6v3g7KPu9jYJX4x9Q2jX92kJVUlFYTAb3M2dCCxjJS515k29FFVeOW9SwrM7Jq1UJP7KAFw6dUQGq3f500R8q7o8qx")
+STRIPE_LIVE_MODE = False  # Change to True in production
+# Get it from the section in the Stripe dashboard where you added the webhook endpoint
+DJSTRIPE_WEBHOOK_SECRET = "whsec_xxx"
+
+
 PAYPAL_RECEIVER_EMAIL = 'minhthienpham0611@mail.com'
 
 PAYPAL_TEST = True
@@ -168,7 +185,7 @@ if DEBUG is False:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    ALLOWED_HOSTS = ["www.domain.com"]
+    ALLOWED_HOSTS = ["*"]
 
     DATABASES = {
         'default': {
@@ -181,7 +198,7 @@ if DEBUG is False:
         }
     }
 
-
+ALLOWED_HOSTS = ["*"]
 REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
