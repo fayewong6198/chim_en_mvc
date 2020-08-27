@@ -164,7 +164,7 @@ class CityViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = City.objects.all().order_by('-created_at')
+    queryset = City.objects.all()
     serializer_class = CitySerializer
     permission_classes = [permissions.AllowAny]
 
@@ -177,7 +177,7 @@ class DistrictViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = District.objects.all().order_by('-created_at')
+    queryset = District.objects.all()
     serializer_class = DistrictSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
