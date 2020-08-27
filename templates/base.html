@@ -61,7 +61,12 @@
 
 
 <body>
-  <div id="message"></div>
+  <div class="width-full" id="message">
+    <div class="alert alert-{{ message.tags }} animated fadeInDown" role="alert" style="width: 300px">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="width: 300px">
+      </button>
+    </div>
+  </div>
   {% if messages %}
   {% for message in messages %}
   <div class="width-full">
@@ -203,7 +208,8 @@
             console.log(msg)
             let count = msg.cart.products_in_cart
             $(".products_in_cart").attr("data-count", count)
-            console.log($('.products_in_cart'))
+            $(".message").attr("display", "block")
+            $(".alert").html(msg.message)
           } else {
             alert("Cannot add to list !");
           }

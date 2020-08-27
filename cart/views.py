@@ -254,9 +254,9 @@ def addToCart(request, id):
 
         context = {
             'cart': {
-                # 'productsInCart': serialize('json', productsInCart),
                 'products_in_cart': count
-            }
+            }, "message": "added"
+
         }
 
         return JsonResponse(context)
