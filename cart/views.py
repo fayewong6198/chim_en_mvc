@@ -412,7 +412,7 @@ def payment_process(request):
                                         product_promotion=item.product.promotion)
                 product.save()
                 store_product = get_object_or_404(Product, id=item.product.id)
-                store_product.available = store_product.available - 1
+                store_product.available = store_product.available - item.quantity
                 store_product.save()
             print(3)
 
