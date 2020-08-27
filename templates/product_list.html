@@ -82,7 +82,7 @@
               </div>
             </div>
           </div>
-      
+
         </div>
         <div class="col-lg-9 col-12">
           <div class="row my-3">
@@ -140,18 +140,18 @@
                 <div class="product-content">
                   <a href="{% url 'cart:product-detail' product.slug %}">
                     <ul class="cart-icon">
-                      <li><a  onclick="addToCart({{product.id}}, 1)"><i data-toggle="tooltip"
-                            data-placement="bottom" title="Add to cart" class="fa fa-cart-plus"></i></a></li>
+                      <li><a onclick="addToCart('{{product.id}}', 1)"><i data-toggle="tooltip" data-placement="bottom"
+                            title="Add to cart" class="fa fa-cart-plus"></i></a></li>
 
                       {% if request.user.is_authenticated%}
                       {% if product.id in liked %}
-                      <li><a id="{{product.id}}" onclick="tym(this.id)">
+                      <li><a id="{{product.id}}" onclick="tym('{{product.id}}')">
                           <i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
                             class="fa fa-heart"></i></a>
                       </li>
                       {%else%}
-                      <li><a id="{{product.id}}" onclick="tym(this.id)"><i data-toggle="tooltip" data-placement="bottom"
-                            title="Add to wishlist" class="fa fa-heart-o"></i></a>
+                      <li><a id="{{product.id}}" onclick="tym('{{product.id}}')"><i data-toggle="tooltip"
+                            data-placement="bottom" title="Add to wishlist" class="fa fa-heart-o"></i></a>
                       </li>
                       {% endif %}
                       {% else %}
