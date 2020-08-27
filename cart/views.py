@@ -456,4 +456,3 @@ def review(request):
 def reply(request):
     if (request.method == 'POST'):
         review = get_object_or_404(review, request.POST['review'])
-c
