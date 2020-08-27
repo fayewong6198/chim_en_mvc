@@ -160,7 +160,7 @@ class WareHouseSerializer(serializers.ModelSerializer):
         instance.provider = validated_data['provider']
         products_detail = ProductDetail.objects.filter(warehouse=instance)
         for product in products_detail:
-            store_product = Product.objects.get(id=product['product_id'])
+            store_product = Product.objects.get(id=product.product_id)
             store_product.available = store_product.available + product_detail.product_amount
             store_product.save()
 
