@@ -105,7 +105,7 @@ class PaymentSerializer(serializers.ModelSerializer):
         instance.status = validated_data['instance']
         print(instance.status)
         if instance.status == 'Cancel':
-            product_details = instance.product_details.all():
+            product_details = instance.product_details
             for product_detail in product_details:
                 try:
                     product = Product.objects.get(pk=product_detail.product_id)
