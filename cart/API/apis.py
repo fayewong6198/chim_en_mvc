@@ -34,7 +34,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Payment.objects.all()
+    queryset = Payment.objects.all().order_by('-created_at')
     serializer_class = PaymentSerializer
     permission_classes = [permissions.DjangoModelPermissions]
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
@@ -47,7 +47,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('-created_at')
     serializer_class = ProductSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
@@ -60,7 +60,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('-created_at')
     serializer_class = CategorySerializer
     # permission_classes = [permissions.DjangoObjectPermissions]
     permission_classes = [permissions.DjangoModelPermissions]
@@ -84,7 +84,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().order_by('-created_at')
     serializer_class = OrderSerializer
     # permission_classes = [permissions.DjangoModelPermissions]
 
@@ -144,7 +144,7 @@ class ProductImageView(APIView):
 class BlogImageViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser)
 
-    queryset = BlogImage.objects.all()
+    queryset = BlogImage.objects.all().order_by('-created_at')
     serializer_class = BlogImageSerializer
     permission_classes = [permissions.AllowAny]
 
@@ -164,7 +164,7 @@ class CityViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = City.objects.all()
+    queryset = City.objects.all().order_by('-created_at')
     serializer_class = CitySerializer
     permission_classes = [permissions.AllowAny]
 
@@ -177,7 +177,7 @@ class DistrictViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = District.objects.all()
+    queryset = District.objects.all().order_by('-created_at')
     serializer_class = DistrictSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
@@ -186,7 +186,7 @@ class DistrictViewSet(viewsets.ModelViewSet):
 
 
 class WareHouseViewSet(viewsets.ModelViewSet):
-    queryset = WareHouse.objects.all()
+    queryset = WareHouse.objects.all().order_by('-created_at')
     serializer_class = WareHouseSerializer
     permission_classes = [permissions.AllowAny]
 

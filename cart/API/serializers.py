@@ -102,7 +102,7 @@ class PaymentSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Cancel payment can not be modified")
 
-        instance.status = validated_data['instance']
+        instance.status = validated_data['status']
         print(instance.status)
         if instance.status == 'Cancel':
             product_details = instance.product_details
