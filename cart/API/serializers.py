@@ -98,7 +98,7 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def update(self, instance, validated_data):
-        if instance.status == 'Cancel':
+        if instance.status == 'Cancel' or instance.status == 'Complete':
             raise serializers.ValidationError(
                 "Cancel payment can not be modified")
 

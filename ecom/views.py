@@ -162,26 +162,25 @@ class RemoveFromCartView(generic.View):
         return redirect("cart:summary")
 
 
-class TymOrUnTym(generic.View):
-    @ method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        product = Product.objects.get(pk=kwargs['product_id'])
-        try:
+# class TymOrUnTym(generic.View):
+#     @ method_decorator(login_required)
+#     def get(self, request, *args, **kwargs):
+#         product = Product.objects.get(pk=kwargs['product_id'])
+#         try:
+#             favorite = FavoriteProduct.objects.get(
+#                 product=product.id, user=request.user)
+#             print("Delete")
+#             favorite.delete()
+#         except FavoriteProduct.DoesNotExist:
+#             print("add new")
+#             new_favorite = FavoriteProduct()
+#             new_favorite.user = request.user
+#             new_favorite.product = product
+#             new_favorite.save()
 
-            favorite = FavoriteProduct.objects.get(
-                product=product.id, user=request.user)
-            print("Delete")
-            favorite.delete()
-        except FavoriteProduct.DoesNotExist:
-            print("add new")
-            new_favorite = FavoriteProduct()
-            new_favorite.user = request.user
-            new_favorite.product = product
-            new_favorite.save()
-
-        request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
-            user=request.user).count()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+#         request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
+#             user=request.user).count()
+#         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         # if favorite_item:
         #     favorite_item.delete()
