@@ -48,6 +48,7 @@ def login(request):
             if next_url:
                 return HttpResponseRedirect(next_url)
             else:
+
                 messages.success(request, "Login success!")
                 return redirect('/')
         else:

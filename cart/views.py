@@ -94,14 +94,10 @@ class ProductDetailView(generic.FormView):
     form_class = AddToCartForm
 
     def get_object(self):
-        print("get object")
         return get_object_or_404(Product, slug=self.kwargs["slug"])
 
     def get_success_url(self):
-        print("get success url")
         return reverse("cart:summary")
-        # return
-        # HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
 
     def get_form_kwargs(self):
         kwargs = super(ProductDetailView, self).get_form_kwargs()
@@ -160,9 +156,7 @@ class ProductDetailView(generic.FormView):
         context['object'] = self.get_object()
         context['categories'] = categories
         context['reviews'] = paged_listings
-
         context['liked'] = liked
-
         return context
 
 
@@ -220,6 +214,7 @@ class RemoveFromCartView(generic.View):
 
 
 def addToCart(request, id):
+
     quantity = request.POST['quantity']
     product = get_object_or_404(Product, pk=id)
     if (request.method == 'POST'):
@@ -267,7 +262,6 @@ def addToCart(request, id):
         return JsonResponse(context)
 
 
-@api_view(['GET', ])
 def TymOrUnTym(request, product_id):
 
     if request.user.is_authenticated:
@@ -288,8 +282,8 @@ def TymOrUnTym(request, product_id):
 
             count = FavoriteProduct.objects.filter(
                 user=request.user).count()
-            return Response({'liked': liked, 'count': count})
-    return Response({'messages': "login_required"})
+            return JsonResponse({'liked': liked, 'count': count})
+    return JsonResponse({'messages': "login_required"})
 
 
 class PaymentView(generic.FormView):
