@@ -246,7 +246,7 @@ def addToCart(request, id):
 
         for p in productsInCart:
             # count = count + p.quantity
-            count = count + 1
+            count = count + p.quantity
             total = total + p.product.price * p.quantity
 
         # request.session['productsInCart'] = serialize('json', productsInCart)
@@ -412,7 +412,7 @@ def payment_process(request):
                                         product_promotion=item.product.promotion)
                 product.save()
                 store_product = get_object_or_404(Product, id=item.product.id)
-                store_product.available = store_product.available - 1
+                store_product.available = store_product.available - item.quantity
                 store_product.save()
             print(3)
 
@@ -451,3 +451,8 @@ def review(request):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def reply(request):
+    if (request.method == 'POST'):
+        review = get_object_or_404(review, request.POST['review'])

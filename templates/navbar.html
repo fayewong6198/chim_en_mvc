@@ -120,7 +120,7 @@
             <i class="fa fa-shopping-basket pt-1"></i>
           </a>
           {% else %}
-          <a class="fa-stack has-badge" href="{% url 'cart:summary' %}" data-toggle="tooltip" data-placement="top"
+          <a class="fa-stack has-badge products_in_cart"  href="{% url 'cart:summary' %}" data-toggle="tooltip" data-placement="top"
             title="Badge" id="icon-badge">
             <i class=" fa fa-shopping-basket"></i>
           </a>
@@ -239,7 +239,8 @@
             <i class="fa fa-shopping-basket"></i>
           </a>
           {% else %}
-          <a class="fa-stack has-badge" href="{% url 'cart:summary' %}">
+          asd
+          <a class="fa-stack has-badge products_in_cart" href="{% url 'cart:summary' %}">
             <i class="fa fa-shopping-basket"></i>
           </a>
           {% endif %}
