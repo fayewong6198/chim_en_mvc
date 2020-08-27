@@ -161,7 +161,7 @@ class WareHouseSerializer(serializers.ModelSerializer):
         products_detail = ProductDetail.objects.filter(warehouse=instance)
         for product in products_detail:
             store_product = Product.objects.get(id=product.product_id)
-            store_product.available = store_product.available + product.product_amount
+            store_product.available = store_product.available - product.product_amount
             store_product.save()
 
         products_detail.delete()
@@ -174,7 +174,7 @@ class WareHouseSerializer(serializers.ModelSerializer):
             product_detail.product_amount = product['product_amount']
             product_detail.product_price = product['product_price']
             product_detail.product_promotion = product['product_promotion']
-            product_detail.warehouse = warehouse
+            product_detail.warehouse = instance
             product_detail.image = store_product.images.all().first()
             product_detail.save()
 
