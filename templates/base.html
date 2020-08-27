@@ -61,7 +61,13 @@
 
 
 <body>
-  <div id="message"></div>
+  <div class="width-full" id="message_modal" style="display: none;">
+    <div class="alert alert-success animated fadeInDown" role="alert" style="width: 300px">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="width: 300px">
+      </button>
+
+    </div>
+  </div>
   {% if messages %}
   {% for message in messages %}
   <div class="width-full">
@@ -127,6 +133,14 @@
                               </button>
                             liked
                             </div>`
+          $('.alert').html('liked');
+          $('#message_modal').attr('display', 'block');
+          setTimeout(function () {
+            $('.alert').hide();
+            $('#message').hide();
+
+          }, 3500)
+
         }
         else {
           document.getElementById(id).innerHTML = `<i
@@ -188,7 +202,7 @@
 
 
 
-    function addToCart(id, quantity) {
+    function addToCart(id, quantity, stock) {
       var data = {
         csrfmiddlewaretoken: "{{ csrf_token }}",
         quantity: quantity,
@@ -205,10 +219,17 @@
             $(".products_in_cart").attr("data-count", count)
             console.log($('.products_in_cart'))
           } else {
+            console.log("failed")
             alert("Cannot add to list !");
           }
         },
         data: data,
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest.responseJSON);
+          console.log(textStatus);
+          console.log(errorThrown);
+        alert(XMLHttpRequest.responseJSON.msg);
+  }
       });
     }
 

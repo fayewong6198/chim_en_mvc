@@ -82,7 +82,7 @@
               </div>
             </div>
           </div>
-      
+
         </div>
         <div class="col-lg-9 col-12">
           <div class="row my-3">
@@ -119,39 +119,43 @@
           <div class="row">
             {% for product in products %}
             <div class="ct-product-card ct-primary-color col-md-4 col-12 pb-4" data-aos="fade-up">
+                
+
               <div class="product-card">
                 <a href="{% url 'cart:product-detail' product.slug %}">
                   <img src="{{product.images.first}}"></a>
+                {{ product.available }}
                 {% if product.promotion > 0 %}
                 <div class="sale">
                   <div class="background-sale">
                     <p>-{{product.promotion}}%</p>
                   </div>
                 </div>
+                {% endif %}
+                {% if product.available == 0 %}
                 <div class="out-of-stock">
                   <div class="background-out">
                     <p>Out of stock</p>
                   </div>
                 </div>
-
                 {% endif %}
 
 
                 <div class="product-content">
                   <a href="{% url 'cart:product-detail' product.slug %}">
                     <ul class="cart-icon">
-                      <li><a  onclick="addToCart({{product.id}}, 1)"><i data-toggle="tooltip"
-                            data-placement="bottom" title="Add to cart" class="fa fa-cart-plus"></i></a></li>
+                      <li><a onclick="addToCart('{{product.id}}', 1, {{product.available}})"><i data-toggle="tooltip" data-placement="bottom"
+                            title="Add to cart" class="fa fa-cart-plus"></i></a></li>
 
                       {% if request.user.is_authenticated%}
                       {% if product.id in liked %}
-                      <li><a id="{{product.id}}" onclick="tym(this.id)">
+                      <li><a id="{{product.id}}" onclick="tym('{{product.id}}')">
                           <i data-toggle="tooltip" data-placement="bottom" title="Add to wishlist"
                             class="fa fa-heart"></i></a>
                       </li>
                       {%else%}
-                      <li><a id="{{product.id}}" onclick="tym(this.id)"><i data-toggle="tooltip" data-placement="bottom"
-                            title="Add to wishlist" class="fa fa-heart-o"></i></a>
+                      <li><a id="{{product.id}}" onclick="tym('{{product.id}}')"><i data-toggle="tooltip"
+                            data-placement="bottom" title="Add to wishlist" class="fa fa-heart-o"></i></a>
                       </li>
                       {% endif %}
                       {% else %}

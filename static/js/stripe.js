@@ -63,14 +63,18 @@ var payWithCard = function (stripe, card, clientSecret) {
             }
         })
         .then(function (result) {
+          console.log("ssadasd")
             if (result.error) {
+              console.log("error")
                 // Show error to your customer
                 showError(result.error.message);
+
             } else {
                 // The payment succeeded!
+                console.log("successs")
+                alert("payment success")
                 orderComplete(result.paymentIntent.id);
-            }
-        });
+     
 };
 /* ------- UI helpers ------- */
 // Shows a success message when the payment is complete

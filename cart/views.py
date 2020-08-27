@@ -6,6 +6,8 @@ from .forms import AddToCartForm, PaymentForm, CustommerInformationForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework import status
+
 
 # Create your views here.
 
@@ -219,6 +221,9 @@ def addToCart(request, id):
     product = get_object_or_404(Product, pk=id)
     if (request.method == 'POST'):
 
+        if product.available < int(quantity):
+            return JsonResponse(data={'msg': 'Out of Stock'}, status=400)
+
         order = get_or_set_order_session(request)
         print(id)
 
@@ -246,7 +251,7 @@ def addToCart(request, id):
 
         for p in productsInCart:
             # count = count + p.quantity
-            count = count + 1
+            count = count + p.quantity
             total = total + p.product.price * p.quantity
 
         # request.session['productsInCart'] = serialize('json', productsInCart)
@@ -254,9 +259,9 @@ def addToCart(request, id):
 
         context = {
             'cart': {
-                # 'productsInCart': serialize('json', productsInCart),
                 'products_in_cart': count
-            }
+            }, "message": "added"
+
         }
 
         return JsonResponse(context)
@@ -273,6 +278,7 @@ def TymOrUnTym(request, product_id):
                     product=product.id, user=request.user)
                 favorite.delete()
                 liked = False
+
             except FavoriteProduct.DoesNotExist:
 
                 new_favorite = FavoriteProduct()
@@ -301,6 +307,9 @@ class PaymentView(generic.FormView):
 def payment_information(request):
     form = CustommerInformationForm()
     if request.method == "GET":
+        if request.session['products_in_cart'] <= 0:
+            messages.warning(request, "no product to buy")
+            return redirect('/cart/shop')
         if (request.user.is_authenticated):
             form = CustommerInformationForm(instance=request.user)
         user_info = None
@@ -321,7 +330,9 @@ def payment_information(request):
 
 @csrf_exempt
 def payment_products(request):
-
+    if request.session['products_in_cart'] <= 0:
+        messages.warning(request, "no product to buy")
+        return redirect('/cart/shop')
     user_info = request.session.get('user_info')
     cart = get_or_set_order_session(request)
     district = District.objects.get(
@@ -367,7 +378,9 @@ def payment_products(request):
 
 def payment_process(request):
     categories = Category.objects.all()
-
+    if request.session['products_in_cart'] <= 0:
+        messages.warning(request, "no product to buy")
+        return redirect('/cart/shop')
     if (request.method == 'POST'):
         payment = None
         # Create Payment
@@ -451,3 +464,8 @@ def review(request):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def reply(request):
+    if (request.method == 'POST'):
+        review = get_object_or_404(review, request.POST['review'])

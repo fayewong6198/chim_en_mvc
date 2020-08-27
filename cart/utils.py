@@ -25,9 +25,11 @@ def get_or_set_order_session(request):
         order.user = request.user
         order.save()
         request.session['order_id'] = order.id
+    count = 0
+    for x in OrderItem.objects.filter(order=order.id):
+        count += x.quantity
 
-    request.session['products_in_cart'] = OrderItem.objects.filter(
-        order=order.id).count() or 0
+    request.session['products_in_cart'] = count
     return order
 
 
