@@ -97,6 +97,25 @@ class PaymentSerializer(serializers.ModelSerializer):
         model = Payment
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        if instance.status == 'Cancel':
+            raise serializers.ValidationError(
+                "Cancel payment can not be modified")
+
+        instance.status = validated_data['instance']
+        print(instance.status)
+        if instance.status == 'Cancel':
+            product_details = instance.product_details.all():
+            for product_detail in product_details:
+                try:
+                    product = Product.objects.get(pk=product_detail.product_id)
+                    product.available = product.available + product_detail.product_amount
+                    product.save()
+                except:
+                    pass
+        instance.save()
+        return instance
+
 
 class FavoriteProductSerializer(serializers.ModelSerializer):
     class Meta:
