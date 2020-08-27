@@ -6,6 +6,8 @@ from .forms import AddToCartForm, PaymentForm, CustommerInformationForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework import status
+
 
 # Create your views here.
 
@@ -218,6 +220,9 @@ def addToCart(request, id):
     quantity = request.POST['quantity']
     product = get_object_or_404(Product, pk=id)
     if (request.method == 'POST'):
+
+        if product.available < int(quantity):
+            return JsonResponse(data={'msg': 'Out of Stock'}, status=400)
 
         order = get_or_set_order_session(request)
         print(id)
