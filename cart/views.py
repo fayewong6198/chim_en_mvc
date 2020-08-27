@@ -273,6 +273,7 @@ def TymOrUnTym(request, product_id):
                     product=product.id, user=request.user)
                 favorite.delete()
                 liked = False
+
             except FavoriteProduct.DoesNotExist:
 
                 new_favorite = FavoriteProduct()
@@ -301,6 +302,9 @@ class PaymentView(generic.FormView):
 def payment_information(request):
     form = CustommerInformationForm()
     if request.method == "GET":
+        if request.session['products_in_cart'] <= 0:
+            messages.warning(request, "no product to buy")
+            return redirect('/cart/shop')
         if (request.user.is_authenticated):
             form = CustommerInformationForm(instance=request.user)
         user_info = None
@@ -321,7 +325,9 @@ def payment_information(request):
 
 @csrf_exempt
 def payment_products(request):
-
+    if request.session['products_in_cart'] <= 0:
+        messages.warning(request, "no product to buy")
+        return redirect('/cart/shop')
     user_info = request.session.get('user_info')
     cart = get_or_set_order_session(request)
     district = District.objects.get(
@@ -367,7 +373,9 @@ def payment_products(request):
 
 def payment_process(request):
     categories = Category.objects.all()
-
+    if request.session['products_in_cart'] <= 0:
+        messages.warning(request, "no product to buy")
+        return redirect('/cart/shop')
     if (request.method == 'POST'):
         payment = None
         # Create Payment
