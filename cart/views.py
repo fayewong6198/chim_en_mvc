@@ -130,7 +130,7 @@ class ProductDetailView(generic.FormView):
         return super(ProductDetailView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        limit = 5
+        limit = 1
 
         if 'limit' in self.request.GET:
             limit = self.request.GET['limit']
@@ -338,7 +338,7 @@ def payment_products(request):
         district.name+" , "+district.city.name
     user_info['ship'] = ship
     paypal_dict = {
-        "business": "sb-47qfe63027592@business.example.com",
+        "business": "sb-fv0pj3054200@business.example.com",
         "amount": user_info['totalprice']/23000,
         "item_name": "name of the item",
         "invoice": "467467487348474",
