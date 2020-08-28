@@ -74,7 +74,7 @@ var payWithCard = function (stripe, card, clientSecret) {
         var data = {
           csrfmiddlewaretoken: "{{ csrf_token }}",
         };
-        console.log(data)
+        console.log(data);
         orderComplete(result.paymentIntent.id);
         $.ajax({
           type: "POST",

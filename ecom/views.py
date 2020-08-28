@@ -234,7 +234,7 @@ def payment_products(request):
     cart = get_or_set_order_session(request)
 
     paypal_dict = {
-        "business": "minhthienpham0611@gmal.com",
+        "business": "sb-fv0pj3054200@business.example.com",
         "amount": "1",
         "item_name": "name of the item",
         "invoice": "unique-invoice-id",

@@ -203,7 +203,7 @@
   height: 60px;
   opacity: 0.95;
   z-index: 1500;
-  background-color: #d4cfcf !important;
+  background-color: #aaa !important;
 }
 .sticky-search {
   position: fixed;

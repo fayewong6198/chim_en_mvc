@@ -2,16 +2,19 @@
   <div class="container p-2">
     <div class="row justify-content-between">
       <div class="col-md-6 header-left">
-        <span>
-          Work time: Monday - Friday: 08AM-06PM
-        </span>
+        <span> Work time: Monday - Friday: 08AM-06PM </span>
       </div>
       <div class="col-md-6 header-right">
         {% if request.user.is_authenticated %}
         <div class="dropdown">
           <a class="bold-text" href="{% url 'profile'%}">
-            <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" id="img-nav" />
-            <span class="dropdown-toggle"> {{request.user.username}}</span></a>
+            <img
+              src="https://image.ibb.co/jw55Ex/def_face.jpg"
+              class="img img-rounded img-fluid"
+              id="img-nav"
+            />
+            <span class="dropdown-toggle"> {{request.user.username}}</span></a
+          >
           <div class="dropdown-content right">
             <a href="{% url 'profile'%}">Profile</a>
             <a href="{% url 'logout' %}">Logout</a>
@@ -19,37 +22,57 @@
         </div>
         {% else %}
         <div class="login">
-          <a href="{% url 'login' %}"><i class="fa fa-user-lock"></i>
+          <a href="{% url 'login' %}"
+            ><i class="fa fa-user-lock"></i>
             Login
-          </a></div>
+          </a>
+        </div>
         <div class="register">
-          <a href="{% url 'register' %}"><i class="fa fa-user-o "></i>
+          <a href="{% url 'register' %}"
+            ><i class="fa fa-user-o"></i>
             Register
           </a>
         </div>
 
         {% endif %}
         <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle language" type="button" id="dropdownMenuButton"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button
+            class="btn btn-primary dropdown-toggle language"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
             Languages
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#">VietNamese</a>
             <a class="dropdown-item" href="#">English</a>
-            <a class="dropdown-item" href="#">Chines</a>
+            <a class="dropdown-item" href="#">Chinese</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<form action="{% url 'cart:product-list' %}" class="collapse navbar-collapse wow tada" id="collapseSearch">
+<form
+  action="{% url 'cart:product-list' %}"
+  class="collapse navbar-collapse wow tada"
+  id="collapseSearch"
+>
   <div class="container">
     {% if limit is not None %}
-    <input type="hidden" name="limit" value="{{limit}}">
+    <input type="hidden" name="limit" value="{{limit}}" />
     {% endif %}
-    <input type="text" class="search-query" placeholder="Tim kiem" value="{{search}}" name="search"></div>
+    <input
+      type="text"
+      class="search-query"
+      placeholder="Tim kiem"
+      value="{{search}}"
+      name="search"
+    />
+  </div>
 </form>
 
 <nav id="navbar" class="navbar-white pl-3 pr-3">
@@ -57,72 +80,151 @@
   <div class="container d-none d-md-block">
     <div class="row justify-content-around">
       <!-- Left-side -->
-      <div class="col-8 col-lg-8 nav-text">
-        <a class="navbar-brand" href="{% url 'home' %}">Organic</a>
+      <div class="col-8 col-lg-7 nav-text">
+        <a class="navbar-brand font-weight-bold " href="{% url 'home' %}">Organic</a>
         <!-- <div class="dropdown"> -->
 
-        <a class="nav-link bold-text active d-inline" href="{% url 'home' %}">Home <span
-            class="sr-only">(current)</span></a>
-        <a class="nav-link bold-text d-inline" href="{% url 'about' %}">About</a>
-        <a class="nav-link bold-text d-inline" href="{% url 'contact' %}">Contact</a>
-        <div class="nav-link bold-text d-inline dropdown-product-desk" id="navbarDropdown">
-          <a class=" dropdown-toggle " href="{% url 'cart:product-list' %}">Product</a>
+        <a class="nav-link bold-text active d-inline" href="{% url 'home' %}"
+          >Home <span class="sr-only">(current)</span></a
+        >
+        <a class="nav-link bold-text d-inline" href="{% url 'about' %}"
+          >About</a
+        >
+        <a class="nav-link bold-text d-inline" href="{% url 'contact' %}"
+          >Contact</a
+        >
+
+        <!-- Product dropdown -->
+        <div
+          class="nav-link bold-text d-inline dropdown-product-desk"
+          id="navbarDropdown"
+        >
+          <a class="dropdown-toggle" href="{% url 'cart:product-list' %}"
+            >Product</a
+          >
           <!-- dropdown  -->
-          <div class="dropdown-menu w-100 dropdown-category p-3 wow fadeInLeft" data-wow-duration=".2s"
-            aria-labelledby="navbarDropdown">
-            
-            <div class="row">
-            {% for category in categories %}
-            <div class="col-3">
-                <p class="dropdown-item">{{category.title}}</p>
+          <div
+            class="dropdown-menu dropdown-category p-3 wow fadeInLeft"
+            data-wow-duration=".1s"
+            aria-labelledby="navbarDropdown"
+          >
+            {% for category in categories %} 
+            {% if category.products.all.count == 0 %}
+            <p class="dropdown-item">{{category.title}}</p>
+            {% else %}
+            <div class="dropdown-submenu">
+              <p class="dropdown-item dropdown-submenu">{{category.title}}</p>
+              <div
+                class="dropdown-menu p-3 wow fadeInLeft"
+                data-wow-duration=".1s"
+                aria-labelledby="navbarDropdown"
+              >
                 {% for product in category.products.all %}
-                  <a class="dropdown-item" href="{% url 'cart:product-detail' product.slug %}">{{product.title}}</a>
-              {% endfor %}
-              </div>    
-            {% endfor %}
-              
+                <a
+                  class="dropdown-item"
+                  href="{% url 'cart:product-detail' product.slug %}"
+                  >{{product.title}}</a
+                >
+                {% endfor %}
+              </div>
             </div>
+            {% endif %} {% endfor %}
           </div>
         </div>
       </div>
 
       <!-- Right side -->
-      <div class="col-4 col-lg-4 right-nav">
-        <i class="fas fa-search-plus search-collapse pr-3" data-toggle="collapse" data-target="#collapseSearch"
-          aria-expanded="false" aria-controls="collapseSearch"></i>
-        <form id="custom-search-form" class="form-search form-horizontal" action="{% url 'cart:product-list' %}">
-          <div class=" input-append span12">
+      <div class="col-4 col-lg-5 right-nav">
+        <i
+          class="fas fa-search-plus search-collapse pr-3"
+          data-toggle="collapse"
+          data-target="#collapseSearch"
+          aria-expanded="false"
+          aria-controls="collapseSearch"
+        ></i>
+        <form
+          id="custom-search-form"
+          class="form-search form-horizontal"
+          action="{% url 'cart:product-list' %}"
+        >
+          <div class="input-append span12">
             {% if limit is not None %}
-            <input type="hidden" name="limit" value="{{limit}}">
+            <input type="hidden" name="limit" value="{{limit}}" />
             {% endif %}
-            <input type="text" class="search-query" placeholder="Tim kiem" value="{{search}}" name="search">
-            <button type="submit" class="btn"><i class="fas fa-search-plus"></i></button>
+            <input
+              type="text"
+              class="search-query"
+              placeholder="Tim kiem"
+              value="{{search}}"
+              name="search"
+            />
+            <button type="submit" class="btn">
+              <i class="fas fa-search-plus"></i>
+            </button>
+          </div>
         </form>
-        {% if request.user.is_authenticated %}
-        {% if request.session.products_in_favorite %}
-        <a class="fa-stack has-badge" id="icon-badge" data-toggle="tooltip" data-placement="top" title="Wishlist"
-          href="{% url 'favorites' %}" data-count="{{ request.session.products_in_favorite }}">
-          <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
-        {% else %}
-        <a class="fa-stack has-badge " id="icon-badge" data-toggle="tooltip" data-placement="top" title="Wishlist"
-          href="{% url 'favorites' %}">
-          <i class="fab fa-gratipay pt-1" href="{% url 'favorites' %}"></i></a>
-        {% endif %}
-        {% else %}
-        <a href="{% url 'favorites' %}" class=" fa-stack has-badge" id="icon-badge" data-toggle="tooltip"
-          data-placement="top" title="Login required"><i class="fab fa-gratipay pt-1 icon-badge"></i></a>
-        {% endif %}
+
+        <div>
+          {% if request.user.is_authenticated %} 
+          {% if request.session.products_in_favorite %}
+          <a
+            class="fa-stack has-badge"
+            id="icon-badge"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Wishlist"
+            href="{% url 'favorites' %}"
+            data-count="{{ request.session.products_in_favorite }}"
+          >
+            <i class="fab fa-gratipay" href="{% url 'favorites' %}"></i
+          ></a>
+          {% else %}
+          <a
+            class="fa-stack has-badge"
+            id="icon-badge"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Wishlist"
+            href="{% url 'favorites' %}"
+          >
+            <i class="fab fa-gratipay pt-1" href="{% url 'favorites' %}"></i
+          ></a>
+          {% endif %} {% else %}
+          <a
+            href="{% url 'favorites' %}"
+            class="fa-stack has-badge"
+            id="icon-badge"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Login required"
+            ><i class="fab fa-gratipay pt-1 icon-badge"></i
+          ></a>
+          {% endif %}
+        </div>
 
         <div class="dropdown">
           {% if request.session.products_in_cart %}
-          <a class="fa-stack has-badge products_in_cart" data-toggle="tooltip" data-placement="top" title="Badge" id="icon-badge"
-            data-count="{{ request.session.products_in_cart }}" href="/cart">
+          <a
+            class="fa-stack has-badge products_in_cart"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Badge"
+            id="icon-badge"
+            data-count="{{ request.session.products_in_cart }}"
+            href="/cart"
+          >
             <i class="fa fa-shopping-basket pt-1"></i>
           </a>
           {% else %}
-          <a class="fa-stack has-badge products_in_cart"  href="{% url 'cart:summary' %}" data-toggle="tooltip" data-placement="top"
-            title="Badge" id="icon-badge">
-            <i class=" fa fa-shopping-basket"></i>
+          <a
+            class="fa-stack has-badge products_in_cart"
+            href="{% url 'cart:summary' %}"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Badge"
+            id="icon-badge"
+          >
+            <i class="fa fa-shopping-basket"></i>
           </a>
           {% endif %}
         </div>
@@ -130,45 +232,58 @@
     </div>
   </div>
 
-  </div>
-
   <!-- Mobile -->
   <div class="container d-md-none mobile-nav">
     <div class="row">
-
       <div class="col-4">
         <div id="mySidenav" class="sidenav">
-
           <div class="page-wrapper">
             <nav id="sidebar" class="sidebar-wrapper">
               <div class="sidebar-content">
                 <div class="sidebar-header">
                   {% if request.user.is_authenticated %}
                   <div class="user-pic">
-                    <img class="img-responsive img-rounded"
+                    <img
+                      class="img-responsive img-rounded"
                       src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-                      alt="User picture">
+                      alt="User picture"
+                    />
                   </div>
                   {% endif %}
                   <div class="user-info">
-
                     <span class="user-name">
-
                       {% if request.user.is_authenticated %}
-                      <a class="nav-link bold-text" data-toggle="collapse" href="#collapseUser" role="button"
-                        aria-expanded="false" aria-controls="collapseUser"><span>{{ request.user.username }} <i
-                            class="fas fa-chevron-down"></i></span>
+                      <a
+                        class="nav-link bold-text"
+                        data-toggle="collapse"
+                        href="#collapseUser"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="collapseUser"
+                        ><span
+                          >{{ request.user.username }}
+                          <i class="fas fa-chevron-down"></i
+                        ></span>
                       </a>
 
                       <div class="collapse" id="collapseUser">
-                        <a href="{% url 'profile' %}"><i class="fas fa-user-circle"></i>Profile</a>
-                        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                        <a href="{% url 'profile' %}"
+                          ><i class="fas fa-user-circle"></i>Profile</a
+                        >
+                        <a href="{% url 'logout' %}"
+                          ><i class="fas fa-sign-out-alt"></i>Logout</a
+                        >
                       </div>
                       {% else %}
 
                       <div id="collapseUser " class="text-img-mobile">
-                        <a href="{% url 'register' %}"><i class="fas fa-user-circle pr-2"></i>Register</a>
-                        <a href="{% url 'login' %}" class="ml-4"><i class="fas fa-sign-out-alt ml-4 pr-2"></i> Login</a>
+                        <a href="{% url 'register' %}"
+                          ><i class="fas fa-user-circle pr-2"></i>Register</a
+                        >
+                        <a href="{% url 'login' %}" class="ml-4"
+                          ><i class="fas fa-sign-out-alt ml-4 pr-2"></i>
+                          Login</a
+                        >
                       </div>
                       {% endif %}
                     </span>
@@ -177,22 +292,38 @@
                 <div class="sidebar-menu">
                   <ul>
                     <li class="sidebar-menu-product">
-                      <span><i class="fas fa-home"></i><a href="{% url 'home' %}"> Home</a>
+                      <span
+                        ><i class="fas fa-home"></i
+                        ><a href="{% url 'home' %}"> Home</a>
                       </span>
-
                     </li>
                     <li class="sidebar-menu-product">
-                      <span> <i class="fas fa-address-card"></i><a href="{% url 'about' %}"> About</a></span>
-
+                      <span>
+                        <i class="fas fa-address-card"></i
+                        ><a href="{% url 'about' %}"> About</a></span
+                      >
                     </li>
                     <li class="sidebar-menu-product">
-                      <span><i class="fas fa-address-book"></i><a href="{% url 'contact' %}"> Contact</a></span>
-
+                      <span
+                        ><i class="fas fa-address-book"></i
+                        ><a href="{% url 'contact' %}"> Contact</a></span
+                      >
                     </li>
                     <li class="sidebar-menu-product2">
-                      <span><i class="fas fa-list-alt"></i> <a href="{% url 'cart:product-list' %}"> Product</a></span>
-                      <i class="fas fa-chevron-down" data-toggle="collapse" href="#collapseProductMobile" role="button"
-                        aria-expanded="false" aria-controls="collapseProductMobile"></i>
+                      <span
+                        ><i class="fas fa-list-alt"></i>
+                        <a href="{% url 'cart:product-list' %}">
+                          Product</a
+                        ></span
+                      >
+                      <i
+                        class="fas fa-chevron-down"
+                        data-toggle="collapse"
+                        href="#collapseProductMobile"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="collapseProductMobile"
+                      ></i>
                       <!-- <span class="badge badge-pill badge-warning">New</span> -->
                     </li>
                     <div class="collapse" id="collapseProductMobile">
@@ -221,26 +352,45 @@
       <!-- Icon list -->
       <div class="col-4">
         <div class="row justify-content-end align-items-center">
-          <i class="fas fa-search-plus search-collapse pr-3" data-toggle="collapse" data-target="#collapseSearch"
-            aria-expanded="false" aria-controls="collapseSearch"></i>
-          {% if request.user.is_authenticated %}
+          <i
+            class="fas fa-search-plus search-collapse pr-3"
+            data-toggle="collapse"
+            data-target="#collapseSearch"
+            aria-expanded="false"
+            aria-controls="collapseSearch"
+          ></i>
+          {% if request.user.is_authenticated %} 
           {% if request.session.products_in_favorite %}
-          <a class="fa-stack has-badge" href="{% url 'favorites' %}"
-            data-count="{{ request.session.products_in_favorite }}">
-            <i class="fab fa-gratipay " href="{% url 'favorites' %}"></i></a>
-          {% endif %}
-          {% else %}
-          <a class=" fa-stack has-badge" id="icon-badge-unlogin" data-toggle="tooltip" data-placement="top"
-            title="Login required"><i class="fab fa-gratipay  icon-badge"></i></a>
-          {% endif %}
-          {% if request.session.products_in_cart %}
-          <a class="fa-stack has-badge products_in_cart" id="icon-basket" data-count="{{ request.session.products_in_cart }}"
-            href="/cart">
+          <a
+            class="fa-stack has-badge"
+            href="{% url 'favorites' %}"
+            data-count="{{ request.session.products_in_favorite }}"
+          >
+            <i class="fab fa-gratipay" href="{% url 'favorites' %}"></i
+          ></a>
+          {% endif %} {% else %}
+          <a
+            class="fa-stack has-badge"
+            id="icon-badge-unlogin"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Login required"
+            ><i class="fab fa-gratipay icon-badge"></i
+          ></a>
+          {% endif %} {% if request.session.products_in_cart %}
+          <a
+            class="fa-stack has-badge products_in_cart"
+            id="icon-basket"
+            data-count="{{ request.session.products_in_cart }}"
+            href="/cart"
+          >
             <i class="fa fa-shopping-basket"></i>
           </a>
-          {% else %}
-          asd
-          <a class="fa-stack has-badge products_in_cart" href="{% url 'cart:summary' %}">
+          {% else %} asd
+          <a
+            class="fa-stack has-badge products_in_cart"
+            href="{% url 'cart:summary' %}"
+          >
             <i class="fa fa-shopping-basket"></i>
           </a>
           {% endif %}
