@@ -9,7 +9,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework import status
 from django.contrib.messages import get_messages
 from django.utils import timezone
-
+import random
+import binascii
+import os
+from django.dispatch import receiver
 
 # Create your views here.
 
@@ -25,6 +28,9 @@ from django.views.decorators.csrf import csrf_exempt
 import stripe
 import json
 from django.http import JsonResponse
+
+from paypal.standard.models import ST_PP_COMPLETED
+from paypal.standard.ipn.signals import valid_ipn_received
 
 
 class ProductListView(generic.TemplateView):
@@ -344,16 +350,20 @@ def payment_products(request):
     address = request.session['user_info']['address'] + " , " + \
         district.name+" , "+district.city.name
     user_info['ship'] = ship
+    print(user_info)
+    print(json.dumps(user_info))
+    print(json.dumps({"abc": "123"}))
     paypal_dict = {
         "business": "sb-fv0pj3054200@business.example.com",
         "amount": user_info['totalprice']/23000,
         "item_name": "name of the item",
-        "invoice": "467467487348474",
+        "invoice": binascii.hexlify(os.urandom(24)),
         "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
-        # "return": request.build_absolute_uri(reverse('your-return-view')),
-        # "cancel_return": request.build_absolute_uri(reverse('your-cancel-view')),
+        "return": request.build_absolute_uri(reverse('cart:payment_success')),
+        "cancel_return": request.build_absolute_uri(reverse('cart:payment_failed')),
         # Custom command to correlate to some function later (optional)
-        "custom": "premium_plan",
+        "custom": json.dumps(user_info),
+
     }
     # Create the instance.
     form = PayPalPaymentsForm(initial=paypal_dict)
@@ -436,7 +446,6 @@ def payment_process(request):
             payment.amount = total_price+request.session['user_info']['ship']
             if 'payByCart' in request.POST:
                 payment.status = 'PAID'
-                
 
             payment.ship = request.session['user_info']['ship']
             payment.note = request.POST.get('note')
@@ -468,7 +477,6 @@ def payment_process(request):
             pass
     else:
         return redirect('/')
-
 
 
 def payment_success(request):
@@ -508,3 +516,33 @@ def review(request):
 def reply(request):
     if (request.method == 'POST'):
         review = get_object_or_404(review, request.POST['review'])
+
+
+@receiver(valid_ipn_received)
+def payment_notification(sender, **kwargs):
+
+    ipn_obj = sender
+
+    print(ipn_obj.custom)
+
+    if ipn_obj.payment_status == ST_PP_COMPLETED:
+        # WARNING !
+        # Check that the receiver email is the same we previously
+        # set on the `business` field. (The user could tamper with
+        # that fields on the payment form before it goes to PayPal)
+        if ipn_obj.receiver_email != "receiver_email@example.com":
+            # Not a valid payment
+            return
+
+        # ALSO: for the same reason, you need to check the amount
+        # received, `custom` etc. are all what you expect or what
+        # is allowed.
+
+        # Undertake some action depending upon `ipn_obj`.
+
+        print("Paypal success")
+    else:
+        print("Paypal failed")
+
+
+valid_ipn_received.connect(payment_notification)
