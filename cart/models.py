@@ -57,13 +57,6 @@ class ColorVariation(models.Model):
         return self.name
 
 
-class SizeVariation(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
 class Category(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
 
@@ -108,6 +101,16 @@ class Product(models.Model):
     def get_promotion_price(self):
         if self.promotion != 0:
             return self.price-self.promotion/100*self.price
+
+
+class SizeVariation(models.Model):
+    name = models.CharField(max_length=255)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="sizes", blank=True, null=True)
+    price = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
 
 class WareHouse(models.Model):
@@ -200,8 +203,8 @@ class Payment(models.Model):
         ('Pending', 'Pending'),
         ('Processing', 'Processing'),
         ('Complete', 'Complete'),
-        ('Cancel', 'Cancel')
-
+        ('Cancel', 'Cancel'),
+        ('Paid', 'Paid'),
     )
     payment_method = models.CharField(max_length=20, choices=(
         ('Paypal', 'Paypal'),

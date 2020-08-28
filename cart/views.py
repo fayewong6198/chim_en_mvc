@@ -7,7 +7,12 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework import status
-
+from django.contrib.messages import get_messages
+from django.utils import timezone
+import random
+import binascii
+import os
+from django.dispatch import receiver
 
 # Create your views here.
 
@@ -24,6 +29,9 @@ import stripe
 import json
 from django.http import JsonResponse
 
+from paypal.standard.models import ST_PP_COMPLETED
+from paypal.standard.ipn.signals import valid_ipn_received
+
 
 class ProductListView(generic.TemplateView):
     template_name = 'product_list.html'
@@ -32,7 +40,7 @@ class ProductListView(generic.TemplateView):
         limit = 6
         if ('limit' in self.request.GET):
             limit = self.request.GET['limit']
-        products = Product.objects.all()
+        products = Product.objects.all().prefetch_related("images")
 
         # Category
         category = ''
@@ -75,7 +83,7 @@ class ProductListView(generic.TemplateView):
 
             self.request.session['products_in_favorite'] = FavoriteProduct.objects.filter(
                 user=self.request.user).count()
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related('products')
 
         # Choices
         limit_choices = l
@@ -134,7 +142,7 @@ class ProductDetailView(generic.FormView):
             limit = self.request.GET['limit']
 
         context = super(ProductDetailView, self).get_context_data(**kwargs)
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related('products')
 
         reviews = Review.objects.filter(
             product=self.get_object()).order_by('-created_at')
@@ -167,7 +175,7 @@ class CartView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CartView, self).get_context_data(**kwargs)
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related('products')
         context['categories'] = categories
         context["object"] = get_or_set_order_session(self.request)
 
@@ -179,7 +187,7 @@ class CheckOutView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CheckOutView, self).get_context_data(**kwargs)
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related('products')
         context['categories'] = categories
         context["object"] = get_or_set_order_session(self.request)
 
@@ -244,7 +252,7 @@ def addToCart(request, id):
             p.save()
 
         productsInCart = OrderItem.objects.filter(
-            order=order).select_related('product')
+            order=order).prefetch_related('product')
 
         count = 0
         total = 0
@@ -298,7 +306,7 @@ class PaymentView(generic.FormView):
 
     def get_context_data(self, **kwargs):
         context = super(PaymentView, self).get_context_data(**kwargs)
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related('products')
         context['categories'] = categories
         context["object"] = get_or_set_order_session(self.request)
         return context
@@ -318,7 +326,7 @@ def payment_information(request):
 
         districts = District.objects.all()
         cities = City.objects.all()
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related('products')
         return render(request, 'payment_information.html', {'form': form, 'user_info': user_info, 'districts': districts, 'cities': cities, 'categories': categories})
 
     if request.method == "POST":
@@ -342,16 +350,20 @@ def payment_products(request):
     address = request.session['user_info']['address'] + " , " + \
         district.name+" , "+district.city.name
     user_info['ship'] = ship
+    print(user_info)
+    print(json.dumps(user_info))
+    print(json.dumps({"abc": "123"}))
     paypal_dict = {
         "business": "sb-fv0pj3054200@business.example.com",
         "amount": user_info['totalprice']/23000,
         "item_name": "name of the item",
-        "invoice": "467467487348474",
+        "invoice": binascii.hexlify(os.urandom(24)),
         "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
-        # "return": request.build_absolute_uri(reverse('your-return-view')),
-        # "cancel_return": request.build_absolute_uri(reverse('your-cancel-view')),
+        "return": request.build_absolute_uri(reverse('cart:payment_success')),
+        "cancel_return": request.build_absolute_uri(reverse('cart:payment_failed')),
         # Custom command to correlate to some function later (optional)
-        "custom": "premium_plan",
+        "custom": json.dumps(user_info),
+
     }
     # Create the instance.
     form = PayPalPaymentsForm(initial=paypal_dict)
@@ -371,12 +383,13 @@ def payment_products(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=403)
 
-    categories = Category.objects.all()
+    categories = Category.objects.all().prefetch_related('products')
 
     return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'form': form, 'address': address, 'categories': categories})
 
 
 def payment_process(request):
+    print("cc")
     categories = Category.objects.all()
     if request.session['products_in_cart'] <= 0:
         messages.warning(request, "no product to buy")
@@ -389,8 +402,9 @@ def payment_process(request):
             user = request.session['user_info']
             district = District.objects.get(
                 id=user['district'])
-
+            print(1)
             payment = Payment.objects.create()
+            print(2)
             user_info = CustommerDetail.objects.create()
             user_info.payment = payment
             user_info.full_name = user['full_name']
@@ -399,7 +413,7 @@ def payment_process(request):
             user_info.dictrict = district.name
             user_info.city = district.city.name
             user_info.address = user['address']
-
+            print(3)
             user_info.save()
             print(1)
             # Create Product details
@@ -430,26 +444,59 @@ def payment_process(request):
             print(3)
 
             payment.amount = total_price+request.session['user_info']['ship']
+            if 'payByCart' in request.POST:
+                payment.status = 'PAID'
 
             payment.ship = request.session['user_info']['ship']
             payment.note = request.POST.get('note')
             if (request.user.is_authenticated):
                 payment.user = request.user
-
+            print("before save")
+            print(payment.created_at)
+            print(payment.created_at)
             payment.save()
+            print("afters")
             cart.delete()
+            print(11)
             request.session['products_in_cart'] = 0
+            print(22)
             messages.success(request, "payment successfully")
+            print(33)
+            if 'payByCart' in request.POST:
+                payment.status = 'PAID'
+                payment.save()
+                return JsonResponse({}, status=status.HTTP_200_OK)
             return render(request, 'payment_process.html', {'success': True, 'categories': categories})
-        except:
+        except Exception as e:
             # Delete payment
-
+            print(e)
+            print("cc")
             if (payment is not None):
                 payment.delete()
             return render(request, 'payment_process.html', {'success': False})
             pass
     else:
         return redirect('/')
+
+
+def payment_success(request):
+    if (request.method == 'GET'):
+        messages = list(get_messages(request))
+        if (len(messages) < 1):
+            return redirect('index')
+
+        categories = Category.objects.all().prefetch_related("products")
+        return render(request, 'payment_process.html', {'success': True, 'categories': categories})
+
+
+def payment_failed(request):
+    if (request.method == 'GET'):
+        messages = list(get_messages(request))
+        if (len(messages) < 1):
+            return redirect('index')
+        categories = Category.objects.all().prefetch_related("products")
+
+        return render(request, 'payment_process.html', {'success': False, 'categories': categories})
 
 
 def review(request):
@@ -469,3 +516,33 @@ def review(request):
 def reply(request):
     if (request.method == 'POST'):
         review = get_object_or_404(review, request.POST['review'])
+
+
+@receiver(valid_ipn_received)
+def payment_notification(sender, **kwargs):
+
+    ipn_obj = sender
+
+    print(ipn_obj.custom)
+
+    if ipn_obj.payment_status == ST_PP_COMPLETED:
+        # WARNING !
+        # Check that the receiver email is the same we previously
+        # set on the `business` field. (The user could tamper with
+        # that fields on the payment form before it goes to PayPal)
+        if ipn_obj.receiver_email != "receiver_email@example.com":
+            # Not a valid payment
+            return
+
+        # ALSO: for the same reason, you need to check the amount
+        # received, `custom` etc. are all what you expect or what
+        # is allowed.
+
+        # Undertake some action depending upon `ipn_obj`.
+
+        print("Paypal success")
+    else:
+        print("Paypal failed")
+
+
+valid_ipn_received.connect(payment_notification)

@@ -16,8 +16,9 @@ class HomeView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        categories = Category.objects.all()
-        products = Product.objects.filter(active=True)[:4]
+        categories = Category.objects.all().prefetch_related("products")
+        products = Product.objects.filter(
+            active=True)[:4].prefetch_related("images")
         context['categories'] = categories
         context['products'] = products
         liked = []
@@ -36,12 +37,12 @@ class HomeView(generic.TemplateView):
 class ContactView(generic.View):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related("products")
         context["categories"] = categories
         return context
 
     def get(self, request, *args, **kwargs):
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related("products")
         return render(request, 'contact.html', {'categories': categories})
 
     def post(self, request, *args, **kwargs):
@@ -76,7 +77,7 @@ class AboutView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related("products")
         context["categories"] = categories
         return context
 

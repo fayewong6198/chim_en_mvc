@@ -107,7 +107,7 @@ def register(request):
 @login_required
 def profile(request):
     if request.method == "GET":
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related("products")
 
         form = CustomUserChangeForm(instance=request.user)
 
@@ -151,7 +151,7 @@ def AddressView(request):
 @ login_required
 def changePassword(request):
     if request.method == "GET":
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related("products")
         form = CustomPasswordChangeForm(request.user)
         return render(request, 'accounts/password_change.html', {'form': form,  'url': 'change-password', 'categories': categories})
 
@@ -162,7 +162,7 @@ def changePassword(request):
         messages.success(request, " update successfully !")
         return redirect('/accounts/profile')
     else:
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related("products")
 
         messages.warning(request, "password wrong format !")
         return render(request, 'accounts/password_change.html', {'form': form_edit_password, 'url': 'change-password', 'categories': categories})
@@ -204,7 +204,7 @@ def user_payments(request):
         if 'limit' in request.GET:
             limit = request.GET['limit']
 
-        catecories = Category.objects.all()
+        catecories = Category.objects.all().prefetch_related("products")
         payments = Payment.objects.filter(
             user=request.user).order_by('-created_at')
 
@@ -225,7 +225,7 @@ def user_payments(request):
 @ login_required
 def user_payment(request, id):
     if (request.method == 'GET'):
-        catecories = Category.objects.all()
+        catecories = Category.objects.all().prefetch_related("products")
 
         payment = get_object_or_404(Payment, pk=id)
 
@@ -238,9 +238,9 @@ def user_payment(request, id):
 def change_email(request):
     if request.method == "GET":
         form = ChangeEmailForm()
-        categories = Category.objects.all()
+        categories = Category.objects.all().prefetch_related("products")
         return render(request, 'accounts/change_email.html', {'form': form, 'url': 'change-email', 'categories': categories})
-    categories = Category.objects.all()
+    categories = Category.objects.all().prefetch_related("products")
 
     form = ChangeEmailForm(request.POST)
     if form.is_valid():
