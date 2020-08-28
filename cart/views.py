@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework import status
+from django.contrib.messages import get_messages
 from django.utils import timezone
 
 
@@ -433,6 +434,9 @@ def payment_process(request):
             print(3)
 
             payment.amount = total_price+request.session['user_info']['ship']
+            if 'payByCart' in request.POST:
+                payment.status = 'PAID'
+                
 
             payment.ship = request.session['user_info']['ship']
             payment.note = request.POST.get('note')
@@ -450,17 +454,41 @@ def payment_process(request):
             messages.success(request, "payment successfully")
             print(33)
             if 'payByCart' in request.POST:
+                payment.status = 'PAID'
+                payment.save()
                 return JsonResponse({}, status=status.HTTP_200_OK)
             return render(request, 'payment_process.html', {'success': True, 'categories': categories})
-        except:
+        except Exception as e:
             # Delete payment
-
+            print(e)
+            print("cc")
             if (payment is not None):
                 payment.delete()
             return render(request, 'payment_process.html', {'success': False})
             pass
     else:
         return redirect('/')
+
+
+
+def payment_success(request):
+    if (request.method == 'GET'):
+        messages = list(get_messages(request))
+        if (len(messages) < 1):
+            return redirect('index')
+
+        categories = Category.objects.all().prefetch_related("products")
+        return render(request, 'payment_process.html', {'success': True, 'categories': categories})
+
+
+def payment_failed(request):
+    if (request.method == 'GET'):
+        messages = list(get_messages(request))
+        if (len(messages) < 1):
+            return redirect('index')
+        categories = Category.objects.all().prefetch_related("products")
+
+        return render(request, 'payment_process.html', {'success': False, 'categories': categories})
 
 
 def review(request):

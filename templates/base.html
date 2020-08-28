@@ -2,42 +2,50 @@
 
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %} {% endblock %}
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rawgit.com/daneden/animate.css/v3.1.0/animate.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css?{% now "U" %}" />
+    <link rel="stylesheet" href="/static/css/nav-bar.css?{% now "U" %}" /> <link
+    rel="stylesheet" href="/static/js/mainjs.js?now "U" %}" /> <link
+    rel="stylesheet" href="/static/css/thanh.css?{% now "U" %}" /> <link
+    rel="stylesheet" href="/static/css/stripe.css?{% now "U" %}" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>{% block head_title %}{% endblock %}</title>
-  {% block extra_head %} {% endblock %}
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
-  <link rel='stylesheet' href='https://cdn.rawgit.com/daneden/animate.css/v3.1.0/animate.min.css'>
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css?{% now "U" %}" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.min.css"> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.min.js"></script> -->
 
-  <link rel="stylesheet" href="/static/css/nav-bar.css?{% now "U" %}" />
-  <link rel="stylesheet" href="/static/js/mainjs.js?now "U" %}" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
 
-  <link rel="stylesheet" href="/static/css/thanh.css?{% now "U" %}" />
-  <link rel="stylesheet" href="/static/css/stripe.css?{% now "U" %}" />
-
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.min.css"> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.min.js"></script> -->
-
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-
-  <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script src="https://js.stripe.com/v3/"></script>
-  <style type="text/css">
-    /* html,
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style type="text/css">
+      /* html,
     body,
     header,
     .carousel {
       height: 60vh;
     } */
 
-
-    /* @media (max-width: 740px) {
+      /* @media (max-width: 740px) {
 
         >>>>>>>Stashed changes html,
         body,
@@ -47,150 +55,343 @@
         }
       } */
 
-    @media (min-width: 800px) and (max-width: 850px) {
-
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
+      @media (min-width: 800px) and (max-width: 850px) {
+        html,
+        body,
+        header,
+        .carousel {
+          height: 100vh;
+        }
       }
-    }
-  </style>
-</head>
+    </style>
+  </head>
 
-
-<body>
-  <div class="width-full" id="message_modal" style="display: none;">
-    <div class="alert alert-success animated fadeInDown" role="alert" style="width: 300px">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="width: 300px">
-      </button>
-
+  <body>
+    <div class="width-full" id="message_modal" style="display: none">
+      <div
+        class="alert alert-success animated fadeInDown"
+        role="alert"
+        style="width: 300px"
+      >
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          style="width: 300px"
+        ></button>
+      </div>
     </div>
-  </div>
-  {% if messages %}
-  {% for message in messages %}
-  <div class="width-full">
-    <div class="alert alert-{{ message.tags }} animated fadeInDown" role="alert" style="width: 300px">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="width: 300px">
-      </button>
-      {{message}}
+    {% if messages %} {% for message in messages %}
+    <div class="width-full">
+      <div
+        class="alert alert-{{ message.tags }} animated fadeInDown"
+        role="alert"
+        style="width: 300px"
+      >
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          style="width: 300px"
+        ></button>
+        {{message}}
+      </div>
     </div>
-  </div>
-  {% endfor %}
-  {% endif %}
-  {% include "navbar.html" %}
+    {% endfor %} {% endif %} {% include "navbar.html" %}
 
+    <script src="https://cdn.rawgit.com/matthieua/WOW/1.0.1/dist/wow.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/bff3b0c353.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
 
-  <script src='https://cdn.rawgit.com/matthieua/WOW/1.0.1/dist/wow.min.js'></script>
-  <script src="https://kit.fontawesome.com/bff3b0c353.js" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-
-  {% block content %} {% endblock content %} {% block extra_body %}
-  {% endblock %}
-  {% include "footer.html" %}
-  {% include "scripts.html" %}
-  {% block extra_scripts %}
-  <!-- <script src="/static/js/stripe.js?{% now "U" %}">
+    {% block content %} {% endblock content %} {% block extra_body %} 
+    {% endblock %} {% include "footer.html" %} {% include "scripts.html" %} 
+    {% block extra_scripts %}
+    <!-- <script src="/static/js/stripe.js?{% now "U" %}">
 
   </script> -->
-  <script>
-    // Sign in to see examples pre-filled with your key.
-var stripe = Stripe(
-  "pk_test_51HJtaHBn6v3g7KPuU6KqFf8ZqwkUyczB7wJaiGfgDZzkEdGPLXeLEHiVEQut4HqIytOTdmrZlWp2FspBtz9FdWR5005S2ISLgs"
-);
-// The items the customer wants to buy
-var purchase = {};
-// Disable the button until we have Stripe set up on the page
-document.querySelector("button").disabled = true;
-fetch("/cart/payment_products/", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(purchase),
-})
-  .then(function (result) {
-    return result.json();
-  })
-  .then(function (data) {
-    var elements = stripe.elements();
-    var style = {
-      base: {
-        color: "#32325d",
-        fontFamily: "Arial, sans-serif",
-        fontSmoothing: "antialiased",
-        fontSize: "16px",
-        "::placeholder": {
-          color: "#32325d",
+    <script>
+      // Sign in to see examples pre-filled with your key.
+      var stripe = Stripe(
+        "pk_test_51HJtaHBn6v3g7KPuU6KqFf8ZqwkUyczB7wJaiGfgDZzkEdGPLXeLEHiVEQut4HqIytOTdmrZlWp2FspBtz9FdWR5005S2ISLgs"
+      );
+      // The items the customer wants to buy
+      var purchase = {};
+      // Disable the button until we have Stripe set up on the page
+      document.querySelector("button").disabled = true;
+      fetch("/cart/payment_products/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      },
-      invalid: {
-        fontFamily: "Arial, sans-serif",
-        color: "#fa755a",
-        iconColor: "#fa755a",
-      },
-    };
-    var card = elements.create("card", { style: style });
-    // Stripe injects an iframe into the DOM
-    card.mount("#card-element");
-    card.on("change", function (event) {
-      // Disable the Pay button if there are no card details in the Element
-      document.querySelector("button").disabled = event.empty;
-      document.querySelector("#card-error").textContent = event.error
-        ? event.error.message
-        : "";
-    });
-    var form = document.getElementById("payment-form");
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      // Complete payment when the submit button is clicked
-      payWithCard(stripe, card, data.clientSecret);
-    });
-  });
-// Calls stripe.confirmCardPayment
-// If the card requires authentication Stripe shows a pop-up modal to
-// prompt the user to enter authentication details without leaving your page.
-var payWithCard = function (stripe, card, clientSecret) {
-  loading(true);
-  stripe
-    .confirmCardPayment(clientSecret, {
-      receipt_email: document.getElementById("email").value,
-      payment_method: {
-        card: card,
-      },
-    })
-    .then(function (result) {
-      console.log("ssadasd");
-      if (result.error) {
-        console.log("error");
-        // Show error to your customer
-        showError(result.error.message);
-      } else {
-        // The payment succeeded!
+        body: JSON.stringify(purchase),
+      })
+        .then(function (result) {
+          return result.json();
+        })
+        .then(function (data) {
+          var elements = stripe.elements();
+          var style = {
+            base: {
+              color: "#32325d",
+              fontFamily: "Arial, sans-serif",
+              fontSmoothing: "antialiased",
+              fontSize: "16px",
+              "::placeholder": {
+                color: "#32325d",
+              },
+            },
+            invalid: {
+              fontFamily: "Arial, sans-serif",
+              color: "#fa755a",
+              iconColor: "#fa755a",
+            },
+          };
+          var card = elements.create("card", { style: style });
+          // Stripe injects an iframe into the DOM
+          card.mount("#card-element");
+          card.on("change", function (event) {
+            // Disable the Pay button if there are no card details in the Element
+            document.querySelector("button").disabled = event.empty;
+            document.querySelector("#card-error").textContent = event.error
+              ? event.error.message
+              : "";
+          });
+          var form = document.getElementById("payment-form");
+          form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            // Complete payment when the submit button is clicked
+            payWithCard(stripe, card, data.clientSecret);
+          });
+        });
+      // Calls stripe.confirmCardPayment
+      // If the card requires authentication Stripe shows a pop-up modal to
+      // prompt the user to enter authentication details without leaving your page.
+      var payWithCard = function (stripe, card, clientSecret) {
+        stripe
+          .confirmCardPayment(clientSecret, {
+            receipt_email: document.getElementById("email").value,
+            payment_method: {
+              card: card,
+            },
+          })
+          .then(function (result) {
+            console.log("ssadasd");
+            if (result.error) {
+              console.log("error");
+              // Show error to your customer
+              showError(result.error.message);
+            } else {
+              // The payment succeeded!
+
+              console.log(data);
+              orderComplete(result.paymentIntent.id);
+              var data = {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                note: $("#note").val(),
+                payByCart: true,
+              };
+              $.ajax({
+                type: "POST",
+                url: "/cart/payment_process/",
+                dataType: "json",
+                success: function (msg) {
+                  if (msg) {
+                    console.log(msg);
+                    loading(true);
+
+                    window.location.href =
+                      "http://localhost:8000/cart/payment_success/";
+                  } else {
+                    console.log("failed");
+                    alert("Cannot add to list !");
+                  }
+                },
+                data: data,
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log(XMLHttpRequest.responseJSON);
+                  console.log(textStatus);
+                  console.log(errorThrown);
+                  window.location.href =
+                    "http://localhost:8000/cart/payment_failed/";
+                },
+              });
+            }
+          });
+      };
+      /* ------- UI helpers ------- */
+      // Shows a success message when the payment is complete
+      var orderComplete = function (paymentIntentId) {
+        loading(false);
+        document
+          .querySelector(".result-message a")
+          .setAttribute(
+            "href",
+            "https://dashboard.stripe.com/test/payments/" + paymentIntentId
+          );
+        document.querySelector(".result-message").classList.remove("hidden");
+        document.querySelector("button").disabled = true;
+      };
+      // Show the customer the error from Stripe if their card fails to charge
+      var showError = function (errorMsgText) {
+        loading(false);
+        var errorMsg = document.querySelector("#card-error");
+        errorMsg.textContent = errorMsgText;
+        setTimeout(function () {
+          errorMsg.textContent = "";
+        }, 4000);
+      };
+      // Show a spinner on payment submission
+      var loading = function (isLoading) {
+        if (isLoading) {
+          // Disable the button and show a spinner
+          document.querySelector("button").disabled = true;
+          document.querySelector("#spinner").classList.remove("hidden");
+          document.querySelector("#button-text").classList.add("hidden");
+        } else {
+          document.querySelector("button").disabled = false;
+          document.querySelector("#spinner").classList.add("hidden");
+          document.querySelector("#button-text").classList.remove("hidden");
+        }
+      };
+    </script>
+    <script>
+      new WOW().init();
+    </script>
+    {% endblock extra_scripts %}
+    <script type="text/javascript">
+      $(document).ready(function () {
+        setTimeout(function () {
+          $(".alert").hide();
+          $("#message").hide();
+        }, 3500); // <-- time in milliseconds, 1000 =  1 sec
+      });
+    </script>
+    <script>
+      const tym = (id) => {
+        fetch(`/cart/tym_or_unTym/${id}`, {
+          headers: {
+            Authorization: ` token ${localStorage.getItem("token")}`,
+          },
+          method: "GET",
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(id).innerHTML = "";
+            if (JSON.parse(data).liked == true) {
+              document.getElementById(id).innerHTML = `<i 
+                              class="fa fa-heart"></i>`;
+              document.getElementById(
+                "message"
+              ).innerHTML = ` <div class="alert  alert-success animated fadeInDown" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            liked
+                            </div>`;
+              $(".alert").html("liked");
+              $("#message_modal").attr("display", "block");
+              setTimeout(function () {
+                $(".alert").hide();
+                $("#message").hide();
+              }, 3500);
+            } else {
+              document.getElementById(id).innerHTML = `<i
+                              class="fa fa-heart-o"></i>`;
+              document.getElementById(
+                "message"
+              ).innerHTML = ` <div class="alert  alert-success animated fadeInDown" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            unLiked
+                            </div>`;
+            }
+            if (JSON.parse(data).count > 0)
+              document
+                .getElementById("icon-badge")
+                .setAttribute("data-count", `${JSON.parse(data).count}`);
+            else
+              document
+                .getElementById("icon-badge")
+                .removeAttribute("data-count");
+          });
+      };
+    </script>
+
+    <script>
+      function page_navigation(key, value) {
+        console.log("page_navigation");
+        console.log("cc");
+        _url = window.location.href;
+        console.log(0);
+        split_url = _url.split("?")[1];
+        if (split_url != null) {
+          n = split_url.indexOf(key);
+          if (n === -1) {
+            console.log("Not found");
+            _url = _url + "&" + key + value;
+            window.location.href = _url;
+          } else {
+            console.log(2);
+            i = n;
+            str = "";
+            while (i < split_url.length && split_url.charAt(i) !== "&") {
+              str += split_url.charAt(i);
+              i++;
+            }
+
+            window.location.href = window.location.href.replace(
+              str,
+              key + value
+            );
+          }
+        } else {
+          _url = _url + "?" + key;
+          _url += value;
+          window.location.href = _url;
+        }
+      }
+
+      function navigation_to(url) {
+        window.location.href = url;
+      }
+
+      function addToCart(id, quantity, stock) {
         var data = {
           csrfmiddlewaretoken: "{{ csrf_token }}",
-          note: $('#note').val(),
-          payByCart: true
+          quantity: quantity,
         };
-        console.log(data)
-        orderComplete(result.paymentIntent.id);
+
+        console.log(data);
         $.ajax({
           type: "POST",
-          url: "/cart/payment_process/",
+          url: "/cart/addToCart/" + id + "/",
           dataType: "json",
           success: function (msg) {
             if (msg) {
               console.log(msg);
-              alert("payment success");
+              let count = msg.cart.products_in_cart;
+              $(".products_in_cart").attr("data-count", count);
+              console.log($(".products_in_cart"));
             } else {
               console.log("failed");
               alert("Cannot add to list !");
@@ -201,183 +402,10 @@ var payWithCard = function (stripe, card, clientSecret) {
             console.log(XMLHttpRequest.responseJSON);
             console.log(textStatus);
             console.log(errorThrown);
-            alert("Failed");
+            alert(XMLHttpRequest.responseJSON.msg);
           },
         });
       }
-    });
-};
-/* ------- UI helpers ------- */
-// Shows a success message when the payment is complete
-var orderComplete = function (paymentIntentId) {
-  loading(false);
-  document
-    .querySelector(".result-message a")
-    .setAttribute(
-      "href",
-      "https://dashboard.stripe.com/test/payments/" + paymentIntentId
-    );
-  document.querySelector(".result-message").classList.remove("hidden");
-  document.querySelector("button").disabled = true;
-};
-// Show the customer the error from Stripe if their card fails to charge
-var showError = function (errorMsgText) {
-  loading(false);
-  var errorMsg = document.querySelector("#card-error");
-  errorMsg.textContent = errorMsgText;
-  setTimeout(function () {
-    errorMsg.textContent = "";
-  }, 4000);
-};
-// Show a spinner on payment submission
-var loading = function (isLoading) {
-  if (isLoading) {
-    // Disable the button and show a spinner
-    document.querySelector("button").disabled = true;
-    document.querySelector("#spinner").classList.remove("hidden");
-    document.querySelector("#button-text").classList.add("hidden");
-  } else {
-    document.querySelector("button").disabled = false;
-    document.querySelector("#spinner").classList.add("hidden");
-    document.querySelector("#button-text").classList.remove("hidden");
-  }
-};
-
-  </script>
-  <script>
-    new WOW().init();
-  </script> {% endblock extra_scripts %}
-  <script type="text/javascript">
-    $(document).ready(function () {
-      setTimeout(function () {
-        $('.alert').hide();
-        $('#message').hide();
-
-      }, 3500);// <-- time in milliseconds, 1000 =  1 sec
-    });
-  </script>
-  <script>
-    const tym = (id) => {
-      fetch(`/cart/tym_or_unTym/${id}`, {
-        headers: {
-          'Authorization': ` token ${localStorage.getItem('token')}`
-        },
-        method: 'GET',
-
-      }).then(response => response.text()).then(data => {
-        document.getElementById(id).innerHTML = ''
-        if (JSON.parse(data).liked == true) {
-          document.getElementById(id).innerHTML = `<i 
-                              class="fa fa-heart"></i>`;
-          document.getElementById('message').innerHTML = ` <div class="alert  alert-success animated fadeInDown" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            liked
-                            </div>`
-          $('.alert').html('liked');
-          $('#message_modal').attr('display', 'block');
-          setTimeout(function () {
-            $('.alert').hide();
-            $('#message').hide();
-
-          }, 3500)
-
-        }
-        else {
-          document.getElementById(id).innerHTML = `<i
-                              class="fa fa-heart-o"></i>`
-          document.getElementById('message').innerHTML = ` <div class="alert  alert-success animated fadeInDown" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            unLiked
-                            </div>`
-        }
-        if (JSON.parse(data).count > 0)
-          document.getElementById('icon-badge').setAttribute("data-count", `${JSON.parse(data).count}`)
-        else
-          document.getElementById('icon-badge').removeAttribute("data-count");
-      });
-
-    }
-
-  </script>
-
-
-  <script>
-    function page_navigation(key, value) {
-      console.log("page_navigation");
-      console.log('cc');
-      _url = window.location.href;
-      console.log(0);
-      split_url = _url.split('?')[1];
-      if (split_url != null) {
-        n = split_url.indexOf(key)
-        if (n === -1) {
-          console.log("Not found");
-          _url = _url + '&' + key + value;
-          window.location.href = _url;
-        }
-        else {
-          console.log(2);
-          i = n;
-          str = '';
-          while (i < split_url.length && split_url.charAt(i) !== '&') {
-            str += split_url.charAt(i);
-            i++;
-          }
-
-          window.location.href = window.location.href.replace(str, key + value);
-        }
-      }
-      else {
-        _url = _url + '?' + key;
-        _url += value;
-        window.location.href = _url;
-      }
-    }
-
-    function navigation_to(url) {
-      window.location.href = url;
-    }
-
-
-
-    function addToCart(id, quantity, stock) {
-      var data = {
-        csrfmiddlewaretoken: "{{ csrf_token }}",
-        quantity: quantity,
-      };
-
-      console.log(data);
-      $.ajax({
-        type: "POST",
-        url: "/cart/addToCart/" + id + "/",
-        dataType: "json",
-        success: function (msg) {
-          if (msg) {
-            console.log(msg)
-            let count = msg.cart.products_in_cart
-            $(".products_in_cart").attr("data-count", count)
-            console.log($('.products_in_cart'))
-          } else {
-            console.log("failed")
-            alert("Cannot add to list !");
-          }
-        },
-        data: data,
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-          console.log(XMLHttpRequest.responseJSON);
-          console.log(textStatus);
-          console.log(errorThrown);
-        alert(XMLHttpRequest.responseJSON.msg);
-  }
-      });
-    }
-
-
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

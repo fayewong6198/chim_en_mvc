@@ -203,8 +203,8 @@ class Payment(models.Model):
         ('Pending', 'Pending'),
         ('Processing', 'Processing'),
         ('Complete', 'Complete'),
-        ('Cancel', 'Cancel')
-
+        ('Cancel', 'Cancel'),
+        ('Paid', 'Paid'),
     )
     payment_method = models.CharField(max_length=20, choices=(
         ('Paypal', 'Paypal'),

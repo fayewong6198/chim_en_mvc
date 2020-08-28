@@ -4,6 +4,8 @@ from .API import apis
 app_name = 'cart'
 
 urlpatterns = [
+    path('payment_success/', views.payment_success, name='payment_success'),
+    path('payment_failed/', views.payment_failed, name='payment_failed'),
     path('payment', views.PaymentView.as_view(), name='payment'),
     path('payment_information/', views.payment_information,
          name='payment_information'),
