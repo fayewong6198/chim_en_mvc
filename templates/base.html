@@ -122,9 +122,9 @@
       crossorigin="anonymous"
     ></script>
 
-    {% block content %} {% endblock content %} {% block extra_body %} 
-    {% endblock %} {% include "footer.html" %} {% include "scripts.html" %} 
-    {% block extra_scripts %}
+    {% block content %} {% endblock content %} {% block extra_body %} {%
+    endblock %} {% include "footer.html" %} {% include "scripts.html" %} {%
+    block extra_scripts %}
     <!-- <script src="/static/js/stripe.js?{% now "U" %}">
 
   </script> -->
@@ -185,6 +185,7 @@
       // Calls stripe.confirmCardPayment
       // If the card requires authentication Stripe shows a pop-up modal to
       // prompt the user to enter authentication details without leaving your page.
+      let payment_id = "";
       var payWithCard = function (stripe, card, clientSecret) {
         stripe
           .confirmCardPayment(clientSecret, {
@@ -204,6 +205,7 @@
 
               console.log(data);
               orderComplete(result.paymentIntent.id);
+              payment_id = result.paymentIntent.id;
               var data = {
                 csrfmiddlewaretoken: "{{ csrf_token }}",
                 note: $("#note").val(),
@@ -230,6 +232,7 @@
                   console.log(XMLHttpRequest.responseJSON);
                   console.log(textStatus);
                   console.log(errorThrown);
+                  refund = stripe.Refund.create((payment_intent = payment_id));
                   window.location.href =
                     "http://localhost:8000/cart/payment_failed/";
                 },
