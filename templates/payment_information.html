@@ -17,21 +17,21 @@
       <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
         <a class="nav-item active" aria-controls="nav-info active" aria-selected="true">
           <div class="class-flex" id="step1">
-            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <button class="btn btn-circle"><i class="fa fa-minus"></i></button>
             <p>01. Infomation</p>
           </div>
         </a>
         <div class="bottom-line"></div>
         <a class="nav-item " aria-selected="false">
           <div class="class-flex" id="step2">
-            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <button class="btn btn-circle"><i class="fa fa-minus"></i></button>
             <p>02. Checkout </p>
           </div>
         </a>
         <div class="bottom-line"></div>
         <a class="nav-item" aria-selected="false">
           <div class="class-flex" id="step3">
-            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <button class="btn btn-circle"><i class="fa fa-minus"></i></button>
             <p>03. Confirms</p>
           </div>
         </a>
@@ -47,7 +47,7 @@
 
 
         <form method="POST" action="{% url 'cart:payment_information' %}" class="info p-4">
-          <h4 class="py-3 text-center">Customer Infomation</h4>
+          <h2 class="py-3 text-center">Customer Infomation</h2>
           {% csrf_token %}
           <div class="row">
             <div class="col">
@@ -111,8 +111,7 @@
                 <option value="" selected="selected">Select City</option>
               </select>
             </div>
-          </div>
-          <div class="row pt-4">
+        
             <div class="col">
               <label>District : </label>
               <select id="district" class="form-control" name="district">

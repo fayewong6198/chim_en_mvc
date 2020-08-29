@@ -44,9 +44,19 @@
 
 </script>
 
+{% comment %} Title {% endcomment %}
+<div class="in-touch py-5">
+  <div class="text-center">
+    <h3>Product List</h3>
+    <div class="line-contact-page">
+      <div class="contact-line"></div>
+      <i class="fas fa-fan fa-1x"></i>
+      <div class="contact-line"></div>
+    </div>
+  </div>
+</div>
 
-
-<div class="bg-light">
+<div class="">
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb ct-breadcrumb">
@@ -119,12 +129,12 @@
           <div class="row">
             {% for product in products %}
             <div class="ct-product-card ct-primary-color col-md-4 col-12 pb-4" data-aos="fade-up">
-                
+              <div class="product-container">  
 
               <div class="product-card">
                 <a href="{% url 'cart:product-detail' product.slug %}">
                   <img src="{{product.images.first}}"></a>
-                {{ product.available }}
+               
                 
                 {% if product.promotion > 0 %}
                 <div class="sale">
@@ -175,8 +185,8 @@
                 </div>
 
               </div>
-              <div class="product-info">
-                <h4>{{product.title}}</h4>
+              <div class="product-info py-2">
+                 <a href="{% url 'cart:product-detail' product.slug %}"><h4>{{product.title}}</h4></a>
                 <div>
                   {% if product.promotion > 0 %}
                   <span class="price">{{product.price}}</span>
@@ -185,6 +195,8 @@
                   <span class="discounted-price ">{{product.price}}</span>
                   {% endif %}
                 </div>
+              </div>
+
               </div>
             </div>
             </a>
