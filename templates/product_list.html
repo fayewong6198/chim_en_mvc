@@ -71,7 +71,7 @@
                   </button>
                   <div class="collapse navbar-collapse wow fadeInDown" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                      <li class="py-3 p"><i class="fas fa-heart"></i>DANH MỤC CHÍNH</li>
+                      <li class="py-3 p"><i class="fas fa-heart"></i>Danh mục chính</li>
                       {% for category in categories %}
                       <li><a href="/cart/shop?category={{category.title}}">{{category.title}}
                           ({{category.get_products_number}})</a> </li>
@@ -87,7 +87,7 @@
         <div class="col-lg-9 col-12">
           <div class="row my-3">
             <div class="col-6 col-lg-6 sort-product-list">
-              <span>Sort by quanlity</span>
+              <span>Number of products</span>
               <select id="lblimit" name="lblimit" class="nb_item" onchange="page_navigation('limit=', this.options[this.selectedIndex].value)
                           ">
                 {% for key, value in limit_choices.items %}
@@ -100,7 +100,7 @@
               </select></div>
             <div class="col-6 col-lg-6">
               <div class="sort  sort-product-list">
-                <span>Sort</span>
+                <span>Sort by</span>
                 <select class="selectProductSort" id="lbsort"
                   onchange="page_navigation('sort=', this.options[this.selectedIndex].value)">
                   <option value="">Mặc định</option>
@@ -125,6 +125,7 @@
                 <a href="{% url 'cart:product-detail' product.slug %}">
                   <img src="{{product.images.first}}"></a>
                 {{ product.available }}
+                
                 {% if product.promotion > 0 %}
                 <div class="sale">
                   <div class="background-sale">
@@ -175,7 +176,7 @@
 
               </div>
               <div class="product-info">
-                <p>{{product.title}}</p>
+                <h4>{{product.title}}</h4>
                 <div>
                   {% if product.promotion > 0 %}
                   <span class="price">{{product.price}}</span>

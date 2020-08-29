@@ -77,10 +77,10 @@
 
 <nav id="navbar" class="navbar-white pl-3 pr-3">
   <!-- desktop -->
-  <div class="container d-none d-md-block">
+  <div class="container p-2 d-none d-md-block">
     <div class="row justify-content-around">
       <!-- Left-side -->
-      <div class="col-8 col-lg-7 nav-text">
+      <div class="col-8 col-sm-9 col-lg-7 nav-text">
         <a class="navbar-brand font-weight-bold " href="{% url 'home' %}">Organic</a>
         <!-- <div class="dropdown"> -->
 
@@ -104,7 +104,7 @@
           >
           <!-- dropdown  -->
           <div
-            class="dropdown-menu dropdown-category p-3 wow fadeInLeft"
+            class="dropdown-menu dropdown-category pl-3 pt-3 wow fadeInLeft"
             data-wow-duration=".1s"
             aria-labelledby="navbarDropdown"
           >
@@ -134,7 +134,8 @@
       </div>
 
       <!-- Right side -->
-      <div class="col-4 col-lg-5 right-nav">
+      <div class="col-4 col-sm-3 col-lg-5 right-nav">
+      <div>
         <i
           class="fas fa-search-plus search-collapse pr-3"
           data-toggle="collapse"
@@ -142,6 +143,7 @@
           aria-expanded="false"
           aria-controls="collapseSearch"
         ></i>
+        </div>
         <form
           id="custom-search-form"
           class="form-search form-horizontal"

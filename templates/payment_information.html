@@ -1,10 +1,18 @@
 {% extends 'base.html' %} {% load widget_tweaks %}{% block content %}
 
 
+<div class="in-touch pb-3">
+        <div class="text-center">
+          <h3>Payment</h3>
+          <div class="line-contact-page">
+            <div class="contact-line"></div>
+            <i class="fas fa-fan fa-1x"></i>
+            <div class="contact-line"></div>
+          </div>
+        </div>
 
-
-<section class="products-tab p-4 pt-5">
-  <div class="tab-title mt-5">
+<section class="products-tab p-4">
+  <div class="tab-title ">
     <div class="text-title-center">
       <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
         <a class="nav-item active" aria-controls="nav-info active" aria-selected="true">
@@ -39,7 +47,7 @@
 
 
         <form method="POST" action="{% url 'cart:payment_information' %}" class="info p-4">
-          <h5 class="py-3"><u>Customer Infomation</u> </h5>
+          <h4 class="py-3 text-center">Customer Infomation</h4>
           {% csrf_token %}
           <div class="row">
             <div class="col">
@@ -112,9 +120,10 @@
               </select>
             </div>
           </div>
-          <div class="back-shop py-5">
-            <a href=""><i class="fas fa-arrow-left"></i> Back to shop</a>
-            <button type="submit" value="submit" id="step1_next" class="a-button small text-uppercase nav nav-tabs">NEXT
+          <div class="py-5 d-flex align-items-center">
+
+            <a href="{% url 'cart:product-list' %}" style="color:black"><i class="fas fa-arrow-left"></i> Back to shop</a>
+            <button type="submit" value="submit" id="step1_next" class="btn ct-btn-success ml-auto">NEXT
             </button>
           </div>
         </form>
