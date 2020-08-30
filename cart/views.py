@@ -360,11 +360,11 @@ def payment_products(request):
         "item_name": "name of the item",
         "invoice": binascii.hexlify(os.urandom(24)),
         "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
-        "return": request.build_absolute_uri(reverse('cart:payment_success')),
+        "return": request.build_absolute_uri(reverse('cart:payment_process')),
         "cancel_return": request.build_absolute_uri(reverse('cart:payment_failed')),
         # Custom command to correlate to some function later (optional)
-        "custom": json.dumps(user_info),
-
+        "custom": "abc",
+        "rm": 2
     }
     # Create the instance.
     form = PayPalPaymentsForm(initial=paypal_dict)
@@ -389,12 +389,13 @@ def payment_products(request):
     return render(request, 'payment_products.html', {'object': cart, 'user_info': user_info, 'form': form, 'address': address, 'categories': categories})
 
 
+@csrf_exempt
 def payment_process(request):
     print("cc")
     categories = Category.objects.all()
-    if request.session['products_in_cart'] <= 0:
-        messages.warning(request, "no product to buy")
-        return redirect('/cart/shop')
+    # if 'products_in_cart' not in request.session or request.session['products_in_cart'] <= 0:
+    #     messages.warning(request, "no product to buy")
+    #     return redirect('/cart/shop')
     if (request.method == 'POST'):
         payment = None
         # Create Payment
@@ -449,7 +450,7 @@ def payment_process(request):
                 payment.status = 'PAID'
 
             payment.ship = request.session['user_info']['ship']
-            payment.note = request.POST.get('note')
+            payment.note = "none"
             if (request.user.is_authenticated):
                 payment.user = request.user
             print("before save")
@@ -525,7 +526,6 @@ def payment_notification(sender, **kwargs):
     ipn_obj = sender
 
     print(ipn_obj.custom)
-    
 
     if ipn_obj.payment_status == ST_PP_COMPLETED:
         # WARNING !
