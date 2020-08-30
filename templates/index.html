@@ -219,7 +219,9 @@
     <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
       <div class="row mt-4">
         {% for product in products %}
-        <div class="col-lg-3 col-12 col-sm-6 mb-3 wow fadeInUp" data-wow-duration="1.4s">
+        <div class="col-lg-3 col-12 col-sm-6 mb-3 ct-product-card wow fadeInUp" data-wow-duration="1.4s">
+
+          <div class="product-container">
           <div class="product-card">
             <a href="{% url 'cart:product-detail' product.slug %}">
               <img src="{{product.images.first}}"></a>
@@ -266,8 +268,8 @@
               </ul>
             </div>
           </div>
-          <div class="product-info">
-            <p>{{product.title}}</p>
+          <div class="product-info py-2">
+              <a href="{% url 'cart:product-detail' product.slug %}"><h4>{{product.title}}</h4></a> 
             <div>
               {% if product.promotion > 0 %}
               <span class="price">{{product.price}}</span>
@@ -276,6 +278,7 @@
               <span class="discounted-price">{{product.price}}</span>
               {% endif %}
             </div>
+          </div>
           </div>
         </div>
 

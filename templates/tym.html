@@ -2,15 +2,30 @@
 
 <div class="container">
 
-    <div class="wishlist-page pb-4 p-4">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
+  {% comment %} Title {% endcomment %}
+    <div class="table-responsive text-nowrap py-5">
+      <div class="in-touch pb-3">
+        <div class="text-center">
+          <h3>WishList</h3>
+          <div class="line-contact-page">
+            <div class="contact-line"></div>
+            <i class="fas fa-fan fa-1x"></i>
+            <div class="contact-line"></div>
+          </div>
+        </div>
+      </div>
+
+       <nav aria-label="breadcrumb">
+            <ol class="breadcrumb ct-breadcrumb">
                 <div class="container">
                     <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
                 </div>
             </ol>
         </nav>
+
+    <div class="wishlist-page pb-4 p-4">
+       
         <div class="icon-wishlist">
             <i class="far fa-heart"></i>
 
@@ -26,22 +41,22 @@
 
         <div class="row">
             <div class="col-1 col-lg-1">
-                <a id="{{favorite.product.id}}" onclick="tym(this.id)"><i data-toggle="tooltip" data-placement="top"
-                        title="Delete" class="far fa-trash-alt text-success"></i></a>
+                <a class="fa-stack" id="{{favorite.product.id}}" onclick="tym(this.id)"><i data-toggle="tooltip" data-placement="top"
+                        title="Delete" class="far fa-trash-alt"></i></a>
             </div>
             <div class="col-2 col-lg-2">
                 <a href="{% url 'cart:product-detail' favorite.product.slug %}"><img
                         src=" {{ favorite.product.images.first }}" alt="" width="100%">
                 </a></div>
             <div class="col-4 col-lg-4">
-                <p class="title-wish"><a href=""> {{ favorite.product.title }}</a></p>
+                <h5 class="title-wish"><a href="{% url 'cart:product-detail' favorite.product.slug %}"> {{ favorite.product.title }}</a></h5>
                 <p><span>$</span>{{ favorite.product.price }}</p>
             </div>
             <div class="col-2 col-lg-2">
                 <span>In stock</span>
             </div>
             <div class="col-3 col-lg-3">
-                <a href="{% url 'cart:product-detail' favorite.product.slug %}">Add to cart</a>
+                <a href="{% url 'cart:product-detail' favorite.product.slug %}" class="btn ct-btn-success">Add to cart</a>
             </div>
             <div class="bottom-line-wishlist"></div>
         </div>

@@ -3,8 +3,14 @@
   --primary-color: #4caf50;
   --dark-primary-color: #4c924e;
 
+  --red-color: #e74c3c;
+  --dark-red-color: #c0392b;
+
   --text-primary-color: black;
+  --text-secondary-color: white;
+
   --background-color: white;
+  --green-light-background-color: #e9f5e9;
 }
 
 .bold-text {
@@ -66,14 +72,31 @@
 .dropdown-content.right {
   right: 0;
 }
-.fa-gratipay,
-.fa-shopping-basket {
-  color: #333;
+
+.fa-search-plus {
+  color: var(--light-primary-color);
 }
-.fa-gratipay:hover,
-.fa-shopping-basket:hover {
-  color: #5fbd74;
+fa-search-plus:hover {
+  color: var(--dark-primary-color);
 }
+
+.fa-stack i {
+  color: var(--light-primary-color);
+  font-size: 1em;
+}
+
+.fa-stack .fa-trash-alt {
+  color: var(--red-color);
+}
+
+.fa-stack i:hover {
+  color: var(--dark-primary-color);
+}
+
+.fa-stack .fa-trash-alt:hover {
+  color: var(--dark-red-color);
+}
+
 @media (max-width: 767px) {
   .fa-gratipay,
   .fa-shopping-basket {
@@ -141,12 +164,13 @@
   border-radius: 999px;
   line-height: 0.65em;
   color: white;
-  background: rgba(255, 0, 0, 0.85);
+  background: var(--red-color);
   text-align: center;
   font-weight: bold;
 }
+
 .total-cart {
-  text-decoration: underline;
+  text-align: right;
 }
 /* Page content */
 .content {
@@ -171,15 +195,11 @@
   justify-content: flex-end;
   align-items: center;
 }
-#icon-badge {
-  bottom: 4px;
-}
+
 .navbar-white .right-nav {
   font-size: 21px !important;
 }
-.right-nav i {
-  font-size: 19px;
-}
+
 #collapseSearch input {
   width: 100%;
   height: 50px;
@@ -314,6 +334,7 @@
 
 .ct-product-card {
   margin-bottom: 8px;
+  border: 1px solid rgba(0, 0, 0, 0);
 }
 
 .ct-product-card .block-4-image {
@@ -426,7 +447,7 @@
   height: 32px !important;
 }
 #custom-search-form .search-query {
-  border-radius: 15px;
+  border-radius: 50px;
   background-color: rgba(255, 255, 255, 0.2) !important;
   border-color: rgba(255, 255, 255, 0.09);
   cursor: text;
@@ -444,7 +465,7 @@
 }
 
 .search-query:focus {
-  width: 200px !important;
+  width: 220px !important;
   border: 2px solid var(--dark-primary-color) !important;
 }
 
@@ -828,4 +849,16 @@
   .fa-stack[data-count]:after {
     font-size: 11px;
   }
+}
+
+.ct-btn-success {
+  padding: 0.5rem 2rem;
+  background-color: var(--primary-color);
+  border-radius: 50px;
+  color: var(--text-secondary-color);
+}
+
+.ct-btn-success:hover {
+  background-color: var(--dark-primary-color);
+  color: var(--text-secondary-color);
 }

@@ -1,29 +1,37 @@
 {% extends 'base.html' %} {% load widget_tweaks %}{% block content %}
 
 
+<div class="in-touch pb-3">
+        <div class="text-center">
+          <h3>Payment</h3>
+          <div class="line-contact-page">
+            <div class="contact-line"></div>
+            <i class="fas fa-fan fa-1x"></i>
+            <div class="contact-line"></div>
+          </div>
+        </div>
 
-
-<section class="products-tab p-4 pt-5">
-  <div class="tab-title mt-5">
+<section class="products-tab p-4">
+  <div class="tab-title ">
     <div class="text-title-center">
       <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
         <a class="nav-item active" aria-controls="nav-info active" aria-selected="true">
           <div class="class-flex" id="step1">
-            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <button class="btn btn-circle"><i class="fa fa-minus"></i></button>
             <p>01. Infomation</p>
           </div>
         </a>
         <div class="bottom-line"></div>
         <a class="nav-item " aria-selected="false">
           <div class="class-flex" id="step2">
-            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <button class="btn btn-circle"><i class="fa fa-minus"></i></button>
             <p>02. Checkout </p>
           </div>
         </a>
         <div class="bottom-line"></div>
         <a class="nav-item" aria-selected="false">
           <div class="class-flex" id="step3">
-            <button class="btn btn-circle"><i class="fa fa-check"></i></button>
+            <button class="btn btn-circle"><i class="fa fa-minus"></i></button>
             <p>03. Confirms</p>
           </div>
         </a>
@@ -39,7 +47,7 @@
 
 
         <form method="POST" action="{% url 'cart:payment_information' %}" class="info p-4">
-          <h5 class="py-3"><u>Customer Infomation</u> </h5>
+          <h2 class="py-3 text-center">Customer Infomation</h2>
           {% csrf_token %}
           <div class="row">
             <div class="col">
@@ -103,8 +111,7 @@
                 <option value="" selected="selected">Select City</option>
               </select>
             </div>
-          </div>
-          <div class="row pt-4">
+        
             <div class="col">
               <label>District : </label>
               <select id="district" class="form-control" name="district">
@@ -112,9 +119,10 @@
               </select>
             </div>
           </div>
-          <div class="back-shop py-5">
-            <a href=""><i class="fas fa-arrow-left"></i> Back to shop</a>
-            <button type="submit" value="submit" id="step1_next" class="a-button small text-uppercase nav nav-tabs">NEXT
+          <div class="py-5 d-flex align-items-center">
+
+            <a href="{% url 'cart:product-list' %}" style="color:black"><i class="fas fa-arrow-left"></i> Back to shop</a>
+            <button type="submit" value="submit" id="step1_next" class="btn ct-btn-success ml-auto">NEXT
             </button>
           </div>
         </form>

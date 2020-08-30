@@ -1,8 +1,20 @@
 {% extends "base.html" %} {% block content %}
 <main>
   <div class="container">
+    {% comment %} Title {% endcomment %}
     <div class="table-responsive text-nowrap py-5">
-      <h2>Order Summary</h2>
+      <div class="in-touch pb-3">
+        <div class="text-center">
+          <h3>Order summary</h3>
+          <div class="line-contact-page">
+            <div class="contact-line"></div>
+            <i class="fas fa-fan fa-1x"></i>
+            <div class="contact-line"></div>
+          </div>
+        </div>
+      </div>
+
+      {% comment %} Table {% endcomment %}
       <table class="table">
         <thead>
           <tr>
@@ -19,41 +31,81 @@
           {% for order_item in object.items.all %}
           <tr class="ct-table-content">
             <th scope="row">{{ forloop.counter }}</th>
-            <td><img height="64" src="{{ order_item.product.images.first }}" alt="{{ order_item.product.title }}" />
+            <td>
+              <img
+                height="64"
+                src="{{ order_item.product.images.first }}"
+                alt="{{ order_item.product.title }}"
+              />
             </td>
             <td>{{ order_item.product.title }}</td>
             {% if order_item.product.promotion > 0 %}
             <td>
-              {{ order_item.product.get_price }} vnđ <span class="fa-stack has-badge"
-                data-count="-{{ order_item.product.promotion }} %"></span> </td>
+              {{ order_item.product.get_price }} vnđ
+              <span
+                class="fa-stack has-badge"
+                data-count="-{{ order_item.product.promotion }} %"
+              ></span>
+            </td>
             {% else %}
             <td>{{ order_item.product.get_price }} vnđ</td>
             {%endif %}
             <td>
-              <a style="color: #aaa;" href="{% url 'cart:descrease-quantity' order_item.id %}"><i data-toggle="tooltip"
-                  data-placement="top" title="Minus" class="fa fa-minus mr-2"></i></a>
+              <a
+                style="color: #aaa"
+                href="{% url 'cart:descrease-quantity' order_item.id %}"
+                class="fa-stack text-center"
+                ><i
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Minus"
+                  class="fa fa-minus mr-2"
+                ></i
+              ></a>
               {{ order_item.quantity }}
-              <a style="color: #aaa;" href="{% url 'cart:increase-quantity' order_item.id %}"><i data-toggle="tooltip"
-                  data-placement="top" title="Plus" class="fa fa-plus ml-2"></i></a>
+              <a
+                style="color: #aaa"
+                href="{% url 'cart:increase-quantity' order_item.id %}"
+                class="fa-stack text-center"
+                ><i
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Plus"
+                  class="fa fa-plus ml-2"
+                ></i
+              ></a>
             </td>
             <td>
               {% if order_item.item.discount_price %} ${{
               order_item.get_total_discount_item_price }}
-              <span class="badge badge-primary">Saving ${{ order_item.get_amount_saved }}</span>
+              <span class="badge badge-primary"
+                >Saving ${{ order_item.get_amount_saved }}</span
+              >
               {% else %} {{ order_item.get_total_item_price }} vnđ{% endif %}
             </td>
-            <td> <a style="color: red;" href="{% url 'cart:remove_from_cart' order_item.id %}">
-                <i data-toggle="tooltip" data-placement="top" title="Delete"
-                  class="far fa-trash-alt text-secondary"></i>
-              </a></td>
+            <td>
+              <a
+                href="{% url 'cart:remove_from_cart' order_item.id %}"
+                class="fa-stack text-center"
+              >
+                <i
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Delete"
+                  class="far fa-trash-alt"
+                ></i>
+              </a>
+            </td>
           </tr>
           {% empty %}
           <tr>
-            <td colspan="5">Your cart is empty</td>
+            <td colspan="7" class="text-center">Your cart is empty</td>
           </tr>
           <tr>
-            <td colspan="5">
-              <a class="btn btn-success float-right" href="{% url 'cart:product-list' %}">Continue shopping</a>
+            <td colspan="7" class="text-center">
+              <a class="btn ct-btn-success" href="{% url 'cart:product-list' %}"
+                >Continue shopping</a
+              >
             </td>
           </tr>
           {% endfor %} {% if object.coupon %}
@@ -68,38 +120,49 @@
           </tr>
           <tr>
             <td colspan="5">
-              <a class="btn btn-warning float-right ml-2" href="/checkout/">Proceed to checkout</a>
-              <a class="btn btn-success float-right" href="/">Continue shopping</a>
+              <a class="btn btn-warning float-right ml-2" href="/checkout/"
+                >Proceed to checkout</a
+              >
+              <a class="btn ct-btn-success float-right" href="/"
+                >Continue shopping</a
+              >
             </td>
           </tr>
           {% endif %}
         </tbody>
       </table>
+      <h3 class="text-black h4 text-uppercase total-cart">
+        Cart Totals: {{object.get_total_price}} vnđ
+      </h3>
     </div>
     {% if object.items.count > 0 %}
     <div class="row">
       <div class="col-md-4">
-
-        <a href="{% url 'cart:payment_information' %}" class="bold-text btn btn-success"
-          style="padding: .5rem 3.4rem;">Buy</a>
+        <div class="row back-shop-summary pb-3">
+          <a href="{% url 'cart:product-list' %}"
+            ><i class="fas fa-arrow-left pr-2"></i>Continue Shopping</a
+          >
+        </div>
       </div>
 
       <div class="col-md-8">
         <div class="row justify-content-end">
           <div class="col-md-12">
             <div class="row">
-              <div class="col-md-12 text-right  mb-5">
-                <h3 class="text-black h4 text-uppercase total-cart">Cart Totals: {{object.get_total_price}} vnđ</h3>
+              <div class="col-md-12 text-right mb-5">
+                <a
+                  href="{% url 'cart:payment_information' %}"
+                  class="bold-text btn ct-btn-success"
+                  style="padding: 0.5rem 3.4rem"
+                  >Buy</a
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-    </div>
-    <div class="row back-shop-summary pb-3">
-      <a href="{% url 'cart:product-list' %}"><i class="fas fa-arrow-left"></i> Shopping</a>
-    </div>
     {% endif %}
   </div>
 </main>
