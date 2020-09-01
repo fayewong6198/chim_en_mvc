@@ -16,7 +16,7 @@ from django.dispatch import receiver
 
 # Create your views here.
 
-from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail, District, City, Category, Review
+from .models import Product, OrderItem, FavoriteProduct, Payment, CustommerDetail, ProductDetail, District, City, Category, Review, Order
 from django.utils.decorators import method_decorator
 from .choices import limit_choices as l, price_choices, sort_choice
 from django.contrib import messages
@@ -28,7 +28,7 @@ from django.views.decorators.csrf import csrf_exempt
 import stripe
 import json
 from django.http import JsonResponse
-
+from accounts.models import User
 from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received
 import requests
@@ -351,9 +351,7 @@ def payment_products(request):
     address = request.session['user_info']['address'] + " , " + \
         district.name+" , "+district.city.name
     user_info['ship'] = ship
-    print(user_info)
-    print(json.dumps(user_info))
-    print(json.dumps({"abc": "123"}))
+
     payment_data = {
         'full_name': user_info['full_name'],
         'email': user_info['email'],
@@ -361,6 +359,9 @@ def payment_products(request):
         'address': user_info['address'],
         'city': district.city.name,
         'district': district.name,
+        'cart': cart.id,
+        'ship': ship,
+        'user': request.user.id or None
     }
     paypal_dict = {
         "business": "sb-fv0pj3054200@business.example.com",
@@ -462,17 +463,10 @@ def payment_process(request):
             payment.note = "none"
             if (request.user.is_authenticated):
                 payment.user = request.user
-            print("before save")
-            print(payment.created_at)
-            print(payment.created_at)
             payment.save()
-            print("afters")
             cart.delete()
-            print(11)
             request.session['products_in_cart'] = 0
-            print(22)
             messages.success(request, "payment successfully")
-            print(33)
             if 'payByCart' in request.POST:
                 payment.status = 'PAID'
                 payment.save()
@@ -518,9 +512,7 @@ def review(request):
         review = Review.objects.create(product=product,
                                        full_name=params['full_name'], subject=params['subject'], content=params['content'], rating=params['rating'])
         print(request.POST)
-
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
@@ -533,23 +525,44 @@ def reply(request):
 def payment_notification(sender, **kwargs):
 
     ipn_obj = sender
+    payment = Payment.objects.create()
+    custom = json.loads(ipn_obj.custom)
+    if custom['user']:
+        user = User.objects.get(id=custom['user'])
+        payment.user = user
 
-    print(ipn_obj.custom)
-    print(ipn_obj.payment_status)
+    cart = Order.objects.get(id=custom['cart'])
+
+    if(ipn_obj.payment_status == 'Pending'):
+        total_price = 0
+        for item in cart.items.all():
+            total_price = total_price + item.get_total_item_price()
+            image = item.product.images.all().first()
+            product = ProductDetail(payment=payment,
+                                    product_id=item.product.id,
+                                    product_name=item.product.title,
+                                    image=image,
+                                    product_amount=item.quantity,
+                                    product_price=item.product.price,
+                                    product_promotion=item.product.promotion)
+            product.save()
+            store_product = get_object_or_404(Product, id=item.product.id)
+            store_product.available = store_product.available - item.quantity
+            store_product.save()
+            payment.amount = total_price+custom['ship']
+
+        payment.ship = custom['ship']
+        payment.note = "none"
+        payment.method = "Paypal"
+        payment.status = ipn_obj.payment_status
+        payment.save()
+        cart.delete()
+        return redirect('/cart/payment_success')
+
     if ipn_obj.payment_status == ST_PP_COMPLETED:
-        # WARNING !
-        # Check that the receiver email is the same we previously
-        # set on the `business` field. (The user could tamper with
-        # that fields on the payment form before it goes to PayPal)
         if ipn_obj.receiver_email != "receiver_email@example.com":
             # Not a valid payment
             return
-
-        # ALSO: for the same reason, you need to check the amount
-        # received, `custom` etc. are all what you expect or what
-        # is allowed.
-
-        # Undertake some action depending upon `ipn_obj`.
 
         print("Paypal success")
     else:
