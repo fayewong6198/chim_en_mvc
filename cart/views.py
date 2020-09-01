@@ -354,6 +354,14 @@ def payment_products(request):
     print(user_info)
     print(json.dumps(user_info))
     print(json.dumps({"abc": "123"}))
+    payment_data = {
+        'full_name': user_info['full_name'],
+        'email': user_info['email'],
+        'mobile': user_info['full_name'],
+        'address': user_info['address'],
+        'city': district.city.name,
+        'district': district.name,
+    }
     paypal_dict = {
         "business": "sb-fv0pj3054200@business.example.com",
         "amount": user_info['totalprice']/23000,
@@ -363,7 +371,7 @@ def payment_products(request):
         "return": request.build_absolute_uri(reverse('cart:payment_process')),
         "cancel_return": request.build_absolute_uri(reverse('cart:payment_failed')),
         # Custom command to correlate to some function later (optional)
-        "custom": "abc",
+        "custom": json.dumps(payment_data),
         "rm": 2
     }
     # Create the instance.
@@ -415,6 +423,7 @@ def payment_process(request):
             user_info.dictrict = district.name
             user_info.city = district.city.name
             user_info.address = user['address']
+
             print(3)
             user_info.save()
             print(1)
@@ -526,7 +535,7 @@ def payment_notification(sender, **kwargs):
     ipn_obj = sender
 
     print(ipn_obj.custom)
-
+    print(ipn_obj.payment_status)
     if ipn_obj.payment_status == ST_PP_COMPLETED:
         # WARNING !
         # Check that the receiver email is the same we previously
